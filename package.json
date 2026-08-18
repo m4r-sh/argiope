@@ -1,0 +1,18 @@
+{
+  "name": "argiope-palettes",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.3.14",
+  "scripts": {
+    "dev": "bun --hot server.ts",
+    "start": "bun server.ts",
+    "check": "bun test && bun build ./app.js --target=browser --outdir=/tmp/argiope-palettes-check",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "culori": "4.0.2",
+    "cusphanger": "0.3.0",
+    "nutelch": "0.2.0",
+    "orbz": "file:../../ztack/orbz"
+  }
+}

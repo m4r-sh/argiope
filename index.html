@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#080a16" />
+    <title>Argiope Palette Lab</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --editor-bg: #080a16;
+        --editor-fg: #f8f8f2;
+        --editor-selection: #141739;
+        --chrome-bg: hsl(231 24% 8%);
+        --chrome-panel: hsl(230 19% 11%);
+        --chrome-line: hsl(226 14% 21%);
+        --chrome-muted: hsl(220 10% 58%);
+        --chrome-accent: #ded24f;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: var(--chrome-bg);
+        color: var(--editor-fg);
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--chrome-bg); }
+      button, input, select { font: inherit; }
+      button { color: inherit; }
+      .shell { display: grid; grid-template-columns: 292px minmax(0, 1fr); min-height: 100vh; }
+      aside { position: sticky; top: 0; height: 100vh; overflow: auto; padding: 24px 18px; border-right: 1px solid var(--chrome-line); background: color-mix(in srgb, var(--chrome-panel) 94%, black); }
+      .brand { display: flex; align-items: center; gap: 11px; padding: 0 8px 22px; }
+      .mark { width: 25px; height: 25px; border: 1px solid color-mix(in srgb, var(--chrome-accent) 60%, transparent); border-radius: 50%; box-shadow: inset 0 0 0 6px var(--chrome-panel); background: var(--chrome-accent); }
+      .brand strong { display: block; font-size: 14px; letter-spacing: .02em; }
+      .brand span { display: block; margin-top: 2px; color: var(--chrome-muted); font-family: ui-monospace, monospace; font-size: 10px; }
+      .eyebrow { margin: 16px 8px 8px; color: var(--chrome-muted); font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+      #theme-list { display: grid; gap: 3px; }
+      .theme-row { display: grid; grid-template-columns: 1fr auto; align-items: center; border-radius: 7px; }
+      .theme-row:hover, .theme-row.is-active { background: color-mix(in srgb, var(--editor-selection) 72%, transparent); }
+      .theme-button { display: grid; grid-template-columns: 9px 1fr auto; gap: 9px; align-items: center; width: 100%; padding: 9px 10px; border: 0; background: none; text-align: left; cursor: pointer; }
+      .theme-button span:nth-child(2) { overflow: hidden; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+      .theme-button small { color: var(--chrome-muted); font-family: ui-monospace, monospace; font-size: 9px; }
+      .theme-dot { width: 7px; height: 7px; border: 1px solid var(--chrome-muted); border-radius: 50%; }
+      .is-active .theme-dot { border-color: var(--chrome-accent); background: var(--chrome-accent); box-shadow: 0 0 8px var(--chrome-accent); }
+      .remove-theme { width: 28px; height: 28px; border: 0; background: none; color: var(--chrome-muted); cursor: pointer; }
+      .aside-note { margin: 24px 8px 0; padding-top: 18px; border-top: 1px solid var(--chrome-line); color: var(--chrome-muted); font-size: 11px; line-height: 1.55; }
+      main { min-width: 0; padding: 28px clamp(20px, 4vw, 58px) 70px; }
+      header { display: flex; justify-content: space-between; gap: 24px; align-items: end; max-width: 1180px; margin: 0 auto 26px; }
+      header h1 { margin: 6px 0 0; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: clamp(25px, 3vw, 40px); font-weight: 530; letter-spacing: -.04em; }
+      .kicker { margin: 0; color: var(--chrome-accent); font-family: ui-monospace, monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+      .badge { padding: 7px 10px; border: 1px solid var(--chrome-line); border-radius: 999px; color: var(--chrome-muted); font-family: ui-monospace, monospace; font-size: 10px; }
+      .workspace { display: grid; grid-template-columns: minmax(360px, 1.45fr) minmax(290px, .75fr); gap: 18px; max-width: 1180px; margin: auto; }
+      .panel { overflow: hidden; border: 1px solid var(--chrome-line); border-radius: 11px; background: var(--chrome-panel); box-shadow: 0 22px 60px rgb(0 0 0 / .18); }
+      .panel-bar { display: flex; align-items: center; justify-content: space-between; min-height: 43px; padding: 0 15px; border-bottom: 1px solid var(--chrome-line); color: var(--chrome-muted); font-family: ui-monospace, monospace; font-size: 10px; }
+      .window-dots { display: flex; gap: 6px; }
+      .window-dots i { display: block; width: 7px; height: 7px; border-radius: 50%; background: var(--chrome-line); }
+      pre { margin: 0; }
+      .preview { min-height: 535px; padding: 26px 25px 36px; overflow: auto; background: var(--editor-bg); color: var(--editor-fg); font: 13px/1.72 "SFMono-Regular", Consolas, "Liberation Mono", monospace; tab-size: 2; }
+      .preview::selection, .preview *::selection { background: var(--editor-selection); }
+      .family-j, .family-e, .family-h, .family-c, .family-m { --syntax-plain: var(--j-plain); --syntax-variable: var(--j-variable); --syntax-property: var(--j-property); --syntax-constant: var(--j-constant); --syntax-string: var(--j-string); --syntax-escape: var(--j-escape); --syntax-number: var(--j-number); --syntax-type: var(--j-type); --syntax-function: var(--j-function); --syntax-call: var(--j-call); --syntax-operator: var(--j-operator); --syntax-keyword: var(--j-keyword); --syntax-control: var(--j-control); --syntax-return: var(--j-return); --syntax-punctuation: var(--j-punctuation); --syntax-bracket: var(--j-bracket); --syntax-comment: var(--j-comment); color: var(--syntax-plain); }
+      .family-e { --syntax-plain: var(--e-plain); --syntax-variable: var(--e-variable); --syntax-property: var(--e-property); --syntax-constant: var(--e-constant); --syntax-string: var(--e-string); --syntax-escape: var(--e-escape); --syntax-number: var(--e-number); --syntax-type: var(--e-type); --syntax-function: var(--e-function); --syntax-call: var(--e-call); --syntax-operator: var(--e-operator); --syntax-keyword: var(--e-keyword); --syntax-control: var(--e-control); --syntax-return: var(--e-return); --syntax-punctuation: var(--e-punctuation); --syntax-bracket: var(--e-bracket); --syntax-comment: var(--e-comment); }
+      .family-h { --syntax-plain: var(--h-plain); --syntax-variable: var(--h-variable); --syntax-property: var(--h-property); --syntax-constant: var(--h-constant); --syntax-string: var(--h-string); --syntax-escape: var(--h-escape); --syntax-number: var(--h-number); --syntax-type: var(--h-type); --syntax-function: var(--h-function); --syntax-call: var(--h-call); --syntax-operator: var(--h-operator); --syntax-keyword: var(--h-keyword); --syntax-control: var(--h-control); --syntax-return: var(--h-return); --syntax-punctuation: var(--h-punctuation); --syntax-bracket: var(--h-bracket); --syntax-comment: var(--h-comment); }
+      .family-c { --syntax-plain: var(--c-plain); --syntax-variable: var(--c-variable); --syntax-property: var(--c-property); --syntax-constant: var(--c-constant); --syntax-string: var(--c-string); --syntax-escape: var(--c-escape); --syntax-number: var(--c-number); --syntax-type: var(--c-type); --syntax-function: var(--c-function); --syntax-call: var(--c-call); --syntax-operator: var(--c-operator); --syntax-keyword: var(--c-keyword); --syntax-control: var(--c-control); --syntax-return: var(--c-return); --syntax-punctuation: var(--c-punctuation); --syntax-bracket: var(--c-bracket); --syntax-comment: var(--c-comment); }
+      .family-m { --syntax-plain: var(--m-plain); --syntax-variable: var(--m-variable); --syntax-property: var(--m-property); --syntax-constant: var(--m-constant); --syntax-string: var(--m-string); --syntax-escape: var(--m-escape); --syntax-number: var(--m-number); --syntax-type: var(--m-type); --syntax-function: var(--m-function); --syntax-call: var(--m-call); --syntax-operator: var(--m-operator); --syntax-keyword: var(--m-keyword); --syntax-control: var(--m-control); --syntax-return: var(--m-return); --syntax-punctuation: var(--m-punctuation); --syntax-bracket: var(--m-bracket); --syntax-comment: var(--m-comment); }
+      .tok-variable { color: var(--syntax-variable); } .tok-property { color: var(--syntax-property); } .tok-constant { color: var(--syntax-constant); } .tok-string { color: var(--syntax-string); } .tok-escape { color: var(--syntax-escape); } .tok-number { color: var(--syntax-number); } .tok-type { color: var(--syntax-type); } .tok-function { color: var(--syntax-function); } .tok-call { color: var(--syntax-call); } .tok-operator { color: var(--syntax-operator); } .tok-keyword { color: var(--syntax-keyword); } .tok-control { color: var(--syntax-control); } .tok-return { color: var(--syntax-return); } .tok-punctuation { color: var(--syntax-punctuation); } .tok-bracket { color: var(--syntax-bracket); } .tok-comment { color: var(--syntax-comment); font-style: italic; }
+      .side-stack { display: grid; align-content: start; gap: 18px; }
+      #controls { padding: 16px; }
+      .control-section + .control-section { margin-top: 19px; padding-top: 17px; border-top: 1px solid var(--chrome-line); }
+      .control-section h2 { margin: 0 0 12px; color: var(--chrome-muted); font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
+      .text-control { display: grid; grid-template-columns: 1fr; gap: 6px; color: var(--chrome-muted); font-size: 10px; }
+      input[type="text"] { width: 100%; padding: 8px 9px; border: 1px solid var(--chrome-line); border-radius: 6px; outline: none; background: var(--chrome-bg); color: var(--editor-fg); font-size: 12px; }
+      input[type="text"]:focus { border-color: var(--chrome-accent); }
+      .color-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px 12px; }
+      .color-control { display: grid; grid-template-columns: 19px 1fr; align-items: center; gap: 7px; color: var(--chrome-muted); font-size: 10px; }
+      input[type="color"] { width: 19px; height: 19px; padding: 0; border: 1px solid var(--chrome-line); border-radius: 4px; background: none; cursor: pointer; }
+      .range-control { display: grid; grid-template-columns: 76px 1fr 25px; align-items: center; gap: 8px; min-height: 29px; color: var(--chrome-muted); font-size: 10px; }
+      .range-control output { color: var(--editor-fg); font-family: ui-monospace, monospace; text-align: right; }
+      input[type="range"] { width: 100%; height: 2px; accent-color: var(--chrome-accent); cursor: ew-resize; }
+      .palette-tuner { border-top: 1px solid color-mix(in srgb, var(--chrome-line) 60%, transparent); }
+      .palette-tuner:first-of-type { border-top: 0; }
+      .palette-tuner summary { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; color: var(--editor-fg); font-size: 10px; cursor: pointer; list-style: none; }
+      .palette-tuner summary::-webkit-details-marker { display: none; }
+      .palette-tuner summary::after { content: "+"; color: var(--chrome-muted); font-family: ui-monospace, monospace; }
+      .palette-tuner[open] summary::after { content: "−"; }
+      .palette-tuner .range-control { grid-template-columns: 72px 1fr 30px; padding-left: 8px; }
+      .palette-tuner .range-control:last-child { margin-bottom: 9px; }
+      .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 16px 16px; }
+      .actions button { padding: 8px 10px; border: 1px solid var(--chrome-line); border-radius: 6px; background: var(--chrome-bg); font-size: 10px; cursor: pointer; }
+      .actions button:first-child { border-color: color-mix(in srgb, var(--chrome-accent) 60%, var(--chrome-line)); color: var(--chrome-accent); }
+      #status { min-height: 16px; padding: 0 16px 10px; color: var(--chrome-muted); font-size: 10px; }
+      #swatches { display: grid; gap: 9px; padding: 14px 16px 17px; }
+      .swatch-group { display: grid; grid-template-columns: 70px repeat(6, 1fr); gap: 5px; align-items: center; color: var(--chrome-muted); font: 9px ui-monospace, monospace; }
+      .swatch-group i { display: block; height: 12px; border-radius: 2px; }
+      .css-panel { grid-column: 1 / -1; }
+      #css-output { max-height: 230px; padding: 20px 22px; overflow: auto; background: var(--editor-bg); color: var(--editor-fg); font: 10px/1.65 ui-monospace, monospace; }
+      @media (max-width: 900px) { .workspace { grid-template-columns: 1fr; } .shell { grid-template-columns: 230px minmax(0, 1fr); } }
+      @media (max-width: 670px) { .shell { display: block; } aside { position: static; width: 100%; height: auto; border-right: 0; border-bottom: 1px solid var(--chrome-line); } main { padding: 24px 14px 50px; } header { align-items: start; } .preview { min-height: 430px; padding: 20px 16px; font-size: 11px; } }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <div class="brand"><i class="mark"></i><div><strong>Argiope</strong><span>palette laboratory / v1</span></div></div>
+        <p class="eyebrow">Themes</p>
+        <div id="theme-list"></div>
+        <p class="aside-note">Built around portable semantic tokens. The preview stays pre-rendered; switching themes only rewrites custom properties on <code>:root</code>.</p>
+      </aside>
+      <main>
+        <header>
+          <div><p class="kicker">Live syntax specimen</p><h1 id="theme-title">Argiope Aurantia</h1></div>
+          <span class="badge" id="strategy-badge">monochrome</span>
+        </header>
+        <div class="workspace">
+          <section class="panel">
+            <div class="panel-bar"><span>my-card.js</span><span class="window-dots"><i></i><i></i><i></i></span></div>
+            <pre class="preview family-j"><code><span class="tok-keyword">import</span> <span class="tok-bracket">{</span> <span class="tok-variable">html</span><span class="tok-punctuation">,</span> <span class="tok-variable">css</span><span class="tok-punctuation">,</span> <span class="tok-variable">classify</span> <span class="tok-bracket">}</span> <span class="tok-keyword">from</span> <span class="tok-string">'zilk'</span>
+
+<span class="tok-keyword">const</span> <span class="tok-bracket">{</span> <span class="tok-constant">WRAP</span><span class="tok-punctuation">,</span> <span class="tok-constant">CARD</span><span class="tok-punctuation">,</span> <span class="tok-constant">LIST</span> <span class="tok-bracket">}</span> <span class="tok-operator">=</span> <span class="tok-call">classify</span><span class="tok-bracket">(</span><span class="tok-string">'MyCard'</span><span class="tok-bracket">)</span>
+
+<span class="tok-keyword">export default</span> <span class="tok-bracket">({</span> <span class="tok-variable">title</span><span class="tok-punctuation">,</span> <span class="tok-variable">list</span> <span class="tok-bracket">})</span> <span class="tok-operator">=&gt;</span> <span class="tok-call">html</span><span class="tok-string">`</span><span class="family-h">
+  <span class="tok-punctuation">&lt;</span><span class="tok-function">section</span><span class="tok-operator">=</span></span><span class="tok-variable">${WRAP}</span><span class="family-h"><span class="tok-punctuation">&gt;</span>
+    <span class="tok-punctuation">&lt;</span><span class="tok-function">article</span> <span class="tok-property">class</span><span class="tok-operator">=</span></span><span class="tok-variable">${CARD}</span><span class="family-h"><span class="tok-punctuation">&gt;</span>
+      <span class="tok-punctuation">&lt;</span><span class="tok-function">h2</span> <span class="tok-property">class</span><span class="tok-operator">=</span></span><span class="tok-variable">${CARD.TITLE}</span><span class="family-h"><span class="tok-punctuation">&gt;</span>
+        </span><span class="tok-variable">${title}</span><span class="family-h">
+      <span class="tok-punctuation">&lt;/</span><span class="tok-function">h2</span><span class="tok-punctuation">&gt;</span>
+      <span class="tok-punctuation">&lt;</span><span class="tok-function">ul</span> <span class="tok-property">class</span><span class="tok-operator">=</span></span><span class="tok-variable">${LIST}</span><span class="family-h"><span class="tok-punctuation">&gt;</span>
+        </span><span class="tok-variable">${list</span><span class="tok-punctuation">.</span><span class="tok-call">map</span><span class="tok-bracket">(</span><span class="tok-variable">item</span> <span class="tok-operator">=&gt;</span> <span class="tok-call">html</span><span class="tok-string">`</span><span class="family-h">
+          <span class="tok-punctuation">&lt;</span><span class="tok-function">li</span> <span class="tok-property">class</span><span class="tok-operator">=</span></span><span class="tok-variable">${LIST.ITEM}</span><span class="family-h"><span class="tok-punctuation">&gt;</span>
+            </span><span class="tok-variable">${item}</span><span class="family-h">
+            <span class="tok-punctuation">&lt;/</span><span class="tok-function">li</span><span class="tok-punctuation">&gt;</span>
+          </span><span class="tok-string">`</span><span class="tok-bracket">)}</span>
+      <span class="family-h"><span class="tok-punctuation">&lt;/</span><span class="tok-function">ul</span><span class="tok-punctuation">&gt;</span>
+    <span class="tok-punctuation">&lt;/</span><span class="tok-function">article</span><span class="tok-punctuation">&gt;</span>
+  <span class="tok-punctuation">&lt;/</span><span class="tok-function">section</span><span class="tok-punctuation">&gt;</span>
+</span><span class="tok-string">`</span>
+
+<span class="tok-keyword">export const</span> <span class="tok-function">styles</span> <span class="tok-operator">=</span> <span class="tok-bracket">()</span> <span class="tok-operator">=&gt;</span> <span class="tok-call">css</span><span class="tok-string">`</span><span class="family-c">
+  <span class="tok-punctuation">.</span></span><span class="tok-variable">${WRAP}</span><span class="family-c"> <span class="tok-bracket">{</span>
+    <span class="tok-property">position</span><span class="tok-punctuation">:</span> <span class="tok-string">relative</span><span class="tok-punctuation">;</span>
+    <span class="tok-property">width</span><span class="tok-punctuation">:</span> <span class="tok-number">100%</span><span class="tok-punctuation">;</span>
+  <span class="tok-bracket">}</span>
+    <span class="tok-punctuation">.</span></span><span class="tok-variable">${CARD}</span><span class="family-c"> <span class="tok-bracket">{</span>
+    <span class="tok-property">background-color</span><span class="tok-punctuation">:</span> <span class="tok-function">var</span><span class="tok-bracket">(</span><span class="tok-constant">--surface</span><span class="tok-bracket">)</span><span class="tok-punctuation">;</span>
+    <span class="tok-property">padding</span><span class="tok-punctuation">:</span> <span class="tok-number">2rem</span><span class="tok-punctuation">;</span>
+  <span class="tok-bracket">}</span>
+    <span class="tok-punctuation">.</span></span><span class="tok-variable">${CARD.TITLE}</span><span class="family-c"> <span class="tok-bracket">{</span>
+    <span class="tok-property">color</span><span class="tok-punctuation">:</span> <span class="tok-function">var</span><span class="tok-bracket">(</span><span class="tok-constant">--ink</span><span class="tok-bracket">)</span><span class="tok-punctuation">;</span>
+    <span class="tok-property">font-weight</span><span class="tok-punctuation">:</span> <span class="tok-string">bold</span><span class="tok-punctuation">;</span>
+  <span class="tok-bracket">}</span>
+    <span class="tok-punctuation">.</span></span><span class="tok-variable">${LIST.ITEM}</span><span class="family-c"> <span class="tok-bracket">{</span>
+    <span class="tok-property">margin-left</span><span class="tok-punctuation">:</span> <span class="tok-number">2rem</span><span class="tok-punctuation">;</span>
+  <span class="tok-bracket">}</span>
+</span><span class="tok-string">`</span>
+
+<span class="tok-keyword">export const</span> <span class="tok-function">docs</span> <span class="tok-operator">=</span> <span class="tok-bracket">({</span> <span class="tok-variable">title</span><span class="tok-punctuation">,</span> <span class="tok-variable">list</span> <span class="tok-bracket">})</span> <span class="tok-operator">=&gt;</span> <span class="tok-call">md</span><span class="tok-string">`</span><span class="family-m">
+  <span class="tok-keyword">##</span> </span><span class="tok-variable">${title}</span><span class="family-m">
+
+  This is some markdown to match the html view
+
+  </span><span class="tok-variable">${list</span><span class="tok-punctuation">.</span><span class="tok-call">map</span><span class="tok-bracket">(</span><span class="tok-variable">item</span> <span class="tok-operator">=&gt;</span> <span class="tok-call">md</span><span class="tok-string">`</span><span class="family-m">
+<span class="tok-keyword">-</span> </span><span class="tok-variable">${item}</span><span class="family-m">
+    </span><span class="tok-string">`</span><span class="tok-bracket">)}</span>
+<span class="tok-string">`</span></code></pre>
+          </section>
+
+          <div class="side-stack">
+            <section class="panel">
+              <div class="panel-bar"><span>Shape inputs</span><span>derived live</span></div>
+              <div id="controls">
+                <div class="control-section"><label class="text-control">Theme name<input type="text" data-theme-key="name" /></label></div>
+                <div class="control-section"><h2>Editor</h2><div class="color-grid">
+                  <label class="color-control"><input type="color" data-base-key="bg" />Background</label>
+                  <label class="color-control"><input type="color" data-base-key="fg" />Foreground</label>
+                  <label class="color-control"><input type="color" data-base-key="selection" />Selection</label>
+                  <label class="color-control"><input type="color" data-base-key="comment" />Comment</label>
+                  <label class="color-control"><input type="color" data-base-key="green" />Function</label>
+                  <label class="color-control"><input type="color" data-base-key="pink" />Keyword</label>
+                  <label class="color-control"><input type="color" data-base-key="purple" />Constant</label>
+                  <label class="color-control"><input type="color" data-base-key="orange" />Special</label>
+                  <label class="color-control"><input type="color" data-base-key="cyan" />Type</label>
+                  <label class="color-control"><input type="color" data-base-key="yellow" />String</label>
+                  <label class="color-control"><input type="color" data-base-key="beige" />Variable</label>
+                  <label class="color-control"><input type="color" data-base-key="goldenYellow" />Builtin</label>
+                  <label class="color-control"><input type="color" data-base-key="stringGray" />String gray</label>
+                  <label class="color-control"><input type="color" data-base-key="red" />Error</label>
+                </div></div>
+                <div class="control-section"><h2>Language palettes</h2>
+                  <div id="language-controls"></div>
+                </div>
+              </div>
+              <div class="actions"><button id="save-theme">Save as new</button><button id="copy-theme">Copy JSON</button></div><div id="status" aria-live="polite"></div>
+            </section>
+            <section class="panel"><div class="panel-bar"><span>Family ladders</span><span>6 / 12 stops</span></div><div id="swatches"></div></section>
+          </div>
+
+          <section class="panel css-panel"><div class="panel-bar"><span>Generated root variables</span><span>portable CSS adapter</span></div><pre id="css-output"></pre></section>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
