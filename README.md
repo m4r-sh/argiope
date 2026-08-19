@@ -10,8 +10,8 @@ Argiope is a web-centric plugin for editing javascript files with embedded langu
 ---
 
 <figure>
-  <img width="300" src="https://m4rsh.com/images/argiope-aurantia-dithered.png" alt="Argiope Aurantia Spider">
-  <figcaption align="center">Image by Dave the Bug Guy</figcaption>
+<img width="300" src="https://m4rsh.com/images/argiope-aurantia-dithered.png" alt="Argiope Aurantia Spider">
+<figcaption align="center">Image by Dave the Bug Guy</figcaption>
 </figure>
 
 ---
@@ -20,26 +20,38 @@ Argiope is a web-centric plugin for editing javascript files with embedded langu
 
 Argiope takes a unique approach of giving each language its own primary hue, making it easy to distinguish each language at a glance.
 
-#### Argiope Aurantia
+---
+
+#### Aurantia
 
 ![Aurantia Syntax Theme](/docs/images/themes/argiope-aurantia.png)
 
-#### Argiope Aurantia Neon
+---
+
+#### Aurantia Neon
 
 ![Aurantia Neon Syntax Theme](/docs/images/themes/argiope-aurantia-neon.png)
 
-#### Argiope Versicolor
+---
+
+#### Versicolor
 
 ![Versicolor Syntax Theme](/docs/images/themes/argiope-versicolor.png)
 
-#### Argiope Versicolor Neon
+---
+
+#### Versicolor Neon
 
 ![Versicolor Neon Syntax Theme](/docs/images/themes/argiope-versicolor-neon.png)
 
-#### Argiope Ocyaloides
+---
+
+#### Ocyaloides
 
 ![Ocyaloides Syntax Theme](/docs/images/themes/argiope-ocyaloides.png)
 
-#### Argiope Trifasciata
+---
+
+#### Trifasciata
 
 ![Trifasciata Syntax Theme](/docs/images/themes/argiope-trifasciata.png)
