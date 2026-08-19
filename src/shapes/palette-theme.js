@@ -22,10 +22,7 @@ export const PaletteTheme = Shape({
   get tokenColors() {
     const variables = {};
     for (const [, language] of this.languageEntries) {
-      const colors = language.resolveTokenColors(
-        this.base.all,
-        this.strategy === "versicolor",
-      );
+      const colors = language.resolveTokenColors();
       for (const [token, color] of Object.entries(colors)) {
         variables[`--${language.prefix}-${token}`] = color;
       }
@@ -44,9 +41,7 @@ export const PaletteTheme = Shape({
       "--chrome-panel": "oklch(17% 0.025 270)",
       "--chrome-line": "oklch(29% 0.025 270)",
       "--chrome-muted": "oklch(67% 0.025 250)",
-      "--chrome-accent": this.strategy === "versicolor"
-        ? this.base.pink
-        : primary.colors.accent,
+      "--chrome-accent": primary.colors.accent,
       ...this.tokenColors,
     };
   },

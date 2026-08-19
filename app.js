@@ -1,5 +1,5 @@
 import { fx } from "orbz";
-import { saturationOffsetFor } from "./src/color-math.js";
+import { SHADE_NAMES, saturationOffsetFor } from "./src/color-math.js";
 import {
   DEFAULT_THEMES,
   cloneTheme,
@@ -7,11 +7,13 @@ import {
   migrateLegacyTheme,
   serializeTheme,
 } from "./src/defaults.js";
-import { neovimAdapter } from "./src/adapters/neovim.js";
+import { neovimAdapter, neovimSetupLua, themeId } from "./src/adapters/neovim.js";
 import { Studio } from "./src/shapes/studio.js";
 
 const studio = Studio({ theme: cloneTheme(DEFAULT_THEMES[0].theme) });
 let activeId = DEFAULT_THEMES[0].id;
+let exportId = DEFAULT_THEMES[0].id;
+let exportParent;
 let savedThemes = readSavedThemes();
 
 const root = document.documentElement;
@@ -49,6 +51,8 @@ function entryStrategy(entry) {
 
 function loadTheme(entry) {
   activeId = entry.id;
+  exportId = entry.builtIn ? entry.id : entry.configId ?? themeId(entryName(entry));
+  exportParent = entry.builtIn ? undefined : entry.extends ?? "aurantia";
   studio.theme = entry.theme ? cloneTheme(entry.theme) : hydrateTheme(entry.state);
   renderThemeList();
   renderLanguageControls();
@@ -93,12 +97,17 @@ function renderLanguageControls() {
     details.className = "palette-tuner";
     details.dataset.language = key;
     details.open = index === 0;
-    details.innerHTML = `<summary>${language.label}</summary>
-      ${range("Hue", "hue", 0, 359)}
-      ${range("Hue spread", "hueSpread", -200, 200)}
-      ${range("Ramp spread", "spread", 0, 200)}
-      ${range("Saturation", "saturation", 0, 100)}
-      ${range("Luminance", "luminanceOffset", -30, 30)}`;
+    details.innerHTML = `<summary>${language.label} <small>${language.kind}</small></summary>${
+      language.kind === "explicit"
+        ? `<div class="color-grid">${SHADE_NAMES.map(shade =>
+          `<label class="color-control"><input type="color" data-ramp="${shade}" />${shade.replace("_", " ")}</label>`
+        ).join("")}</div>`
+        : `${range("Hue", "hue", 0, 359)}
+          ${range("Hue spread", "hueSpread", -200, 200)}
+          ${range("Ramp spread", "spread", 0, 200)}
+          ${range("Saturation", "saturation", 0, 100)}
+          ${range("Luminance", "luminanceOffset", -30, 30)}`
+    }`;
     languageControls.append(details);
   });
 }
@@ -110,6 +119,9 @@ function syncControls() {
   }
   for (const details of languageControls.querySelectorAll("[data-language]")) {
     const language = studio.theme.languages.at(details.dataset.language);
+    for (const input of details.querySelectorAll("[data-ramp]")) {
+      input.value = language.ramp[input.dataset.ramp];
+    }
     for (const input of details.querySelectorAll("[data-field]")) {
       input.value = input.dataset.field === "saturation"
         ? Math.round(language.effectiveSaturation * 100)
@@ -152,6 +164,9 @@ editor.addEventListener("input", event => {
     studio.theme[input.dataset.themeKey] = input.value;
   } else if (input.dataset.baseKey) {
     studio.theme.base[input.dataset.baseKey] = input.value;
+  } else if (input.dataset.ramp) {
+    const details = input.closest("[data-language]");
+    studio.theme.languages.at(details.dataset.language).ramp[input.dataset.ramp] = input.value;
   } else if (input.dataset.field) {
     const details = input.closest("[data-language]");
     const language = studio.theme.languages.at(details.dataset.language);
@@ -173,20 +188,32 @@ editor.addEventListener("input", event => {
 document.querySelector("#save-theme").addEventListener("click", () => {
   const state = serializeTheme(studio.theme);
   const id = `theme-${Date.now()}`;
-  savedThemes.push({ id, builtIn: false, state });
+  const configId = themeId(state.name);
+  const extendsId = exportParent ?? exportId;
+  savedThemes.push({ id, configId, extends: extendsId, builtIn: false, state });
   persistSavedThemes();
   activeId = id;
+  exportId = configId;
+  exportParent = extendsId;
   renderThemeList();
   flash(`Saved ${state.name}`);
 });
 
 document.querySelector("#copy-theme").addEventListener("click", async () => {
+  await navigator.clipboard.writeText(neovimSetupLua(studio.theme, {
+    id: exportId,
+    extends: exportParent,
+  }));
+  flash("Neovim Lua copied");
+});
+
+document.querySelector("#copy-json").addEventListener("click", async () => {
   const payload = JSON.stringify({
     palette: serializeTheme(studio.theme),
     neovim: neovimAdapter(studio.theme),
   }, null, 2);
   await navigator.clipboard.writeText(payload);
-  flash("Theme JSON copied");
+  flash("Portable JSON copied");
 });
 
 fx(() => {

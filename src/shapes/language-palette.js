@@ -1,9 +1,10 @@
 import { Shape } from "orbz";
-import { adjustedSaturation, deriveRamp, transformColor } from "../color-math.js";
+import { adjustedSaturation, deriveRamp } from "../color-math.js";
 import { PaletteGenerator } from "./palette-generator.js";
 
 export const LanguagePalette = Shape({
   [Shape.name]: "ArgiopeLanguagePalette",
+  kind: "generated",
   generator: PaletteGenerator,
   label: "Language",
   prefix: "x",
@@ -17,7 +18,6 @@ export const LanguagePalette = Shape({
   luminanceOffset: 0,
   reverse: false,
   tokens: {},
-  baseTokens: {},
 
   get baselineSaturation() {
     return this.generator.saturation * this.saturationScale;
@@ -37,15 +37,9 @@ export const LanguagePalette = Shape({
     );
   },
 
-  resolveTokenColors(baseColors, useBaseTokens = false) {
-    if (!useBaseTokens || Object.keys(this.baseTokens).length === 0) {
-      return this.tokenColors;
-    }
-    return Object.fromEntries(
-      Object.entries(this.baseTokens).map(([token, tone]) => [
-        token,
-        transformColor(baseColors[tone], this.saturationOffset, this.luminanceOffset),
-      ]),
-    );
+  resolveTokenColors() {
+    return this.tokenColors;
   },
 });
+
+export const GeneratedLanguagePalette = LanguagePalette;

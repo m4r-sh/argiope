@@ -1,6 +1,8 @@
 import { Dict } from "orbz";
 import { TOKEN_MAPS, VERSICOLOR_TOKENS } from "./tokens.js";
 import { BaseColors } from "./shapes/base-colors.js";
+import { ColorRamp } from "./shapes/color-ramp.js";
+import { ExplicitLanguagePalette } from "./shapes/explicit-language-palette.js";
 import { LanguagePalette } from "./shapes/language-palette.js";
 import { PaletteGenerator } from "./shapes/palette-generator.js";
 import { PaletteTheme } from "./shapes/palette-theme.js";
@@ -20,6 +22,10 @@ const CLASSIC_BASE = {
   purple: "#bf95f9",
   cyan: "#8be8fd",
   pink: "#ff7ac6",
+  brightRed: "#ff7070", brightGreen: "#6bff95", brightYellow: "#ffffa3",
+  brightBlue: "#d6adff", brightMagenta: "#ff94df", brightCyan: "#a3ffff",
+  brightWhite: "#ffffff", menu: "#21222c", visual: "#3d4351",
+  gutterFg: "#4b5163", nontext: "#3c4149", white: "#abb2bf", black: "#181920",
 };
 
 const NEON_BASE = {
@@ -37,7 +43,10 @@ const NEON_BASE = {
   purple: "#c29cff",
   cyan: "#53d8ef",
   pink: "#ff82c3",
-
+  brightRed: "#ff8585", brightGreen: "#83f0aa", brightYellow: "#ffed78",
+  brightBlue: "#9dbbff", brightMagenta: "#ff9dd1", brightCyan: "#7ce8f7",
+  brightWhite: "#ffffff", menu: "#0e1420", visual: "#30466d",
+  gutterFg: "#5d6b82", nontext: "#354158", white: "#d4dae4", black: "#000000",
 };
 
 const OCYALOIDES_BASE = {
@@ -55,6 +64,10 @@ const OCYALOIDES_BASE = {
   purple: "#9b91ad",
   cyan: "#819fa5",
   pink: "#b18199",
+  brightRed: "#c58b8b", brightGreen: "#92b39d", brightYellow: "#c5bb87",
+  brightBlue: "#959eaf", brightMagenta: "#bd91a7", brightCyan: "#8dabb0",
+  brightWhite: "#e1e2df", menu: "#1d2023", visual: "#34393d",
+  gutterFg: "#50565a", nontext: "#3b4043", white: "#adb1b1", black: "#0e0f10",
 };
 
 const TRIFASCIATA_BASE = {
@@ -72,6 +85,11 @@ const TRIFASCIATA_BASE = {
   purple: "#5700ad",
   cyan: "#00667a",
   pink: "#a3005c",
+  brightRed: "#cc0000", brightGreen: "#008a39", brightYellow: "#8f8300",
+  brightBlue: "#0041c2", brightMagenta: "#c20088", brightCyan: "#007b94",
+  brightWhite: "#ffffff", menu: "#ebe8df", visual: "#cbd9eb",
+  gutterFg: "#9a9da0", nontext: "#b7b7b2", white: "#4f555d", black: "#17191c",
+  cursor: "#faeb42", visualSelection: "#f9f3b4",
 };
 
 const GENERATORS = {
@@ -117,15 +135,37 @@ function language(generatorState, state) {
   });
 }
 
+function explicitJavaScript(base) {
+  return ExplicitLanguagePalette({
+    label: "JavaScript",
+    prefix: "j",
+    ramp: ColorRamp({
+      darkest: base.red,
+      dim: base.orange,
+      muted: base.stringGray,
+      soft: base.beige,
+      main: base.fg,
+      accent: base.green,
+      bright: base.goldenYellow,
+      light: base.cyan,
+      gray_dim: base.comment,
+      gray: base.fg,
+      gray_light: base.purple,
+      gray_warm: base.pink,
+    }),
+    tokens: VERSICOLOR_TOKENS,
+  });
+}
+
 function includedLanguages(generatorState, options = {}) {
   const reverse = options.reverse === true;
   const grayJavaScript = options.grayJavaScript === true;
   return Dict({
-    javascript: language(generatorState, {
+    javascript: options.javascript ?? language(generatorState, {
       label: "JavaScript", prefix: "j", hue: grayJavaScript ? 255 : 79,
       neutralHue: 255, baseHueSpread: grayJavaScript ? 0 : 67,
       saturationScale: grayJavaScript ? options.grayScale ?? 0.08 : 1,
-      reverse, tokens: TOKEN_MAPS.javascript, baseTokens: VERSICOLOR_TOKENS,
+      reverse, tokens: TOKEN_MAPS.javascript,
     }),
     html: language(generatorState, {
       label: "HTML", prefix: "h", hue: options.htmlHue ?? 210, neutralHue: 220,
@@ -158,6 +198,9 @@ export function createTheme({ name, strategy = "monochrome", base, generator, la
 
 function builtIn(id, spec) {
   const generator = GENERATORS[spec.generator];
+  const javascript = spec.strategy === "versicolor"
+    ? explicitJavaScript(spec.base)
+    : undefined;
   return {
     id,
     builtIn: true,
@@ -166,7 +209,7 @@ function builtIn(id, spec) {
       strategy: spec.strategy,
       base: spec.base,
       generator,
-      languages: includedLanguages(generator, spec.languages),
+      languages: includedLanguages(generator, { ...spec.languages, javascript }),
     }),
   };
 }
@@ -183,6 +226,13 @@ export const DEFAULT_THEMES = [
 export function hydrateTheme(state) {
   const languageEntries = Object.fromEntries(
     Object.entries(state.languages).map(([key, value]) => {
+      if (value.kind === "explicit") {
+        const { ramp, ...palette } = value;
+        return [key, ExplicitLanguagePalette({
+          ...palette,
+          ramp: ColorRamp(ramp),
+        })];
+      }
       const { generator, ...palette } = value;
       return [key, LanguagePalette({
         ...palette,
@@ -205,6 +255,9 @@ export function migrateLegacyTheme(state) {
   const baseKeys = [
     "bg", "fg", "selection", "comment", "red", "orange", "yellow", "beige",
     "goldenYellow", "stringGray", "green", "purple", "cyan", "pink",
+    "brightRed", "brightGreen", "brightYellow", "brightBlue", "brightMagenta",
+    "brightCyan", "brightWhite", "menu", "visual", "gutterFg", "nontext",
+    "white", "black", "cursor", "visualSelection",
   ];
   const base = Object.fromEntries(baseKeys.map(key => [key, state[key] ?? CLASSIC_BASE[key]]));
   const classicGenerator = GENERATORS.classic;
@@ -224,6 +277,9 @@ export function migrateLegacyTheme(state) {
     grayScale: state.javascriptSaturationScale,
     htmlHue: state.htmlHue,
   });
+  if (state.strategy === "versicolor") {
+    languages.set("javascript", explicitJavaScript(base));
+  }
   for (const key of languages.keys()) {
     const palette = languages.at(key);
     palette.hue = state[`${key}Hue`] ?? palette.hue;

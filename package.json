@@ -6,10 +6,13 @@
   "scripts": {
     "dev": "bun --hot server.ts",
     "start": "bun server.ts",
+    "build:neovim": "bun scripts/generate-neovim.js",
+    "screenshots:themes": "bun run build:neovim && bun scripts/render-theme-screenshots.js",
     "check": "bun test && bun build ./app.js --target=browser --outdir=/tmp/argiope-palettes-check",
     "test": "bun test"
   },
   "dependencies": {
+    "@m4rsh/cones": "^1.2.1",
     "culori": "4.0.2",
     "cusphanger": "0.3.0",
     "nutelch": "0.2.0",

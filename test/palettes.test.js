@@ -9,6 +9,11 @@ import {
 } from "../src/defaults.js";
 import { LanguagePalette } from "../src/shapes/language-palette.js";
 import { PaletteGenerator } from "../src/shapes/palette-generator.js";
+import {
+  neovimAdapter,
+  neovimBuiltinsLua,
+  neovimSetupLua,
+} from "../src/adapters/neovim.js";
 
 describe("nested palette Shapes", () => {
   test("stores included languages in an orbz Dict", () => {
@@ -67,5 +72,47 @@ describe("nested palette Shapes", () => {
     expect(restored.base.bg).toBe("#080a16");
     expect(restored.languages.at("javascript").hue).toBe(42);
     expect(restored.languages.at("javascript").colors.main).toStartWith("oklch(");
+  });
+
+  test("adapts resolved colors to the Argiope Neovim contract", () => {
+    const theme = DEFAULT_THEMES[0].theme;
+    const adapted = neovimAdapter(theme);
+    expect(adapted.base.golden_yellow).toMatch(/^#[0-9A-F]{6}$/);
+    expect(adapted.languages.javascript.roles.variable).toBe("main");
+    expect(adapted.languages.javascript.colors.main).toMatch(/^#[0-9A-F]{6}$/);
+    expect(adapted.languages.javascript_embedded).toBeDefined();
+    expect(JSON.stringify(adapted)).not.toContain("oklch(");
+  });
+
+  test("models Versicolor JavaScript as an explicit palette", () => {
+    const aurantia = DEFAULT_THEMES.find(entry => entry.id === "aurantia").theme;
+    const versicolor = DEFAULT_THEMES.find(entry => entry.id === "versicolor").theme;
+    expect(aurantia.languages.at("javascript").kind).toBe("generated");
+    expect(versicolor.languages.at("javascript").kind).toBe("explicit");
+    expect(versicolor.languages.at("javascript").colors.accent).toBe(versicolor.base.green);
+    expect(versicolor.languages.at("javascript").tokens.keyword).toBe("gray_warm");
+    expect(hydrateTheme(serializeTheme(versicolor)).languages.at("javascript").kind).toBe("explicit");
+  });
+
+  test("emits directly pasteable Lua with optional inheritance", () => {
+    const lua = neovimSetupLua(DEFAULT_THEMES[0].theme, {
+      id: "my-aurantia",
+      extends: "aurantia",
+    });
+    expect(lua).toContain('require("argiope").setup({');
+    expect(lua).toContain('["my-aurantia"] = {');
+    expect(lua).toContain('extends = "aurantia"');
+    expect(lua).toContain("javascript_embedded = {");
+    expect(lua).toContain('["function"] =');
+    expect(lua).toContain('["return"] =');
+  });
+
+  test("emits complete built-in definitions without extends", () => {
+    const lua = neovimBuiltinsLua(DEFAULT_THEMES);
+    expect(lua).toContain('["aurantia-neon"] = {');
+    expect(lua).toContain("trifasciata = {");
+    expect(lua).toContain("schema = 1");
+    expect(lua).toContain("themes = {");
+    expect(lua).not.toContain("extends =");
   });
 });

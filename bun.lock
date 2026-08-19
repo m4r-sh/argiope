@@ -5,6 +5,7 @@
     "": {
       "name": "argiope-palettes",
       "dependencies": {
+        "@m4rsh/cones": "^1.2.1",
         "culori": "4.0.2",
         "cusphanger": "0.3.0",
         "nutelch": "0.2.0",
@@ -13,6 +14,8 @@
     },
   },
   "packages": {
+    "@m4rsh/cones": ["@m4rsh/cones@1.2.1", "", {}, "sha512-kE5WW3873hMegjf9UWo8uZ1dlgfMpcHNy73jc/gHje2ODJ33UNi4wV+mKLFILOXWH5J96GwIotqUctrJx9whCg=="],
+
     "culori": ["culori@4.0.2", "", {}, "sha512-1+BhOB8ahCn4O0cep0Sh2l9KCOfOdY+BXJnKMHFFzDEouSr/el18QwXEMRlOj9UY5nCeA8UN3a/82rUWRBeyBw=="],
 
     "cusphanger": ["cusphanger@0.3.0", "", { "dependencies": { "nutelch": "^0.2.0" } }, "sha512-q7MzLQNyHksvQqblFFvVdkHhwjF2M2rTMWovubhe64lj3fdIgo13ww0L3sTWgmypNeDqn1BO6p9LzBJziuUBwg=="],
