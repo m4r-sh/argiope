@@ -2,13 +2,13 @@
 
 Argiope is a web-centric plugin for editing javascript files with embedded languages.
 
-Argiope provides JavaScript tagged template literals with embedded-language highlighting, indentation, and navigation.
+[Blog Post](https://m4rsh.com/argiope)
 
 **Supported Editors**:
 - [Neovim](https://github.com/m4r-sh/argiope.nvim)
 
 <figure>
-  <img src="https://m4rsh.com/images/argiope-aurantia-dithered.png" alt="Argiope Aurantia Spider">
+  <img width="200" src="https://m4rsh.com/images/argiope-aurantia-dithered.png" alt="Argiope Aurantia Spider">
   <figcaption align="center">Image by Dave the Bug Guy</figcaption>
 </figure>
 
