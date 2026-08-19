@@ -7,12 +7,12 @@ Argiope is a web-centric plugin for editing javascript files with embedded langu
 **Supported Editors**:
 - [Neovim](https://github.com/m4r-sh/argiope.nvim)
 
+---
+
 <figure>
-  <img width="200" src="https://m4rsh.com/images/argiope-aurantia-dithered.png" alt="Argiope Aurantia Spider">
+  <img width="300" src="https://m4rsh.com/images/argiope-aurantia-dithered.png" alt="Argiope Aurantia Spider">
   <figcaption align="center">Image by Dave the Bug Guy</figcaption>
 </figure>
-
-
 
 ---
 
