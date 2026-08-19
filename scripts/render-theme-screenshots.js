@@ -7,8 +7,10 @@ import { $ } from "bun";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const pluginRoot = resolve(process.env.ARGIOPE_PLUGIN_ROOT?.trim() || join(root, "..", "argiope"));
 const deps = resolve(pluginRoot, ".deps");
-const width = 1000;
-const initialHeight = 600;
+const logicalWidth = 600;
+const scale = 2;
+const width = logicalWidth * scale;
+const initialHeight = 600 * scale;
 const outputDirectory = resolve(root, "docs", "images", "themes");
 
 function resolveNvim() {
@@ -42,10 +44,10 @@ function pageFor(theme) {
     pre.a {
       width: 100%;
       margin: 0;
-      padding: 40px;
+      padding: ${40 * scale}px;
       overflow: hidden;
       border: 0;
-      font: 16px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font: ${16 * scale}px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       tab-size: 2;
     }
   </style>
