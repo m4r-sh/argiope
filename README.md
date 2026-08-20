@@ -7,6 +7,41 @@ Argiope is a web-centric plugin for editing javascript files with embedded langu
 **Supported Editors**:
 - [Neovim](https://github.com/m4r-sh/argiope.nvim)
 
+## Repository layout
+
+Argiope is the source of truth for shared palettes and the adapters that emit
+environment-specific palette files. Each editor integration remains an
+independently developed repository.
+
+- `src/` contains the palette model, built-in themes, and adapters.
+- `dist/` contains generated palette artifacts.
+- `editors/` contains optional Git submodule checkouts of editor integrations.
+
+Generate the standalone Neovim palette artifact with:
+
+```sh
+bun run build:neovim
+```
+
+After initializing the `editors/neovim` submodule, install that artifact into
+the editor repository with:
+
+```sh
+bun run sync:neovim
+```
+
+The sync updates only
+`editors/neovim/lua/argiope/generated/themes.lua`. Neovim runtime behavior,
+queries, documentation, and tests remain owned by `argiope.nvim`, where editor
+users can contribute normally.
+
+Run Argiope's palette checks with `bun run check`. To also run the tests in
+initialized editor submodules, use:
+
+```sh
+bun run check:editors
+```
+
 ---
 
 <figure>

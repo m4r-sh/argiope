@@ -7,9 +7,15 @@
     "dev": "bun --hot server.ts",
     "start": "bun server.ts",
     "build:neovim": "bun scripts/generate-neovim.js",
+    "sync:neovim": "bun run build:neovim && bun scripts/sync-neovim.js",
     "screenshots:themes": "bun run build:neovim && bun scripts/render-theme-screenshots.js",
-    "check": "bun test && bun build ./app.js --target=browser --outdir=/tmp/argiope-palettes-check",
-    "test": "bun test"
+    "check": "bun run verify:generated && bun run test:core && bun build ./app.js --target=browser --outdir=/tmp/argiope-palettes-check",
+    "check:editors": "bun run check && bun run verify:neovim && bun run test:neovim",
+    "test": "bun run test:core",
+    "test:core": "bun test ./test",
+    "test:neovim": "bun run --cwd editors/neovim test",
+    "verify:generated": "bun run build:neovim && git diff --exit-code -- dist/argiope-themes.lua",
+    "verify:neovim": "bun run sync:neovim && git -C editors/neovim diff --exit-code -- lua/argiope/generated/themes.lua"
   },
   "dependencies": {
     "@m4rsh/cones": "^1.2.1",
