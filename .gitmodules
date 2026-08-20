@@ -1,4 +1,4 @@
 [submodule "editors/neovim"]
 	path = editors/neovim
-	url = git@github.m4r-sh:m4r-sh/argiope.nvim.git
+	url = git@github.com:m4r-sh/argiope.nvim.git
 	branch = master
