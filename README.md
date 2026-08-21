@@ -6,7 +6,6 @@ Argiope is a web-centric plugin for editing javascript files with embedded langu
 
 **Supported Editors**:
 - [Neovim](https://github.com/m4r-sh/argiope.nvim)
-- [Zed](https://github.com/m4r-sh/argiope-zed)
 - [Helix](https://github.com/m4r-sh/argiope-helix)
 
 ## Repository layout
@@ -34,16 +33,6 @@ bun run sync:helix
 
 The standalone [Helix integration](editors/helix) owns its installation guide,
 fixtures, compatibility policy, and Helix-specific behavior.
-
-Generate and sync the shared Zed theme and language artifacts into its
-initialized editor submodule with:
-
-```sh
-bun run sync:zed
-```
-
-The standalone [Zed integration](editors/zed) owns its extension manifest,
-grammar revisions, installation guide, and compatibility testing.
 
 After initializing the `editors/neovim` submodule, install that artifact into
 the editor repository with:

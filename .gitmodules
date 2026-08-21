@@ -5,9 +5,6 @@
 [submodule "editors/helix"]
 	path = editors/helix
 	url = git@github.com:m4r-sh/argiope-helix.git
-[submodule "editors/zed"]
-	path = editors/zed
-	url = git@github.com:m4r-sh/argiope-zed.git
 [submodule "editors/textmate"]
 	path = editors/textmate
 	url = git@github.com:m4r-sh/argiope-textmate.git
