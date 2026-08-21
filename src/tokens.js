@@ -77,6 +77,12 @@ export const TOKEN_MAPS = {
   },
 };
 
+// These languages share the portable semantic vocabulary while retaining
+// independent palette families. Adapters still own their concrete captures.
+TOKEN_MAPS.svg = { ...TOKEN_MAPS.html };
+TOKEN_MAPS.glsl = { ...TOKEN_MAPS.javascript };
+TOKEN_MAPS.wgsl = { ...TOKEN_MAPS.javascript };
+
 export const VERSICOLOR_TOKENS = {
   plain: "main",
   variable: "soft",

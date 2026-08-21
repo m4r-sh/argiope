@@ -179,6 +179,18 @@ function includedLanguages(generatorState, options = {}) {
       label: "Markdown", prefix: "m", hue: 355, neutralHue: 350,
       reverse, tokens: TOKEN_MAPS.markdown,
     }),
+    svg: language(generatorState, {
+      label: "SVG", prefix: "s", hue: 245, neutralHue: 250,
+      reverse, tokens: TOKEN_MAPS.svg,
+    }),
+    glsl: language(generatorState, {
+      label: "GLSL", prefix: "g", hue: 285, neutralHue: 285,
+      reverse, tokens: TOKEN_MAPS.glsl,
+    }),
+    wgsl: language(generatorState, {
+      label: "WGSL", prefix: "w", hue: 310, neutralHue: 305,
+      reverse, tokens: TOKEN_MAPS.wgsl,
+    }),
     embedded: language(generatorState, {
       label: "Embedded JavaScript", prefix: "e", hue: 255, neutralHue: 255,
       saturationScale: options.embeddedGray ? options.grayScale ?? 0.08 : 1,
