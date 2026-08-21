@@ -1,0 +1,10 @@
+# Query-check contract for tagged-templates.js
+# The injected template range excludes child substitutions; ${...} is JavaScript.
+html        argiope-html       argiope.html.tag, argiope.html.property
+svg         argiope-svg        argiope.svg.tag, argiope.svg.property
+css         argiope-css        argiope.css.property, argiope.css.keyword
+md          argiope-markdown   argiope.markdown.heading, argiope.markdown.list
+raw.js      argiope-javascript-embedded argiope.embedded.*
+glsl        argiope-glsl       argiope.glsl.*
+wgsl        argiope-wgsl       argiope.wgsl.*
+txt         none               normal JavaScript string captures

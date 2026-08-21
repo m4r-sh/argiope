@@ -1,0 +1,60 @@
+# Merge this fragment into ~/.config/helix/languages.toml or .helix/languages.toml.
+# It intentionally declares no language servers: Argiope only changes parsing.
+
+[[language]]
+name = "argiope-javascript"
+scope = "source.js"
+injection-regex = "^argiope-javascript$"
+file-types = ["js", "mjs", "cjs"]
+comment-tokens = "//"
+grammar = "javascript"
+
+[[language]]
+name = "argiope-javascript-embedded"
+scope = "source.js"
+injection-regex = "^argiope-javascript-embedded$"
+file-types = []
+comment-tokens = "//"
+grammar = "javascript"
+
+[[language]]
+name = "argiope-html"
+scope = "text.html.basic"
+injection-regex = "^argiope-html$"
+file-types = []
+grammar = "html"
+
+[[language]]
+name = "argiope-svg"
+scope = "text.html.basic"
+injection-regex = "^argiope-svg$"
+file-types = []
+grammar = "html"
+
+[[language]]
+name = "argiope-css"
+scope = "source.css"
+injection-regex = "^argiope-css$"
+file-types = []
+grammar = "css"
+
+[[language]]
+name = "argiope-markdown"
+scope = "text.markdown"
+injection-regex = "^argiope-markdown$"
+file-types = []
+grammar = "markdown"
+
+[[language]]
+name = "argiope-glsl"
+scope = "source.glsl"
+injection-regex = "^argiope-glsl$"
+file-types = []
+grammar = "glsl"
+
+[[language]]
+name = "argiope-wgsl"
+scope = "source.wgsl"
+injection-regex = "^argiope-wgsl$"
+file-types = []
+grammar = "wgsl"

@@ -25,6 +25,26 @@ Generate the standalone Neovim palette artifact with:
 bun run build:neovim
 ```
 
+Generate and sync the shared Helix runtime artifacts into its initialized
+editor submodule with:
+
+```sh
+bun run sync:helix
+```
+
+The standalone [Helix integration](editors/helix) owns its installation guide,
+fixtures, compatibility policy, and Helix-specific behavior.
+
+Generate and sync the shared Zed theme and language artifacts into its
+initialized editor submodule with:
+
+```sh
+bun run sync:zed
+```
+
+The standalone [Zed integration](editors/zed) owns its extension manifest,
+grammar revisions, installation guide, and compatibility testing.
+
 After initializing the `editors/neovim` submodule, install that artifact into
 the editor repository with:
 

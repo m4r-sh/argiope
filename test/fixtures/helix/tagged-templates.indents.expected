@@ -1,0 +1,10 @@
+# Helix indentation contract for tagged-templates.js
+# Child syntax uses its inherited language query. Helix does not add a separate
+# tagged-template baseline, so the template opening line establishes the base.
+html: nested elements indent one child level; closing elements outdent
+css: declarations and nested @media blocks indent one child level
+markdown: existing list indentation is preserved
+glsl: braces indent and closing braces outdent
+wgsl: braces indent and closing braces outdent
+interpolation: JavaScript object literals use JavaScript indentation
+incomplete: no query error while the closing backtick is absent
