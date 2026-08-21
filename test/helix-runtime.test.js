@@ -4,11 +4,13 @@ const root = new URL("../", import.meta.url);
 const read = path => Bun.file(new URL(path, root)).text();
 
 test("Helix fixture and runtime cover the fixed injection set", async () => {
-  const [fixture, captures, indents, injections, languages] = await Promise.all([
+  const [fixture, captures, indents, injections, javascriptIndents, htmlIndents, languages] = await Promise.all([
     read("test/fixtures/helix/tagged-templates.js"),
     read("test/fixtures/helix/tagged-templates.captures.expected"),
     read("test/fixtures/helix/tagged-templates.indents.expected"),
     read("dist/helix/runtime/queries/argiope-javascript/injections.scm"),
+    read("dist/helix/runtime/queries/argiope-javascript/indents.scm"),
+    read("dist/helix/runtime/queries/argiope-html/indents.scm"),
     read("dist/helix/languages.toml"),
   ]);
 
@@ -24,4 +26,8 @@ test("Helix fixture and runtime cover the fixed injection set", async () => {
   expect(injections).not.toContain("injection.combined");
   expect(injections).not.toContain('"txt"');
   expect(indents).toContain("incomplete");
+  expect(javascriptIndents).toContain("(template_string) @indent");
+  expect(javascriptIndents).toContain('"`" @outdent');
+  expect(htmlIndents).toContain("(start_tag) @indent");
+  expect(htmlIndents).toContain("(end_tag) @outdent");
 });

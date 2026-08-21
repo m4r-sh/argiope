@@ -27,7 +27,17 @@ const queryFiles = {
   (#eq? @_argiope_member "js")
   (#set! injection.language "argiope-javascript-embedded"))
 `,
-  "argiope-javascript/indents.scm": "; inherits: javascript\n",
+  "argiope-javascript/indents.scm": `; inherits: javascript
+
+; Give multiline tagged templates one level relative to their JavaScript host.
+; The final delimiter is outdented so a closing backtick returns to the host
+; indentation without altering the line containing the opening delimiter.
+(template_string) @indent
+(template_string
+  (_)*
+  "\`" @outdent
+  .)
+`,
   "argiope-javascript-embedded/highlights.scm": `; inherits: javascript
 (identifier) @argiope.embedded.variable
 (property_identifier) @argiope.embedded.property
@@ -86,8 +96,19 @@ const queryFiles = {
 `,
 };
 
-for (const language of ["argiope-html", "argiope-svg", "argiope-css", "argiope-markdown", "argiope-glsl", "argiope-wgsl"]) {
-  queryFiles[`${language}/indents.scm`] = `; inherits: ${language.replace("argiope-", language === "argiope-svg" ? "html" : "")}\n`;
+for (const language of ["argiope-html", "argiope-svg"]) {
+  queryFiles[`${language}/indents.scm`] = `; inherits: html
+
+; Helix does not bundle HTML indentation. Indent content under an opening tag
+; and cancel that level on its matching closing tag.
+(element
+  (start_tag) @indent
+  (end_tag) @outdent)
+`;
+}
+
+for (const language of ["argiope-css", "argiope-markdown", "argiope-glsl", "argiope-wgsl"]) {
+  queryFiles[`${language}/indents.scm`] = `; inherits: ${language.replace("argiope-", "")}\n`;
 }
 
 const languagesToml = `# Merge this fragment into ~/.config/helix/languages.toml or .helix/languages.toml.
