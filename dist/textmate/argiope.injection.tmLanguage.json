@@ -1,0 +1,543 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Argiope tagged templates",
+  "scopeName": "source.argiope.injection",
+  "injectTo": [
+    "source.js",
+    "source.ts"
+  ],
+  "injectionSelector": "L:source.js -comment -string, L:source.ts -comment -string",
+  "patterns": [
+    {
+      "include": "#argiope-html"
+    },
+    {
+      "include": "#argiope-svg"
+    },
+    {
+      "include": "#argiope-css"
+    },
+    {
+      "include": "#argiope-markdown"
+    },
+    {
+      "include": "#argiope-javascript"
+    },
+    {
+      "include": "#argiope-glsl"
+    },
+    {
+      "include": "#argiope-wgsl"
+    },
+    {
+      "name": "meta.interpolation.argiope",
+      "begin": "(?<!\\\\)(?:\\\\\\\\)*(\\$\\{)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.section.interpolation.begin.argiope"
+        }
+      },
+      "end": "(})",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.section.interpolation.end.argiope"
+        }
+      },
+      "patterns": [
+        {
+          "include": "source.ts"
+        },
+        {
+          "begin": "\\{",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.section.interpolation.begin.argiope"
+            }
+          },
+          "end": "\\}",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.section.interpolation.end.argiope"
+            }
+          },
+          "patterns": [
+            {
+              "include": "source.ts"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "repository": {
+    "argiope-html": {
+      "name": "meta.embedded.argiope.html",
+      "contentName": "text.html.basic",
+      "begin": "(?<![\\w$.])(html)(\\s*)(`)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.function.tagged-template.argiope.html"
+        },
+        "3": {
+          "name": "punctuation.definition.string.begin.argiope"
+        }
+      },
+      "end": "(?<!\\\\)(?:\\\\\\\\)*`",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.argiope"
+        }
+      },
+      "patterns": [
+        {
+          "name": "constant.character.escape.argiope",
+          "match": "\\\\(?:`|\\$\\{)"
+        },
+        {
+          "name": "meta.interpolation.argiope",
+          "begin": "(?<!\\\\)(?:\\\\\\\\)*(\\$\\{)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.begin.argiope"
+            }
+          },
+          "end": "(})",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.end.argiope"
+            }
+          },
+          "patterns": [
+            {
+              "include": "source.ts"
+            },
+            {
+              "begin": "\\{",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.begin.argiope"
+                }
+              },
+              "end": "\\}",
+              "endCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.end.argiope"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "source.ts"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "include": "text.html.basic"
+        }
+      ]
+    },
+    "argiope-svg": {
+      "name": "meta.embedded.argiope.svg",
+      "contentName": "text.xml",
+      "begin": "(?<![\\w$.])(svg)(\\s*)(`)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.function.tagged-template.argiope.svg"
+        },
+        "3": {
+          "name": "punctuation.definition.string.begin.argiope"
+        }
+      },
+      "end": "(?<!\\\\)(?:\\\\\\\\)*`",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.argiope"
+        }
+      },
+      "patterns": [
+        {
+          "name": "constant.character.escape.argiope",
+          "match": "\\\\(?:`|\\$\\{)"
+        },
+        {
+          "name": "meta.interpolation.argiope",
+          "begin": "(?<!\\\\)(?:\\\\\\\\)*(\\$\\{)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.begin.argiope"
+            }
+          },
+          "end": "(})",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.end.argiope"
+            }
+          },
+          "patterns": [
+            {
+              "include": "source.ts"
+            },
+            {
+              "begin": "\\{",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.begin.argiope"
+                }
+              },
+              "end": "\\}",
+              "endCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.end.argiope"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "source.ts"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "include": "text.xml"
+        }
+      ]
+    },
+    "argiope-css": {
+      "name": "meta.embedded.argiope.css",
+      "contentName": "source.css",
+      "begin": "(?<![\\w$.])(css)(\\s*)(`)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.function.tagged-template.argiope.css"
+        },
+        "3": {
+          "name": "punctuation.definition.string.begin.argiope"
+        }
+      },
+      "end": "(?<!\\\\)(?:\\\\\\\\)*`",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.argiope"
+        }
+      },
+      "patterns": [
+        {
+          "name": "constant.character.escape.argiope",
+          "match": "\\\\(?:`|\\$\\{)"
+        },
+        {
+          "name": "meta.interpolation.argiope",
+          "begin": "(?<!\\\\)(?:\\\\\\\\)*(\\$\\{)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.begin.argiope"
+            }
+          },
+          "end": "(})",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.end.argiope"
+            }
+          },
+          "patterns": [
+            {
+              "include": "source.ts"
+            },
+            {
+              "begin": "\\{",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.begin.argiope"
+                }
+              },
+              "end": "\\}",
+              "endCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.end.argiope"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "source.ts"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "include": "source.css"
+        }
+      ]
+    },
+    "argiope-markdown": {
+      "name": "meta.embedded.argiope.markdown",
+      "contentName": "text.html.markdown",
+      "begin": "(?<![\\w$.])(md)(\\s*)(`)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.function.tagged-template.argiope.markdown"
+        },
+        "3": {
+          "name": "punctuation.definition.string.begin.argiope"
+        }
+      },
+      "end": "(?<!\\\\)(?:\\\\\\\\)*`",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.argiope"
+        }
+      },
+      "patterns": [
+        {
+          "name": "constant.character.escape.argiope",
+          "match": "\\\\(?:`|\\$\\{)"
+        },
+        {
+          "name": "meta.interpolation.argiope",
+          "begin": "(?<!\\\\)(?:\\\\\\\\)*(\\$\\{)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.begin.argiope"
+            }
+          },
+          "end": "(})",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.end.argiope"
+            }
+          },
+          "patterns": [
+            {
+              "include": "source.ts"
+            },
+            {
+              "begin": "\\{",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.begin.argiope"
+                }
+              },
+              "end": "\\}",
+              "endCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.end.argiope"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "source.ts"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "include": "text.html.markdown"
+        }
+      ]
+    },
+    "argiope-javascript": {
+      "name": "meta.embedded.argiope.javascript",
+      "contentName": "source.js",
+      "begin": "(?<![\\w$.])(raw\\\\.js)(\\s*)(`)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.function.tagged-template.argiope.javascript"
+        },
+        "3": {
+          "name": "punctuation.definition.string.begin.argiope"
+        }
+      },
+      "end": "(?<!\\\\)(?:\\\\\\\\)*`",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.argiope"
+        }
+      },
+      "patterns": [
+        {
+          "name": "constant.character.escape.argiope",
+          "match": "\\\\(?:`|\\$\\{)"
+        },
+        {
+          "name": "meta.interpolation.argiope",
+          "begin": "(?<!\\\\)(?:\\\\\\\\)*(\\$\\{)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.begin.argiope"
+            }
+          },
+          "end": "(})",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.end.argiope"
+            }
+          },
+          "patterns": [
+            {
+              "include": "source.ts"
+            },
+            {
+              "begin": "\\{",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.begin.argiope"
+                }
+              },
+              "end": "\\}",
+              "endCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.end.argiope"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "source.ts"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "include": "source.js"
+        }
+      ]
+    },
+    "argiope-glsl": {
+      "name": "meta.embedded.argiope.glsl",
+      "contentName": "source.glsl",
+      "begin": "(?<![\\w$.])(glsl)(\\s*)(`)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.function.tagged-template.argiope.glsl"
+        },
+        "3": {
+          "name": "punctuation.definition.string.begin.argiope"
+        }
+      },
+      "end": "(?<!\\\\)(?:\\\\\\\\)*`",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.argiope"
+        }
+      },
+      "patterns": [
+        {
+          "name": "constant.character.escape.argiope",
+          "match": "\\\\(?:`|\\$\\{)"
+        },
+        {
+          "name": "meta.interpolation.argiope",
+          "begin": "(?<!\\\\)(?:\\\\\\\\)*(\\$\\{)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.begin.argiope"
+            }
+          },
+          "end": "(})",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.end.argiope"
+            }
+          },
+          "patterns": [
+            {
+              "include": "source.ts"
+            },
+            {
+              "begin": "\\{",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.begin.argiope"
+                }
+              },
+              "end": "\\}",
+              "endCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.end.argiope"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "source.ts"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "include": "source.glsl"
+        }
+      ]
+    },
+    "argiope-wgsl": {
+      "name": "meta.embedded.argiope.wgsl",
+      "contentName": "source.wgsl",
+      "begin": "(?<![\\w$.])(wgsl)(\\s*)(`)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.function.tagged-template.argiope.wgsl"
+        },
+        "3": {
+          "name": "punctuation.definition.string.begin.argiope"
+        }
+      },
+      "end": "(?<!\\\\)(?:\\\\\\\\)*`",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.argiope"
+        }
+      },
+      "patterns": [
+        {
+          "name": "constant.character.escape.argiope",
+          "match": "\\\\(?:`|\\$\\{)"
+        },
+        {
+          "name": "meta.interpolation.argiope",
+          "begin": "(?<!\\\\)(?:\\\\\\\\)*(\\$\\{)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.begin.argiope"
+            }
+          },
+          "end": "(})",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.section.interpolation.end.argiope"
+            }
+          },
+          "patterns": [
+            {
+              "include": "source.ts"
+            },
+            {
+              "begin": "\\{",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.begin.argiope"
+                }
+              },
+              "end": "\\}",
+              "endCaptures": {
+                "0": {
+                  "name": "punctuation.section.interpolation.end.argiope"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "source.ts"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "include": "source.wgsl"
+        }
+      ]
+    }
+  }
+}

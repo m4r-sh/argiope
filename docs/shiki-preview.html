@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Argiope Shiki and Neovim comparison</title>
+  <style>
+    :root { color-scheme: dark light; font-family: ui-sans-serif, system-ui, sans-serif; }
+    body { margin: 0; color: #25282d; background: #eceae5; }
+    main { width: min(1440px, calc(100% - 2rem)); margin: 0 auto; padding: 2rem 0 4rem; }
+    h1, h2 { margin: 0; }
+    .intro { max-width: 76ch; margin: .75rem 0 2rem; line-height: 1.55; }
+    .theme { margin: 2rem 0; padding: 1.25rem; border: 1px solid #c8c5bd; border-radius: .75rem; background: #f8f7f4; box-shadow: 0 .25rem 1rem #00000012; }
+    .theme header p { margin: .5rem 0 1rem; color: #59616b; line-height: 1.45; }
+    .comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; align-items: start; }
+    figure { margin: 0; min-width: 0; overflow: auto; border: 1px solid #cbc8c0; border-radius: .4rem; background: #111; }
+    figcaption { padding: .5rem .75rem; color: #25282d; background: #e8e6e0; font-size: .875rem; font-weight: 650; }
+    figure img { display: block; width: 100%; height: auto; }
+    pre.shiki { margin: 0; padding: 1.5rem; min-height: 100%; overflow: auto; font: 14px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; tab-size: 2; }
+    details { margin-top: 1rem; }
+    summary { cursor: pointer; font-weight: 650; }
+    details pre.shiki { margin-top: .75rem; border-radius: .4rem; }
+    @media (max-width: 900px) { .comparison { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Argiope Shiki / Neovim comparison</h1>
+    <p class="intro">Use this local page to compare the same Argiope sample across Shiki's TextMate grammar and the checked-in Neovim reference renders. The expanded fixture covers the remaining tagged languages.</p>
+    <section id="aurantia" class="theme">
+  <header>
+    <h2>Argiope Aurantia</h2>
+    <p>Same source on both sides. Shiki uses the generated Argiope TextMate theme and injection grammar; the reference image is the existing Neovim render.</p>
+  </header>
+  <div class="comparison">
+    <figure>
+      <figcaption>Shiki / TextMate</figcaption>
+      <pre class="shiki Argiope Aurantia" style="background-color:#080A16;color:#F8F8F2" tabindex="0"><code><span class="line"><span style="color:#D6CB65">import</span><span style="color:#4F565E"> {</span><span style="color:#C19945"> html</span><span style="color:#969DA6">,</span><span style="color:#C19945"> css</span><span style="color:#969DA6">,</span><span style="color:#C19945"> svg</span><span style="color:#969DA6">,</span><span style="color:#C19945"> classify</span><span style="color:#4F565E"> }</span><span style="color:#D6CB65"> from</span><span style="color:#4F565E"> '</span><span style="color:#976025">zilk</span><span style="color:#4F565E">'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A19C94">const</span><span style="color:#4F565E"> {</span><span style="color:#D6CB65"> CARD</span><span style="color:#969DA6">,</span><span style="color:#D6CB65"> LIST</span><span style="color:#4F565E"> }</span><span style="color:#AF7E34"> =</span><span style="color:#CEB355"> classify</span><span style="color:#F8F8F2">(</span><span style="color:#4F565E">'</span><span style="color:#976025">MyCard</span><span style="color:#4F565E">'</span><span style="color:#F8F8F2">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D6CB65">export</span><span style="color:#D6CB65"> default</span><span style="color:#4F565E"> ({</span><span style="color:#C19945"> title</span><span style="color:#969DA6">,</span><span style="color:#C19945"> list</span><span style="color:#4F565E"> })</span><span style="color:#A19C94"> =></span><span style="color:#CEB355"> html</span><span style="color:#4F565E">`</span></span>
+<span class="line"><span style="color:#063A41">  &#x3C;</span><span style="color:#4CB0C0">article</span><span style="color:#4CB0C0"> class</span><span style="color:#063A41">=</span><span style="color:#4F565E">${</span><span style="color:#D6CB65">CARD</span><span style="color:#4F565E">}</span><span style="color:#063A41">></span></span>
+<span class="line"><span style="color:#063A41">    &#x3C;</span><span style="color:#4CB0C0">h2</span><span style="color:#4CB0C0"> class</span><span style="color:#063A41">=</span><span style="color:#4F565E">${</span><span style="color:#D6CB65">CARD</span><span style="color:#063A41">.</span><span style="color:#D6CB65">TITLE</span><span style="color:#4F565E">}</span><span style="color:#063A41">></span><span style="color:#4F565E">${</span><span style="color:#C19945">title</span><span style="color:#4F565E">}</span><span style="color:#063A41">&#x3C;/</span><span style="color:#4CB0C0">h2</span><span style="color:#063A41">></span></span>
+<span class="line"><span style="color:#063A41">    &#x3C;</span><span style="color:#4CB0C0">ul</span><span style="color:#4CB0C0"> class</span><span style="color:#063A41">=</span><span style="color:#4F565E">${</span><span style="color:#D6CB65">LIST</span><span style="color:#4F565E">}</span><span style="color:#063A41">></span></span>
+<span class="line"><span style="color:#4F565E">      ${</span><span style="color:#C19945">list</span><span style="color:#063A41">.</span><span style="color:#CEB355">map</span><span style="color:#F8F8F2">(</span><span style="color:#C19945">item</span><span style="color:#A19C94"> =></span><span style="color:#CEB355"> html</span><span style="color:#4F565E">`</span></span>
+<span class="line"><span style="color:#063A41">        &#x3C;</span><span style="color:#4CB0C0">li</span><span style="color:#4CB0C0"> class</span><span style="color:#063A41">=</span><span style="color:#4F565E">${</span><span style="color:#D6CB65">LIST</span><span style="color:#063A41">.</span><span style="color:#D6CB65">ITEM</span><span style="color:#4F565E">}</span><span style="color:#063A41">></span><span style="color:#4F565E">${</span><span style="color:#C19945">item</span><span style="color:#4F565E">}</span><span style="color:#063A41">&#x3C;/</span><span style="color:#4CB0C0">li</span><span style="color:#063A41">></span></span>
+<span class="line"><span style="color:#4F565E">      `</span><span style="color:#F8F8F2">)</span><span style="color:#4F565E">}</span></span>
+<span class="line"><span style="color:#063A41">    &#x3C;/</span><span style="color:#4CB0C0">ul</span><span style="color:#063A41">></span></span>
+<span class="line"><span style="color:#063A41">  &#x3C;/</span><span style="color:#4CB0C0">article</span><span style="color:#063A41">></span></span>
+<span class="line"><span style="color:#4F565E">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D6CB65">export</span><span style="color:#A19C94"> const</span><span style="color:#CEB355"> styles</span><span style="color:#AF7E34"> =</span><span style="color:#4F565E"> ()</span><span style="color:#A19C94"> =></span><span style="color:#5FD07D"> css</span><span style="color:#228342">`</span></span>
+<span class="line"><span style="color:#F8F8F2">  .</span><span style="color:#4F565E">${</span><span style="color:#D6CB65">CARD</span><span style="color:#4F565E">}</span><span style="color:#4F565E"> {</span></span>
+<span class="line"><span style="color:#48BA69">    background-color</span><span style="color:#4E5852">:</span><span style="color:#228342"> #</span><span style="color:#5FD07D">fff</span><span style="color:#4E5852">;</span></span>
+<span class="line"><span style="color:#48BA69">    padding</span><span style="color:#4E5852">:</span><span style="color:#5FD07D"> 2</span><span style="color:#48BA69">rem</span><span style="color:#4E5852">;</span></span>
+<span class="line"><span style="color:#4F565E">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">  .</span><span style="color:#4F565E">${</span><span style="color:#D6CB65">CARD</span><span style="color:#4E5852">.</span><span style="color:#D6CB65">TITLE</span><span style="color:#4F565E">}</span><span style="color:#4F565E"> {</span></span>
+<span class="line"><span style="color:#48BA69">    font-weight</span><span style="color:#4E5852">:</span><span style="color:#5FD07D"> bold</span><span style="color:#4E5852">;</span></span>
+<span class="line"><span style="color:#4F565E">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">  .</span><span style="color:#4F565E">${</span><span style="color:#D6CB65">LIST</span><span style="color:#4E5852">.</span><span style="color:#D6CB65">ITEM</span><span style="color:#4F565E">}</span><span style="color:#4F565E"> {</span></span>
+<span class="line"><span style="color:#48BA69">    margin-left</span><span style="color:#4E5852">:</span><span style="color:#5FD07D"> 2</span><span style="color:#48BA69">rem</span><span style="color:#4E5852">;</span></span>
+<span class="line"><span style="color:#4F565E">  }</span></span>
+<span class="line"><span style="color:#228342">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D6CB65">export</span><span style="color:#A19C94"> const</span><span style="color:#CEB355"> docs</span><span style="color:#AF7E34"> =</span><span style="color:#4F565E"> ({</span><span style="color:#C19945"> title</span><span style="color:#969DA6">,</span><span style="color:#C19945"> list</span><span style="color:#4F565E"> })</span><span style="color:#A19C94"> =></span><span style="color:#CEB355"> md</span><span style="color:#5D0B36">`</span></span>
+<span class="line"><span style="color:#5D0B36">  ##</span><span style="color:#4F565E"> ${</span><span style="color:#C19945">title</span><span style="color:#4F565E">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F8F8F2">  This is some markdown to match the html view</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#4F565E">  ${</span><span style="color:#C19945">list</span><span style="color:#B53773">.</span><span style="color:#CEB355">map</span><span style="color:#F8F8F2">(</span><span style="color:#C19945">item</span><span style="color:#A19C94"> =></span><span style="color:#CEB355"> md</span><span style="color:#5D0B36">`</span></span>
+<span class="line"><span style="color:#5D0B36">    -</span><span style="color:#4F565E"> ${</span><span style="color:#C19945">item</span><span style="color:#4F565E">}</span></span>
+<span class="line"><span style="color:#F8F8F2">  `)}</span></span>
+<span class="line"><span style="color:#5D0B36">`</span></span>
+<span class="line"></span></code></pre>
+    </figure>
+    <figure>
+      <figcaption>Neovim reference</figcaption>
+      <img src="images/themes/argiope-aurantia.png" alt="Neovim rendering of Argiope Aurantia">
+    </figure>
+  </div>
+  <details>
+    <summary>Additional injected-language coverage</summary>
+    <pre class="shiki Argiope Aurantia" style="background-color:#080A16;color:#F8F8F2" tabindex="0"><code><span class="line"><span style="color:#A19C94">const</span><span style="color:#D6CB65"> icon</span><span style="color:#AF7E34"> =</span><span style="color:#C19945"> svg</span><span style="color:#F8F8F2">\</span><span style="color:#4F565E">`</span><span style="color:#976025">&#x3C;svg viewBox="0 0 1 1">&#x3C;circle cx="0.5" cy="0.5" r="0.5" />&#x3C;/svg></span><span style="color:#D6CB65">\`</span><span style="color:#976025">;</span></span>
+<span class="line"><span style="color:#976025">const raw = raw.js</span><span style="color:#D6CB65">\`</span><span style="color:#976025">const answer = 42;</span><span style="color:#D6CB65">\`</span><span style="color:#976025">;</span></span>
+<span class="line"><span style="color:#976025">const fragment = glsl</span><span style="color:#D6CB65">\`</span><span style="color:#976025">void main() { gl_FragColor = vec4(1.0); }</span><span style="color:#D6CB65">\`</span><span style="color:#976025">;</span></span>
+<span class="line"><span style="color:#976025">const compute = wgsl</span><span style="color:#D6CB65">\`</span><span style="color:#976025">@compute @workgroup_size(1) fn main() {}</span><span style="color:#D6CB65">\`</span><span style="color:#976025">;</span></span>
+<span class="line"></span></code></pre>
+  </details>
+</section>
+<section id="versicolor" class="theme">
+  <header>
+    <h2>Argiope Versicolor</h2>
+    <p>Same source on both sides. Shiki uses the generated Argiope TextMate theme and injection grammar; the reference image is the existing Neovim render.</p>
+  </header>
+  <div class="comparison">
+    <figure>
+      <figcaption>Shiki / TextMate</figcaption>
+      <pre class="shiki Argiope Versicolor" style="background-color:#080A16;color:#F8F8F2" tabindex="0"><code><span class="line"><span style="color:#FF7AC6">import</span><span style="color:#F8F8F2"> { </span><span style="color:#DBC99F">html</span><span style="color:#F8F8F2">, </span><span style="color:#DBC99F">css</span><span style="color:#F8F8F2">, </span><span style="color:#DBC99F">svg</span><span style="color:#F8F8F2">, </span><span style="color:#DBC99F">classify</span><span style="color:#F8F8F2"> } </span><span style="color:#FF7AC6">from</span><span style="color:#F8F8F2"> '</span><span style="color:#A4AAB7">zilk</span><span style="color:#F8F8F2">'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7AC6">const</span><span style="color:#F8F8F2"> { </span><span style="color:#F6CE55">CARD</span><span style="color:#F8F8F2">, </span><span style="color:#F6CE55">LIST</span><span style="color:#F8F8F2"> } </span><span style="color:#FF7AC6">=</span><span style="color:#52FA7C"> classify</span><span style="color:#F8F8F2">(</span><span style="color:#F8F8F2">'</span><span style="color:#A4AAB7">MyCard</span><span style="color:#F8F8F2">'</span><span style="color:#F8F8F2">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7AC6">export</span><span style="color:#FF7AC6"> default</span><span style="color:#F8F8F2"> ({ </span><span style="color:#DBC99F">title</span><span style="color:#F8F8F2">, </span><span style="color:#DBC99F">list</span><span style="color:#F8F8F2"> }) </span><span style="color:#FF7AC6">=></span><span style="color:#52FA7C"> html</span><span style="color:#F8F8F2">`</span></span>
+<span class="line"><span style="color:#063A41">  &#x3C;</span><span style="color:#4CB0C0">article</span><span style="color:#4CB0C0"> class</span><span style="color:#063A41">=</span><span style="color:#526284">${</span><span style="color:#F6CE55">CARD</span><span style="color:#526284">}</span><span style="color:#063A41">></span></span>
+<span class="line"><span style="color:#063A41">    &#x3C;</span><span style="color:#4CB0C0">h2</span><span style="color:#4CB0C0"> class</span><span style="color:#063A41">=</span><span style="color:#526284">${</span><span style="color:#F6CE55">CARD</span><span style="color:#063A41">.</span><span style="color:#F6CE55">TITLE</span><span style="color:#526284">}</span><span style="color:#063A41">></span><span style="color:#526284">${</span><span style="color:#DBC99F">title</span><span style="color:#526284">}</span><span style="color:#063A41">&#x3C;/</span><span style="color:#4CB0C0">h2</span><span style="color:#063A41">></span></span>
+<span class="line"><span style="color:#063A41">    &#x3C;</span><span style="color:#4CB0C0">ul</span><span style="color:#4CB0C0"> class</span><span style="color:#063A41">=</span><span style="color:#526284">${</span><span style="color:#F6CE55">LIST</span><span style="color:#526284">}</span><span style="color:#063A41">></span></span>
+<span class="line"><span style="color:#526284">      ${</span><span style="color:#DBC99F">list</span><span style="color:#063A41">.</span><span style="color:#52FA7C">map</span><span style="color:#F8F8F2">(</span><span style="color:#DBC99F">item</span><span style="color:#FF7AC6"> =></span><span style="color:#52FA7C"> html</span><span style="color:#F8F8F2">`</span></span>
+<span class="line"><span style="color:#063A41">        &#x3C;</span><span style="color:#4CB0C0">li</span><span style="color:#4CB0C0"> class</span><span style="color:#063A41">=</span><span style="color:#526284">${</span><span style="color:#F6CE55">LIST</span><span style="color:#063A41">.</span><span style="color:#F6CE55">ITEM</span><span style="color:#526284">}</span><span style="color:#063A41">></span><span style="color:#526284">${</span><span style="color:#DBC99F">item</span><span style="color:#526284">}</span><span style="color:#063A41">&#x3C;/</span><span style="color:#4CB0C0">li</span><span style="color:#063A41">></span></span>
+<span class="line"><span style="color:#F8F8F2">      `</span><span style="color:#F8F8F2">)</span><span style="color:#526284">}</span></span>
+<span class="line"><span style="color:#063A41">    &#x3C;/</span><span style="color:#4CB0C0">ul</span><span style="color:#063A41">></span></span>
+<span class="line"><span style="color:#063A41">  &#x3C;/</span><span style="color:#4CB0C0">article</span><span style="color:#063A41">></span></span>
+<span class="line"><span style="color:#F8F8F2">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7AC6">export</span><span style="color:#FF7AC6"> const</span><span style="color:#52FA7C"> styles</span><span style="color:#FF7AC6"> =</span><span style="color:#F8F8F2"> () </span><span style="color:#FF7AC6">=></span><span style="color:#5FD07D"> css</span><span style="color:#228342">`</span></span>
+<span class="line"><span style="color:#F8F8F2">  .</span><span style="color:#526284">${</span><span style="color:#F6CE55">CARD</span><span style="color:#526284">}</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#48BA69">    background-color</span><span style="color:#4E5852">:</span><span style="color:#228342"> #</span><span style="color:#5FD07D">fff</span><span style="color:#4E5852">;</span></span>
+<span class="line"><span style="color:#48BA69">    padding</span><span style="color:#4E5852">:</span><span style="color:#5FD07D"> 2</span><span style="color:#48BA69">rem</span><span style="color:#4E5852">;</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">  .</span><span style="color:#526284">${</span><span style="color:#F6CE55">CARD</span><span style="color:#4E5852">.</span><span style="color:#F6CE55">TITLE</span><span style="color:#526284">}</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#48BA69">    font-weight</span><span style="color:#4E5852">:</span><span style="color:#5FD07D"> bold</span><span style="color:#4E5852">;</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#F8F8F2">  .</span><span style="color:#526284">${</span><span style="color:#F6CE55">LIST</span><span style="color:#4E5852">.</span><span style="color:#F6CE55">ITEM</span><span style="color:#526284">}</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#48BA69">    margin-left</span><span style="color:#4E5852">:</span><span style="color:#5FD07D"> 2</span><span style="color:#48BA69">rem</span><span style="color:#4E5852">;</span></span>
+<span class="line"><span style="color:#F8F8F2">  }</span></span>
+<span class="line"><span style="color:#228342">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7AC6">export</span><span style="color:#FF7AC6"> const</span><span style="color:#52FA7C"> docs</span><span style="color:#FF7AC6"> =</span><span style="color:#F8F8F2"> ({ </span><span style="color:#DBC99F">title</span><span style="color:#F8F8F2">, </span><span style="color:#DBC99F">list</span><span style="color:#F8F8F2"> }) </span><span style="color:#FF7AC6">=></span><span style="color:#52FA7C"> md</span><span style="color:#5D0B36">`</span></span>
+<span class="line"><span style="color:#5D0B36">  ##</span><span style="color:#526284"> ${</span><span style="color:#DBC99F">title</span><span style="color:#526284">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F8F8F2">  This is some markdown to match the html view</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#526284">  ${</span><span style="color:#DBC99F">list</span><span style="color:#B53773">.</span><span style="color:#52FA7C">map</span><span style="color:#F8F8F2">(</span><span style="color:#DBC99F">item</span><span style="color:#FF7AC6"> =></span><span style="color:#52FA7C"> md</span><span style="color:#5D0B36">`</span></span>
+<span class="line"><span style="color:#5D0B36">    -</span><span style="color:#526284"> ${</span><span style="color:#DBC99F">item</span><span style="color:#526284">}</span></span>
+<span class="line"><span style="color:#F8F8F2">  `)}</span></span>
+<span class="line"><span style="color:#5D0B36">`</span></span>
+<span class="line"></span></code></pre>
+    </figure>
+    <figure>
+      <figcaption>Neovim reference</figcaption>
+      <img src="images/themes/argiope-versicolor.png" alt="Neovim rendering of Argiope Versicolor">
+    </figure>
+  </div>
+  <details>
+    <summary>Additional injected-language coverage</summary>
+    <pre class="shiki Argiope Versicolor" style="background-color:#080A16;color:#F8F8F2" tabindex="0"><code><span class="line"><span style="color:#FF7AC6">const</span><span style="color:#F6CE55"> icon</span><span style="color:#FF7AC6"> =</span><span style="color:#DBC99F"> svg</span><span style="color:#F8F8F2">\</span><span style="color:#F8F8F2">`</span><span style="color:#A4AAB7">&#x3C;svg viewBox="0 0 1 1">&#x3C;circle cx="0.5" cy="0.5" r="0.5" />&#x3C;/svg></span><span style="color:#FFB86B">\`</span><span style="color:#A4AAB7">;</span></span>
+<span class="line"><span style="color:#A4AAB7">const raw = raw.js</span><span style="color:#FFB86B">\`</span><span style="color:#A4AAB7">const answer = 42;</span><span style="color:#FFB86B">\`</span><span style="color:#A4AAB7">;</span></span>
+<span class="line"><span style="color:#A4AAB7">const fragment = glsl</span><span style="color:#FFB86B">\`</span><span style="color:#A4AAB7">void main() { gl_FragColor = vec4(1.0); }</span><span style="color:#FFB86B">\`</span><span style="color:#A4AAB7">;</span></span>
+<span class="line"><span style="color:#A4AAB7">const compute = wgsl</span><span style="color:#FFB86B">\`</span><span style="color:#A4AAB7">@compute @workgroup_size(1) fn main() {}</span><span style="color:#FFB86B">\`</span><span style="color:#A4AAB7">;</span></span>
+<span class="line"></span></code></pre>
+  </details>
+</section>
+<section id="aurantia-neon" class="theme">
+  <header>
+    <h2>Argiope Aurantia Neon</h2>
+    <p>Same source on both sides. Shiki uses the generated Argiope TextMate theme and injection grammar; the reference image is the existing Neovim render.</p>
+  </header>
+  <div class="comparison">
+    <figure>
+      <figcaption>Shiki / TextMate</figcaption>
+      <pre class="shiki Argiope Aurantia Neon" style="background-color:#05070B;color:#F2F5FA" tabindex="0"><code><span class="line"><span style="color:#F5E664">import</span><span style="color:#6B727B"> {</span><span style="color:#F1BC45"> html</span><span style="color:#B1B8C0">,</span><span style="color:#F1BC45"> css</span><span style="color:#B1B8C0">,</span><span style="color:#F1BC45"> svg</span><span style="color:#B1B8C0">,</span><span style="color:#F1BC45"> classify</span><span style="color:#6B727B"> }</span><span style="color:#F5E664"> from</span><span style="color:#6B727B"> '</span><span style="color:#DD8924">zilk</span><span style="color:#6B727B">'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#BBB6AF">const</span><span style="color:#6B727B"> {</span><span style="color:#F5E664"> CARD</span><span style="color:#B1B8C0">,</span><span style="color:#F5E664"> LIST</span><span style="color:#6B727B"> }</span><span style="color:#EAA32F"> =</span><span style="color:#F4D258"> classify</span><span style="color:#F2F5FA">(</span><span style="color:#6B727B">'</span><span style="color:#DD8924">MyCard</span><span style="color:#6B727B">'</span><span style="color:#F2F5FA">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F5E664">export</span><span style="color:#F5E664"> default</span><span style="color:#6B727B"> ({</span><span style="color:#F1BC45"> title</span><span style="color:#B1B8C0">,</span><span style="color:#F1BC45"> list</span><span style="color:#6B727B"> })</span><span style="color:#BBB6AF"> =></span><span style="color:#F4D258"> html</span><span style="color:#6B727B">`</span></span>
+<span class="line"><span style="color:#0D808F">  &#x3C;</span><span style="color:#4CDAF0">article</span><span style="color:#4CDAF0"> class</span><span style="color:#0D808F">=</span><span style="color:#6B727B">${</span><span style="color:#F5E664">CARD</span><span style="color:#6B727B">}</span><span style="color:#0D808F">></span></span>
+<span class="line"><span style="color:#0D808F">    &#x3C;</span><span style="color:#4CDAF0">h2</span><span style="color:#4CDAF0"> class</span><span style="color:#0D808F">=</span><span style="color:#6B727B">${</span><span style="color:#F5E664">CARD</span><span style="color:#0D808F">.</span><span style="color:#F5E664">TITLE</span><span style="color:#6B727B">}</span><span style="color:#0D808F">></span><span style="color:#6B727B">${</span><span style="color:#F1BC45">title</span><span style="color:#6B727B">}</span><span style="color:#0D808F">&#x3C;/</span><span style="color:#4CDAF0">h2</span><span style="color:#0D808F">></span></span>
+<span class="line"><span style="color:#0D808F">    &#x3C;</span><span style="color:#4CDAF0">ul</span><span style="color:#4CDAF0"> class</span><span style="color:#0D808F">=</span><span style="color:#6B727B">${</span><span style="color:#F5E664">LIST</span><span style="color:#6B727B">}</span><span style="color:#0D808F">></span></span>
+<span class="line"><span style="color:#6B727B">      ${</span><span style="color:#F1BC45">list</span><span style="color:#0D808F">.</span><span style="color:#F4D258">map</span><span style="color:#F2F5FA">(</span><span style="color:#F1BC45">item</span><span style="color:#BBB6AF"> =></span><span style="color:#F4D258"> html</span><span style="color:#6B727B">`</span></span>
+<span class="line"><span style="color:#0D808F">        &#x3C;</span><span style="color:#4CDAF0">li</span><span style="color:#4CDAF0"> class</span><span style="color:#0D808F">=</span><span style="color:#6B727B">${</span><span style="color:#F5E664">LIST</span><span style="color:#0D808F">.</span><span style="color:#F5E664">ITEM</span><span style="color:#6B727B">}</span><span style="color:#0D808F">></span><span style="color:#6B727B">${</span><span style="color:#F1BC45">item</span><span style="color:#6B727B">}</span><span style="color:#0D808F">&#x3C;/</span><span style="color:#4CDAF0">li</span><span style="color:#0D808F">></span></span>
+<span class="line"><span style="color:#6B727B">      `</span><span style="color:#F2F5FA">)</span><span style="color:#6B727B">}</span></span>
+<span class="line"><span style="color:#0D808F">    &#x3C;/</span><span style="color:#4CDAF0">ul</span><span style="color:#0D808F">></span></span>
+<span class="line"><span style="color:#0D808F">  &#x3C;/</span><span style="color:#4CDAF0">article</span><span style="color:#0D808F">></span></span>
+<span class="line"><span style="color:#6B727B">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F5E664">export</span><span style="color:#BBB6AF"> const</span><span style="color:#F4D258"> styles</span><span style="color:#EAA32F"> =</span><span style="color:#6B727B"> ()</span><span style="color:#BBB6AF"> =></span><span style="color:#68F690"> css</span><span style="color:#1DBE5C">`</span></span>
+<span class="line"><span style="color:#F2F5FA">  .</span><span style="color:#6B727B">${</span><span style="color:#F5E664">CARD</span><span style="color:#6B727B">}</span><span style="color:#6B727B"> {</span></span>
+<span class="line"><span style="color:#36E976">    background-color</span><span style="color:#6A756E">:</span><span style="color:#1DBE5C"> #</span><span style="color:#68F690">fff</span><span style="color:#6A756E">;</span></span>
+<span class="line"><span style="color:#36E976">    padding</span><span style="color:#6A756E">:</span><span style="color:#68F690"> 2</span><span style="color:#36E976">rem</span><span style="color:#6A756E">;</span></span>
+<span class="line"><span style="color:#6B727B">  }</span></span>
+<span class="line"><span style="color:#F2F5FA">  .</span><span style="color:#6B727B">${</span><span style="color:#F5E664">CARD</span><span style="color:#6A756E">.</span><span style="color:#F5E664">TITLE</span><span style="color:#6B727B">}</span><span style="color:#6B727B"> {</span></span>
+<span class="line"><span style="color:#36E976">    font-weight</span><span style="color:#6A756E">:</span><span style="color:#68F690"> bold</span><span style="color:#6A756E">;</span></span>
+<span class="line"><span style="color:#6B727B">  }</span></span>
+<span class="line"><span style="color:#F2F5FA">  .</span><span style="color:#6B727B">${</span><span style="color:#F5E664">LIST</span><span style="color:#6A756E">.</span><span style="color:#F5E664">ITEM</span><span style="color:#6B727B">}</span><span style="color:#6B727B"> {</span></span>
+<span class="line"><span style="color:#36E976">    margin-left</span><span style="color:#6A756E">:</span><span style="color:#68F690"> 2</span><span style="color:#36E976">rem</span><span style="color:#6A756E">;</span></span>
+<span class="line"><span style="color:#6B727B">  }</span></span>
+<span class="line"><span style="color:#1DBE5C">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F5E664">export</span><span style="color:#BBB6AF"> const</span><span style="color:#F4D258"> docs</span><span style="color:#EAA32F"> =</span><span style="color:#6B727B"> ({</span><span style="color:#F1BC45"> title</span><span style="color:#B1B8C0">,</span><span style="color:#F1BC45"> list</span><span style="color:#6B727B"> })</span><span style="color:#BBB6AF"> =></span><span style="color:#F4D258"> md</span><span style="color:#C71978">`</span></span>
+<span class="line"><span style="color:#C71978">  ##</span><span style="color:#6B727B"> ${</span><span style="color:#F1BC45">title</span><span style="color:#6B727B">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F2F5FA">  This is some markdown to match the html view</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6B727B">  ${</span><span style="color:#F1BC45">list</span><span style="color:#FB5CA6">.</span><span style="color:#F4D258">map</span><span style="color:#F2F5FA">(</span><span style="color:#F1BC45">item</span><span style="color:#BBB6AF"> =></span><span style="color:#F4D258"> md</span><span style="color:#C71978">`</span></span>
+<span class="line"><span style="color:#C71978">    -</span><span style="color:#6B727B"> ${</span><span style="color:#F1BC45">item</span><span style="color:#6B727B">}</span></span>
+<span class="line"><span style="color:#F2F5FA">  `)}</span></span>
+<span class="line"><span style="color:#C71978">`</span></span>
+<span class="line"></span></code></pre>
+    </figure>
+    <figure>
+      <figcaption>Neovim reference</figcaption>
+      <img src="images/themes/argiope-aurantia-neon.png" alt="Neovim rendering of Argiope Aurantia Neon">
+    </figure>
+  </div>
+  <details>
+    <summary>Additional injected-language coverage</summary>
+    <pre class="shiki Argiope Aurantia Neon" style="background-color:#05070B;color:#F2F5FA" tabindex="0"><code><span class="line"><span style="color:#BBB6AF">const</span><span style="color:#F5E664"> icon</span><span style="color:#EAA32F"> =</span><span style="color:#F1BC45"> svg</span><span style="color:#F2F5FA">\</span><span style="color:#6B727B">`</span><span style="color:#DD8924">&#x3C;svg viewBox="0 0 1 1">&#x3C;circle cx="0.5" cy="0.5" r="0.5" />&#x3C;/svg></span><span style="color:#F5E664">\`</span><span style="color:#DD8924">;</span></span>
+<span class="line"><span style="color:#DD8924">const raw = raw.js</span><span style="color:#F5E664">\`</span><span style="color:#DD8924">const answer = 42;</span><span style="color:#F5E664">\`</span><span style="color:#DD8924">;</span></span>
+<span class="line"><span style="color:#DD8924">const fragment = glsl</span><span style="color:#F5E664">\`</span><span style="color:#DD8924">void main() { gl_FragColor = vec4(1.0); }</span><span style="color:#F5E664">\`</span><span style="color:#DD8924">;</span></span>
+<span class="line"><span style="color:#DD8924">const compute = wgsl</span><span style="color:#F5E664">\`</span><span style="color:#DD8924">@compute @workgroup_size(1) fn main() {}</span><span style="color:#F5E664">\`</span><span style="color:#DD8924">;</span></span>
+<span class="line"></span></code></pre>
+  </details>
+</section>
+<section id="versicolor-neon" class="theme">
+  <header>
+    <h2>Argiope Versicolor Neon</h2>
+    <p>Same source on both sides. Shiki uses the generated Argiope TextMate theme and injection grammar; the reference image is the existing Neovim render.</p>
+  </header>
+  <div class="comparison">
+    <figure>
+      <figcaption>Shiki / TextMate</figcaption>
+      <pre class="shiki Argiope Versicolor Neon" style="background-color:#05070B;color:#F2F5FA" tabindex="0"><code><span class="line"><span style="color:#FF82C3">import</span><span style="color:#F2F5FA"> { </span><span style="color:#EAD9AD">html</span><span style="color:#F2F5FA">, </span><span style="color:#EAD9AD">css</span><span style="color:#F2F5FA">, </span><span style="color:#EAD9AD">svg</span><span style="color:#F2F5FA">, </span><span style="color:#EAD9AD">classify</span><span style="color:#F2F5FA"> } </span><span style="color:#FF82C3">from</span><span style="color:#F2F5FA"> '</span><span style="color:#C8D0DC">zilk</span><span style="color:#F2F5FA">'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF82C3">const</span><span style="color:#F2F5FA"> { </span><span style="color:#FFD447">CARD</span><span style="color:#F2F5FA">, </span><span style="color:#FFD447">LIST</span><span style="color:#F2F5FA"> } </span><span style="color:#FF82C3">=</span><span style="color:#62E493"> classify</span><span style="color:#F2F5FA">(</span><span style="color:#F2F5FA">'</span><span style="color:#C8D0DC">MyCard</span><span style="color:#F2F5FA">'</span><span style="color:#F2F5FA">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF82C3">export</span><span style="color:#FF82C3"> default</span><span style="color:#F2F5FA"> ({ </span><span style="color:#EAD9AD">title</span><span style="color:#F2F5FA">, </span><span style="color:#EAD9AD">list</span><span style="color:#F2F5FA"> }) </span><span style="color:#FF82C3">=></span><span style="color:#62E493"> html</span><span style="color:#F2F5FA">`</span></span>
+<span class="line"><span style="color:#0D808F">  &#x3C;</span><span style="color:#4CDAF0">article</span><span style="color:#4CDAF0"> class</span><span style="color:#0D808F">=</span><span style="color:#8290A8">${</span><span style="color:#FFD447">CARD</span><span style="color:#8290A8">}</span><span style="color:#0D808F">></span></span>
+<span class="line"><span style="color:#0D808F">    &#x3C;</span><span style="color:#4CDAF0">h2</span><span style="color:#4CDAF0"> class</span><span style="color:#0D808F">=</span><span style="color:#8290A8">${</span><span style="color:#FFD447">CARD</span><span style="color:#0D808F">.</span><span style="color:#FFD447">TITLE</span><span style="color:#8290A8">}</span><span style="color:#0D808F">></span><span style="color:#8290A8">${</span><span style="color:#EAD9AD">title</span><span style="color:#8290A8">}</span><span style="color:#0D808F">&#x3C;/</span><span style="color:#4CDAF0">h2</span><span style="color:#0D808F">></span></span>
+<span class="line"><span style="color:#0D808F">    &#x3C;</span><span style="color:#4CDAF0">ul</span><span style="color:#4CDAF0"> class</span><span style="color:#0D808F">=</span><span style="color:#8290A8">${</span><span style="color:#FFD447">LIST</span><span style="color:#8290A8">}</span><span style="color:#0D808F">></span></span>
+<span class="line"><span style="color:#8290A8">      ${</span><span style="color:#EAD9AD">list</span><span style="color:#0D808F">.</span><span style="color:#62E493">map</span><span style="color:#F2F5FA">(</span><span style="color:#EAD9AD">item</span><span style="color:#FF82C3"> =></span><span style="color:#62E493"> html</span><span style="color:#F2F5FA">`</span></span>
+<span class="line"><span style="color:#0D808F">        &#x3C;</span><span style="color:#4CDAF0">li</span><span style="color:#4CDAF0"> class</span><span style="color:#0D808F">=</span><span style="color:#8290A8">${</span><span style="color:#FFD447">LIST</span><span style="color:#0D808F">.</span><span style="color:#FFD447">ITEM</span><span style="color:#8290A8">}</span><span style="color:#0D808F">></span><span style="color:#8290A8">${</span><span style="color:#EAD9AD">item</span><span style="color:#8290A8">}</span><span style="color:#0D808F">&#x3C;/</span><span style="color:#4CDAF0">li</span><span style="color:#0D808F">></span></span>
+<span class="line"><span style="color:#F2F5FA">      `</span><span style="color:#F2F5FA">)</span><span style="color:#8290A8">}</span></span>
+<span class="line"><span style="color:#0D808F">    &#x3C;/</span><span style="color:#4CDAF0">ul</span><span style="color:#0D808F">></span></span>
+<span class="line"><span style="color:#0D808F">  &#x3C;/</span><span style="color:#4CDAF0">article</span><span style="color:#0D808F">></span></span>
+<span class="line"><span style="color:#F2F5FA">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF82C3">export</span><span style="color:#FF82C3"> const</span><span style="color:#62E493"> styles</span><span style="color:#FF82C3"> =</span><span style="color:#F2F5FA"> () </span><span style="color:#FF82C3">=></span><span style="color:#68F690"> css</span><span style="color:#1DBE5C">`</span></span>
+<span class="line"><span style="color:#F2F5FA">  .</span><span style="color:#8290A8">${</span><span style="color:#FFD447">CARD</span><span style="color:#8290A8">}</span><span style="color:#F2F5FA"> {</span></span>
+<span class="line"><span style="color:#36E976">    background-color</span><span style="color:#6A756E">:</span><span style="color:#1DBE5C"> #</span><span style="color:#68F690">fff</span><span style="color:#6A756E">;</span></span>
+<span class="line"><span style="color:#36E976">    padding</span><span style="color:#6A756E">:</span><span style="color:#68F690"> 2</span><span style="color:#36E976">rem</span><span style="color:#6A756E">;</span></span>
+<span class="line"><span style="color:#F2F5FA">  }</span></span>
+<span class="line"><span style="color:#F2F5FA">  .</span><span style="color:#8290A8">${</span><span style="color:#FFD447">CARD</span><span style="color:#6A756E">.</span><span style="color:#FFD447">TITLE</span><span style="color:#8290A8">}</span><span style="color:#F2F5FA"> {</span></span>
+<span class="line"><span style="color:#36E976">    font-weight</span><span style="color:#6A756E">:</span><span style="color:#68F690"> bold</span><span style="color:#6A756E">;</span></span>
+<span class="line"><span style="color:#F2F5FA">  }</span></span>
+<span class="line"><span style="color:#F2F5FA">  .</span><span style="color:#8290A8">${</span><span style="color:#FFD447">LIST</span><span style="color:#6A756E">.</span><span style="color:#FFD447">ITEM</span><span style="color:#8290A8">}</span><span style="color:#F2F5FA"> {</span></span>
+<span class="line"><span style="color:#36E976">    margin-left</span><span style="color:#6A756E">:</span><span style="color:#68F690"> 2</span><span style="color:#36E976">rem</span><span style="color:#6A756E">;</span></span>
+<span class="line"><span style="color:#F2F5FA">  }</span></span>
+<span class="line"><span style="color:#1DBE5C">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF82C3">export</span><span style="color:#FF82C3"> const</span><span style="color:#62E493"> docs</span><span style="color:#FF82C3"> =</span><span style="color:#F2F5FA"> ({ </span><span style="color:#EAD9AD">title</span><span style="color:#F2F5FA">, </span><span style="color:#EAD9AD">list</span><span style="color:#F2F5FA"> }) </span><span style="color:#FF82C3">=></span><span style="color:#62E493"> md</span><span style="color:#C71978">`</span></span>
+<span class="line"><span style="color:#C71978">  ##</span><span style="color:#8290A8"> ${</span><span style="color:#EAD9AD">title</span><span style="color:#8290A8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F2F5FA">  This is some markdown to match the html view</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8290A8">  ${</span><span style="color:#EAD9AD">list</span><span style="color:#FB5CA6">.</span><span style="color:#62E493">map</span><span style="color:#F2F5FA">(</span><span style="color:#EAD9AD">item</span><span style="color:#FF82C3"> =></span><span style="color:#62E493"> md</span><span style="color:#C71978">`</span></span>
+<span class="line"><span style="color:#C71978">    -</span><span style="color:#8290A8"> ${</span><span style="color:#EAD9AD">item</span><span style="color:#8290A8">}</span></span>
+<span class="line"><span style="color:#F2F5FA">  `)}</span></span>
+<span class="line"><span style="color:#C71978">`</span></span>
+<span class="line"></span></code></pre>
+    </figure>
+    <figure>
+      <figcaption>Neovim reference</figcaption>
+      <img src="images/themes/argiope-versicolor-neon.png" alt="Neovim rendering of Argiope Versicolor Neon">
+    </figure>
+  </div>
+  <details>
+    <summary>Additional injected-language coverage</summary>
+    <pre class="shiki Argiope Versicolor Neon" style="background-color:#05070B;color:#F2F5FA" tabindex="0"><code><span class="line"><span style="color:#FF82C3">const</span><span style="color:#FFD447"> icon</span><span style="color:#FF82C3"> =</span><span style="color:#EAD9AD"> svg</span><span style="color:#F2F5FA">\</span><span style="color:#F2F5FA">`</span><span style="color:#C8D0DC">&#x3C;svg viewBox="0 0 1 1">&#x3C;circle cx="0.5" cy="0.5" r="0.5" />&#x3C;/svg></span><span style="color:#FFAD55">\`</span><span style="color:#C8D0DC">;</span></span>
+<span class="line"><span style="color:#C8D0DC">const raw = raw.js</span><span style="color:#FFAD55">\`</span><span style="color:#C8D0DC">const answer = 42;</span><span style="color:#FFAD55">\`</span><span style="color:#C8D0DC">;</span></span>
+<span class="line"><span style="color:#C8D0DC">const fragment = glsl</span><span style="color:#FFAD55">\`</span><span style="color:#C8D0DC">void main() { gl_FragColor = vec4(1.0); }</span><span style="color:#FFAD55">\`</span><span style="color:#C8D0DC">;</span></span>
+<span class="line"><span style="color:#C8D0DC">const compute = wgsl</span><span style="color:#FFAD55">\`</span><span style="color:#C8D0DC">@compute @workgroup_size(1) fn main() {}</span><span style="color:#FFAD55">\`</span><span style="color:#C8D0DC">;</span></span>
+<span class="line"></span></code></pre>
+  </details>
+</section>
+<section id="ocyaloides" class="theme">
+  <header>
+    <h2>Argiope Ocyaloides</h2>
+    <p>Same source on both sides. Shiki uses the generated Argiope TextMate theme and injection grammar; the reference image is the existing Neovim render.</p>
+  </header>
+  <div class="comparison">
+    <figure>
+      <figcaption>Shiki / TextMate</figcaption>
+      <pre class="shiki Argiope Ocyaloides" style="background-color:#151719;color:#C7C9C8" tabindex="0"><code><span class="line"><span style="color:#B4B7BA">import</span><span style="color:#515355"> {</span><span style="color:#95979B"> html</span><span style="color:#888B8D">,</span><span style="color:#95979B"> css</span><span style="color:#888B8D">,</span><span style="color:#95979B"> svg</span><span style="color:#888B8D">,</span><span style="color:#95979B"> classify</span><span style="color:#515355"> }</span><span style="color:#B4B7BA"> from</span><span style="color:#515355"> '</span><span style="color:#707276">zilk</span><span style="color:#515355">'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#888B8D">const</span><span style="color:#515355"> {</span><span style="color:#B4B7BA"> CARD</span><span style="color:#888B8D">,</span><span style="color:#B4B7BA"> LIST</span><span style="color:#515355"> }</span><span style="color:#838689"> =</span><span style="color:#A5A8AB"> classify</span><span style="color:#C7C9C8">(</span><span style="color:#515355">'</span><span style="color:#707276">MyCard</span><span style="color:#515355">'</span><span style="color:#C7C9C8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B4B7BA">export</span><span style="color:#B4B7BA"> default</span><span style="color:#515355"> ({</span><span style="color:#95979B"> title</span><span style="color:#888B8D">,</span><span style="color:#95979B"> list</span><span style="color:#515355"> })</span><span style="color:#888B8D"> =></span><span style="color:#A5A8AB"> html</span><span style="color:#515355">`</span></span>
+<span class="line"><span style="color:#254F56">  &#x3C;</span><span style="color:#6FA1AA">article</span><span style="color:#6FA1AA"> class</span><span style="color:#254F56">=</span><span style="color:#515355">${</span><span style="color:#B4B7BA">CARD</span><span style="color:#515355">}</span><span style="color:#254F56">></span></span>
+<span class="line"><span style="color:#254F56">    &#x3C;</span><span style="color:#6FA1AA">h2</span><span style="color:#6FA1AA"> class</span><span style="color:#254F56">=</span><span style="color:#515355">${</span><span style="color:#B4B7BA">CARD</span><span style="color:#254F56">.</span><span style="color:#B4B7BA">TITLE</span><span style="color:#515355">}</span><span style="color:#254F56">></span><span style="color:#515355">${</span><span style="color:#95979B">title</span><span style="color:#515355">}</span><span style="color:#254F56">&#x3C;/</span><span style="color:#6FA1AA">h2</span><span style="color:#254F56">></span></span>
+<span class="line"><span style="color:#254F56">    &#x3C;</span><span style="color:#6FA1AA">ul</span><span style="color:#6FA1AA"> class</span><span style="color:#254F56">=</span><span style="color:#515355">${</span><span style="color:#B4B7BA">LIST</span><span style="color:#515355">}</span><span style="color:#254F56">></span></span>
+<span class="line"><span style="color:#515355">      ${</span><span style="color:#95979B">list</span><span style="color:#254F56">.</span><span style="color:#A5A8AB">map</span><span style="color:#C7C9C8">(</span><span style="color:#95979B">item</span><span style="color:#888B8D"> =></span><span style="color:#A5A8AB"> html</span><span style="color:#515355">`</span></span>
+<span class="line"><span style="color:#254F56">        &#x3C;</span><span style="color:#6FA1AA">li</span><span style="color:#6FA1AA"> class</span><span style="color:#254F56">=</span><span style="color:#515355">${</span><span style="color:#B4B7BA">LIST</span><span style="color:#254F56">.</span><span style="color:#B4B7BA">ITEM</span><span style="color:#515355">}</span><span style="color:#254F56">></span><span style="color:#515355">${</span><span style="color:#95979B">item</span><span style="color:#515355">}</span><span style="color:#254F56">&#x3C;/</span><span style="color:#6FA1AA">li</span><span style="color:#254F56">></span></span>
+<span class="line"><span style="color:#515355">      `</span><span style="color:#C7C9C8">)</span><span style="color:#515355">}</span></span>
+<span class="line"><span style="color:#254F56">    &#x3C;/</span><span style="color:#6FA1AA">ul</span><span style="color:#254F56">></span></span>
+<span class="line"><span style="color:#254F56">  &#x3C;/</span><span style="color:#6FA1AA">article</span><span style="color:#254F56">></span></span>
+<span class="line"><span style="color:#515355">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B4B7BA">export</span><span style="color:#888B8D"> const</span><span style="color:#A5A8AB"> styles</span><span style="color:#838689"> =</span><span style="color:#515355"> ()</span><span style="color:#888B8D"> =></span><span style="color:#7EB88A"> css</span><span style="color:#498156">`</span></span>
+<span class="line"><span style="color:#C7C9C8">  .</span><span style="color:#515355">${</span><span style="color:#B4B7BA">CARD</span><span style="color:#515355">}</span><span style="color:#515355"> {</span></span>
+<span class="line"><span style="color:#6DA779">    background-color</span><span style="color:#505351">:</span><span style="color:#498156"> #</span><span style="color:#7EB88A">fff</span><span style="color:#505351">;</span></span>
+<span class="line"><span style="color:#6DA779">    padding</span><span style="color:#505351">:</span><span style="color:#7EB88A"> 2</span><span style="color:#6DA779">rem</span><span style="color:#505351">;</span></span>
+<span class="line"><span style="color:#515355">  }</span></span>
+<span class="line"><span style="color:#C7C9C8">  .</span><span style="color:#515355">${</span><span style="color:#B4B7BA">CARD</span><span style="color:#505351">.</span><span style="color:#B4B7BA">TITLE</span><span style="color:#515355">}</span><span style="color:#515355"> {</span></span>
+<span class="line"><span style="color:#6DA779">    font-weight</span><span style="color:#505351">:</span><span style="color:#7EB88A"> bold</span><span style="color:#505351">;</span></span>
+<span class="line"><span style="color:#515355">  }</span></span>
+<span class="line"><span style="color:#C7C9C8">  .</span><span style="color:#515355">${</span><span style="color:#B4B7BA">LIST</span><span style="color:#505351">.</span><span style="color:#B4B7BA">ITEM</span><span style="color:#515355">}</span><span style="color:#515355"> {</span></span>
+<span class="line"><span style="color:#6DA779">    margin-left</span><span style="color:#505351">:</span><span style="color:#7EB88A"> 2</span><span style="color:#6DA779">rem</span><span style="color:#505351">;</span></span>
+<span class="line"><span style="color:#515355">  }</span></span>
+<span class="line"><span style="color:#498156">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B4B7BA">export</span><span style="color:#888B8D"> const</span><span style="color:#A5A8AB"> docs</span><span style="color:#838689"> =</span><span style="color:#515355"> ({</span><span style="color:#95979B"> title</span><span style="color:#888B8D">,</span><span style="color:#95979B"> list</span><span style="color:#515355"> })</span><span style="color:#888B8D"> =></span><span style="color:#A5A8AB"> md</span><span style="color:#6E2F4A">`</span></span>
+<span class="line"><span style="color:#6E2F4A">  ##</span><span style="color:#515355"> ${</span><span style="color:#95979B">title</span><span style="color:#515355">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C7C9C8">  This is some markdown to match the html view</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#515355">  ${</span><span style="color:#95979B">list</span><span style="color:#A05875">.</span><span style="color:#A5A8AB">map</span><span style="color:#C7C9C8">(</span><span style="color:#95979B">item</span><span style="color:#888B8D"> =></span><span style="color:#A5A8AB"> md</span><span style="color:#6E2F4A">`</span></span>
+<span class="line"><span style="color:#6E2F4A">    -</span><span style="color:#515355"> ${</span><span style="color:#95979B">item</span><span style="color:#515355">}</span></span>
+<span class="line"><span style="color:#C7C9C8">  `)}</span></span>
+<span class="line"><span style="color:#6E2F4A">`</span></span>
+<span class="line"></span></code></pre>
+    </figure>
+    <figure>
+      <figcaption>Neovim reference</figcaption>
+      <img src="images/themes/argiope-ocyaloides.png" alt="Neovim rendering of Argiope Ocyaloides">
+    </figure>
+  </div>
+  <details>
+    <summary>Additional injected-language coverage</summary>
+    <pre class="shiki Argiope Ocyaloides" style="background-color:#151719;color:#C7C9C8" tabindex="0"><code><span class="line"><span style="color:#888B8D">const</span><span style="color:#B4B7BA"> icon</span><span style="color:#838689"> =</span><span style="color:#95979B"> svg</span><span style="color:#C7C9C8">\</span><span style="color:#515355">`</span><span style="color:#707276">&#x3C;svg viewBox="0 0 1 1">&#x3C;circle cx="0.5" cy="0.5" r="0.5" />&#x3C;/svg></span><span style="color:#B4B7BA">\`</span><span style="color:#707276">;</span></span>
+<span class="line"><span style="color:#707276">const raw = raw.js</span><span style="color:#B4B7BA">\`</span><span style="color:#707276">const answer = 42;</span><span style="color:#B4B7BA">\`</span><span style="color:#707276">;</span></span>
+<span class="line"><span style="color:#707276">const fragment = glsl</span><span style="color:#B4B7BA">\`</span><span style="color:#707276">void main() { gl_FragColor = vec4(1.0); }</span><span style="color:#B4B7BA">\`</span><span style="color:#707276">;</span></span>
+<span class="line"><span style="color:#707276">const compute = wgsl</span><span style="color:#B4B7BA">\`</span><span style="color:#707276">@compute @workgroup_size(1) fn main() {}</span><span style="color:#B4B7BA">\`</span><span style="color:#707276">;</span></span>
+<span class="line"></span></code></pre>
+  </details>
+</section>
+<section id="trifasciata" class="theme">
+  <header>
+    <h2>Argiope Trifasciata</h2>
+    <p>Same source on both sides. Shiki uses the generated Argiope TextMate theme and injection grammar; the reference image is the existing Neovim render.</p>
+  </header>
+  <div class="comparison">
+    <figure>
+      <figcaption>Shiki / TextMate</figcaption>
+      <pre class="shiki Argiope Trifasciata" style="background-color:#F7F5EF;color:#25282D" tabindex="0"><code><span class="line"><span style="color:#1F1F1F">import</span><span style="color:#747474"> {</span><span style="color:#393939"> html</span><span style="color:#535353">,</span><span style="color:#393939"> css</span><span style="color:#535353">,</span><span style="color:#393939"> svg</span><span style="color:#535353">,</span><span style="color:#393939"> classify</span><span style="color:#747474"> }</span><span style="color:#1F1F1F"> from</span><span style="color:#747474"> '</span><span style="color:#525252">zilk</span><span style="color:#747474">'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#535353">const</span><span style="color:#747474"> {</span><span style="color:#1F1F1F"> CARD</span><span style="color:#535353">,</span><span style="color:#1F1F1F"> LIST</span><span style="color:#747474"> }</span><span style="color:#454545"> =</span><span style="color:#2C2C2C"> classify</span><span style="color:#25282D">(</span><span style="color:#747474">'</span><span style="color:#525252">MyCard</span><span style="color:#747474">'</span><span style="color:#25282D">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#1F1F1F">export</span><span style="color:#1F1F1F"> default</span><span style="color:#747474"> ({</span><span style="color:#393939"> title</span><span style="color:#535353">,</span><span style="color:#393939"> list</span><span style="color:#747474"> })</span><span style="color:#535353"> =></span><span style="color:#2C2C2C"> html</span><span style="color:#747474">`</span></span>
+<span class="line"><span style="color:#005DE0">  &#x3C;</span><span style="color:#003280">article</span><span style="color:#003280"> class</span><span style="color:#005DE0">=</span><span style="color:#747474">${</span><span style="color:#1F1F1F">CARD</span><span style="color:#747474">}</span><span style="color:#005DE0">></span></span>
+<span class="line"><span style="color:#005DE0">    &#x3C;</span><span style="color:#003280">h2</span><span style="color:#003280"> class</span><span style="color:#005DE0">=</span><span style="color:#747474">${</span><span style="color:#1F1F1F">CARD</span><span style="color:#005DE0">.</span><span style="color:#1F1F1F">TITLE</span><span style="color:#747474">}</span><span style="color:#005DE0">></span><span style="color:#747474">${</span><span style="color:#393939">title</span><span style="color:#747474">}</span><span style="color:#005DE0">&#x3C;/</span><span style="color:#003280">h2</span><span style="color:#005DE0">></span></span>
+<span class="line"><span style="color:#005DE0">    &#x3C;</span><span style="color:#003280">ul</span><span style="color:#003280"> class</span><span style="color:#005DE0">=</span><span style="color:#747474">${</span><span style="color:#1F1F1F">LIST</span><span style="color:#747474">}</span><span style="color:#005DE0">></span></span>
+<span class="line"><span style="color:#747474">      ${</span><span style="color:#393939">list</span><span style="color:#005DE0">.</span><span style="color:#2C2C2C">map</span><span style="color:#25282D">(</span><span style="color:#393939">item</span><span style="color:#535353"> =></span><span style="color:#2C2C2C"> html</span><span style="color:#747474">`</span></span>
+<span class="line"><span style="color:#005DE0">        &#x3C;</span><span style="color:#003280">li</span><span style="color:#003280"> class</span><span style="color:#005DE0">=</span><span style="color:#747474">${</span><span style="color:#1F1F1F">LIST</span><span style="color:#005DE0">.</span><span style="color:#1F1F1F">ITEM</span><span style="color:#747474">}</span><span style="color:#005DE0">></span><span style="color:#747474">${</span><span style="color:#393939">item</span><span style="color:#747474">}</span><span style="color:#005DE0">&#x3C;/</span><span style="color:#003280">li</span><span style="color:#005DE0">></span></span>
+<span class="line"><span style="color:#747474">      `</span><span style="color:#25282D">)</span><span style="color:#747474">}</span></span>
+<span class="line"><span style="color:#005DE0">    &#x3C;/</span><span style="color:#003280">ul</span><span style="color:#005DE0">></span></span>
+<span class="line"><span style="color:#005DE0">  &#x3C;/</span><span style="color:#003280">article</span><span style="color:#005DE0">></span></span>
+<span class="line"><span style="color:#747474">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#1F1F1F">export</span><span style="color:#535353"> const</span><span style="color:#2C2C2C"> styles</span><span style="color:#454545"> =</span><span style="color:#747474"> ()</span><span style="color:#535353"> =></span><span style="color:#003714"> css</span><span style="color:#00632A">`</span></span>
+<span class="line"><span style="color:#25282D">  .</span><span style="color:#747474">${</span><span style="color:#1F1F1F">CARD</span><span style="color:#747474">}</span><span style="color:#747474"> {</span></span>
+<span class="line"><span style="color:#00461C">    background-color</span><span style="color:#747474">:</span><span style="color:#00632A"> #</span><span style="color:#003714">fff</span><span style="color:#747474">;</span></span>
+<span class="line"><span style="color:#00461C">    padding</span><span style="color:#747474">:</span><span style="color:#003714"> 2</span><span style="color:#00461C">rem</span><span style="color:#747474">;</span></span>
+<span class="line"><span style="color:#747474">  }</span></span>
+<span class="line"><span style="color:#25282D">  .</span><span style="color:#747474">${</span><span style="color:#1F1F1F">CARD</span><span style="color:#747474">.</span><span style="color:#1F1F1F">TITLE</span><span style="color:#747474">}</span><span style="color:#747474"> {</span></span>
+<span class="line"><span style="color:#00461C">    font-weight</span><span style="color:#747474">:</span><span style="color:#003714"> bold</span><span style="color:#747474">;</span></span>
+<span class="line"><span style="color:#747474">  }</span></span>
+<span class="line"><span style="color:#25282D">  .</span><span style="color:#747474">${</span><span style="color:#1F1F1F">LIST</span><span style="color:#747474">.</span><span style="color:#1F1F1F">ITEM</span><span style="color:#747474">}</span><span style="color:#747474"> {</span></span>
+<span class="line"><span style="color:#00461C">    margin-left</span><span style="color:#747474">:</span><span style="color:#003714"> 2</span><span style="color:#00461C">rem</span><span style="color:#747474">;</span></span>
+<span class="line"><span style="color:#747474">  }</span></span>
+<span class="line"><span style="color:#00632A">`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#1F1F1F">export</span><span style="color:#535353"> const</span><span style="color:#2C2C2C"> docs</span><span style="color:#454545"> =</span><span style="color:#747474"> ({</span><span style="color:#393939"> title</span><span style="color:#535353">,</span><span style="color:#393939"> list</span><span style="color:#747474"> })</span><span style="color:#535353"> =></span><span style="color:#2C2C2C"> md</span><span style="color:#BC006F">`</span></span>
+<span class="line"><span style="color:#BC006F">  ##</span><span style="color:#747474"> ${</span><span style="color:#393939">title</span><span style="color:#747474">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#25282D">  This is some markdown to match the html view</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#747474">  ${</span><span style="color:#393939">list</span><span style="color:#950057">.</span><span style="color:#2C2C2C">map</span><span style="color:#25282D">(</span><span style="color:#393939">item</span><span style="color:#535353"> =></span><span style="color:#2C2C2C"> md</span><span style="color:#BC006F">`</span></span>
+<span class="line"><span style="color:#BC006F">    -</span><span style="color:#747474"> ${</span><span style="color:#393939">item</span><span style="color:#747474">}</span></span>
+<span class="line"><span style="color:#25282D">  `)}</span></span>
+<span class="line"><span style="color:#BC006F">`</span></span>
+<span class="line"></span></code></pre>
+    </figure>
+    <figure>
+      <figcaption>Neovim reference</figcaption>
+      <img src="images/themes/argiope-trifasciata.png" alt="Neovim rendering of Argiope Trifasciata">
+    </figure>
+  </div>
+  <details>
+    <summary>Additional injected-language coverage</summary>
+    <pre class="shiki Argiope Trifasciata" style="background-color:#F7F5EF;color:#25282D" tabindex="0"><code><span class="line"><span style="color:#535353">const</span><span style="color:#1F1F1F"> icon</span><span style="color:#454545"> =</span><span style="color:#393939"> svg</span><span style="color:#25282D">\</span><span style="color:#747474">`</span><span style="color:#525252">&#x3C;svg viewBox="0 0 1 1">&#x3C;circle cx="0.5" cy="0.5" r="0.5" />&#x3C;/svg></span><span style="color:#1F1F1F">\`</span><span style="color:#525252">;</span></span>
+<span class="line"><span style="color:#525252">const raw = raw.js</span><span style="color:#1F1F1F">\`</span><span style="color:#525252">const answer = 42;</span><span style="color:#1F1F1F">\`</span><span style="color:#525252">;</span></span>
+<span class="line"><span style="color:#525252">const fragment = glsl</span><span style="color:#1F1F1F">\`</span><span style="color:#525252">void main() { gl_FragColor = vec4(1.0); }</span><span style="color:#1F1F1F">\`</span><span style="color:#525252">;</span></span>
+<span class="line"><span style="color:#525252">const compute = wgsl</span><span style="color:#1F1F1F">\`</span><span style="color:#525252">@compute @workgroup_size(1) fn main() {}</span><span style="color:#1F1F1F">\`</span><span style="color:#525252">;</span></span>
+<span class="line"></span></code></pre>
+  </details>
+</section>
+  </main>
+</body>
+</html>

@@ -53,6 +53,13 @@ initialized editor submodules, use:
 bun run check:editors
 ```
 
+To compare the generated Shiki/TextMate result with the checked-in Neovim
+reference renders, generate and open the local [comparison page](docs/shiki-preview.html):
+
+```sh
+bun run preview:shiki
+```
+
 ---
 
 <figure>
