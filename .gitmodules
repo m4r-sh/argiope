@@ -8,3 +8,7 @@
 [submodule "editors/textmate"]
 	path = editors/textmate
 	url = git@github.com:m4r-sh/argiope-textmate.git
+[submodule "editors/vscode"]
+	path = editors/vscode
+	url = git@github.com:m4r-sh/argiope-vscode.git
+	branch = master
