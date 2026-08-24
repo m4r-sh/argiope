@@ -6,8 +6,8 @@ Argiope is a web-centric plugin for editing javascript files with embedded langu
 
 **Supported Editors**:
 - [Neovim](https://github.com/m4r-sh/argiope.nvim)
+- [VSCode](https://github.com/m4r-sh/argiope-vscode)
 - [Helix](https://github.com/m4r-sh/argiope-helix)
-- [Visual Studio Code](editors/vscode)
 
 ## Repository layout
 
