@@ -7,6 +7,7 @@ Argiope is a web-centric plugin for editing javascript files with embedded langu
 **Supported Editors**:
 - [Neovim](https://github.com/m4r-sh/argiope.nvim)
 - [Helix](https://github.com/m4r-sh/argiope-helix)
+- [Visual Studio Code](editors/vscode)
 
 ## Repository layout
 
@@ -58,6 +59,13 @@ reference renders, generate and open the local [comparison page](docs/shiki-prev
 
 ```sh
 bun run preview:shiki
+```
+
+To open a local VS Code Extension Development Host with the generated Argiope
+grammar and themes, run:
+
+```sh
+bun run vscode:dev
 ```
 
 ---
