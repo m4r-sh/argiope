@@ -34,19 +34,19 @@
 
 ## Motivation
 
-Most syntax highlighters provide a color palette that applies to token families. 
+Most syntax themes provide a color palette that applies to generic token families. 
 
 *Blue numbers, pink keywords, yellow strings, orange variables, etc.*
 
-These themes apply to all languages, since all languages have similar syntax categories.
+These themes apply to all languages, since all languages have similar basic syntax categories.
 
-**However, it isn't easy to distinguish languages** within a single file.
+**However, it isn't easy to distinguish languages within a single file.**
 
-> Argiope's approach is to provide **monochrome palettes** for **each language**, making it easy to distinguish each language at a glance.
+Argiope's approach is to provide **monochrome palettes** for **each language**, making it easy to distinguish each language at a glance.
 
-So, HTML syntax is shades of blue, CSS syntax is shades of green, JS is shades of yellow, etc.
+*HTML syntax is shades of blue, CSS syntax is shades of green, JS is shades of yellow, etc.*
 
-Unfortunately, this type of syntax highlighting isn't common, so making it work in various editors is a challenge.
+Unfortunately, this type of highlighting isn't common, so making it work in various editors is challenging.
 
 ---
 
@@ -56,7 +56,7 @@ Unfortunately, this type of syntax highlighting isn't common, so making it work 
 
 #### Aurantia
 
-![Aurantia Syntax Theme](/docs/images/themes/argiope-aurantia.png)
+<img src="/docs/images/themes/argiope-aurantia.png" alt="Aurantia Syntax Theme" width="400" />
 
 ---
 
@@ -68,22 +68,23 @@ Unfortunately, this type of syntax highlighting isn't common, so making it work 
 
 #### Versicolor
 
-![Versicolor Syntax Theme](/docs/images/themes/argiope-versicolor.png)
+<img src="/docs/images/themes/argiope-versicolor.png" alt="Versicolor Syntax Theme" width="400" />
 
 ---
 
 #### Versicolor Neon
 
-![Versicolor Neon Syntax Theme](/docs/images/themes/argiope-versicolor-neon.png)
+<img src="/docs/images/themes/argiope-versicolor-neon.png" alt="Versicolor Neon Syntax Theme" width="400" />
 
 ---
 
 #### Ocyaloides
 
-![Ocyaloides Syntax Theme](/docs/images/themes/argiope-ocyaloides.png)
+<img src="/docs/images/themes/argiope-ocyaloides.png" alt="Ocyaloides Syntax Theme" width="400" />
 
 ---
 
 #### Trifasciata
 
-![Trifasciata Syntax Theme](/docs/images/themes/argiope-trifasciata.png)
+<img src="/docs/images/themes/argiope-trifasciata.png" alt="Trifasciata Syntax Theme" width="400" />
+
