@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/night.png">
     <source media="(prefers-color-scheme: light)" srcset="docs/images/day.png">
-    <img alt="Fallback image description" src="docs/images/day.png" alt="argiope logo" width="160px" height="160px" />
+    <img alt="Fallback image description" src="docs/images/day.png" alt="argiope logo" width="200px" height="80px" />
   </picture>
 </div>
 
