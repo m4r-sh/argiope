@@ -1,6 +1,18 @@
-# Argiope
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/night.png">
+    <source media="(prefers-color-scheme: light)" srcset="docs/images/day.png">
+    <img alt="Fallback image description" src="docs/images/day.png" alt="argiope logo" width="160px" height="160px" />
+  </picture>
+</div>
 
-Argiope is a web-centric plugin for editing javascript files with embedded languages.
+<h1 align="center">Argiope</h1>
+
+<div align="center">web-centric syntax-highlighting for javascript files with embedded languages</div>
+
+<br/>
+
+---
 
 [Blog Post](https://m4rsh.com/argiope)
 
