@@ -52,8 +52,6 @@ Unfortunately, this type of highlighting isn't common, so making it work in vari
 
 ## Themes
 
----
-
 #### Aurantia
 
 <img src="/docs/images/themes/argiope-aurantia.png" alt="Aurantia Syntax Theme" width="400" />
@@ -62,7 +60,7 @@ Unfortunately, this type of highlighting isn't common, so making it work in vari
 
 #### Aurantia Neon
 
-![Aurantia Neon Syntax Theme](/docs/images/themes/argiope-aurantia-neon.png)
+<img src="/docs/images/themes/argiope-aurantia-neon.png" alt="Aurantia Neon Syntax Theme" width="400" />
 
 ---
 
