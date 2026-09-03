@@ -14,12 +14,15 @@
   <a href="https://m4rsh.com/argiope">
     Blog
   </a>
+  <span>•</span>
   <a href="https://github.com/m4r-sh/argiope.nvim">
     Neovim
   </a>
+  <span>•</span>
   <a href="https://github.com/m4r-sh/argiope-vscode">
     VS Code
   </a>
+  <span>•</span>
   <a href="https://github.com/m4r-sh/argiope-helix">
     Helix
   </a>
