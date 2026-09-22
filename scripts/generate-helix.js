@@ -1,10 +1,30 @@
-import { helixThemeFiles } from "../src/adapters/helix.js";
+import { HELIX_CAPTURE_ROLES, helixCapture, helixThemeFiles } from "../src/adapters/helix.js";
 import { DEFAULT_THEMES } from "../src/defaults.js";
+import { textmatePaletteData } from "../src/adapters/textmate.js";
 
 const root = new URL("../dist/helix/", import.meta.url);
 
 const queryFiles = {
-  "argiope-javascript/highlights.scm": "; inherits: javascript\n",
+  "argiope-javascript/highlights.scm": `; inherits: javascript
+(identifier) @argiope.javascript.variable
+[(property_identifier) (shorthand_property_identifier) (shorthand_property_identifier_pattern)] @argiope.javascript.property
+[(string) (template_string) (regex)] @argiope.javascript.string
+(escape_sequence) @argiope.javascript.escape
+(number) @argiope.javascript.number
+[(true) (false) (null) (undefined)] @argiope.javascript.constant
+(comment) @argiope.javascript.comment
+(function_declaration name: (identifier) @argiope.javascript.function)
+(method_definition name: (property_identifier) @argiope.javascript.function)
+(call_expression function: (identifier) @argiope.javascript.call)
+(call_expression function: (member_expression property: (property_identifier) @argiope.javascript.call))
+["const" "let" "var" "function" "class" "new" "async" "await" "import" "export" "from" "default" "extends" "static"] @argiope.javascript.keyword
+["if" "else" "switch" "case" "for" "while" "do" "try" "catch" "finally" "throw" "break" "continue"] @argiope.javascript.control
+["return" "yield"] @argiope.javascript.return
+["=" "+" "-" "*" "/" "%" "==" "===" "!=" "!==" "<" ">" "<=" ">=" "!" "&&" "||" "??" "=>" "..." "++" "--"] @argiope.javascript.operator
+["(" ")" "[" "]" "{" "}"] @argiope.javascript.bracket
+[";" "," "."] @argiope.javascript.punctuation
+(template_substitution ["\${" "}"] @argiope.javascript.bracket)
+`,
   "argiope-javascript/injections.scm": `${[
   ["html", "argiope-html"],
   ["svg", "argiope-svg"],
@@ -96,6 +116,8 @@ const queryFiles = {
 `,
 };
 
+queryFiles["argiope-javascript-embedded/highlights.scm"] = queryFiles["argiope-javascript/highlights.scm"].replaceAll("@argiope.javascript.", "@argiope.embedded.");
+
 for (const language of ["argiope-html", "argiope-svg"]) {
   queryFiles[`${language}/indents.scm`] = `; inherits: html
 
@@ -177,7 +199,17 @@ for (const [name, body] of Object.entries(helixThemeFiles(DEFAULT_THEMES))) {
   await Bun.write(new URL(`themes/${name}`, root), body);
 }
 for (const [name, body] of Object.entries(queryFiles)) {
-  await Bun.write(new URL(`runtime/queries/${name}`, root), body);
+  const portable = body.replace(/@argiope\.([a-z]+)\.([a-z]+)/g,
+    (_, language, capture) => `@${helixCapture(language, capture)}`);
+  await Bun.write(new URL(`runtime/queries/${name}`, root), portable);
 }
 await Bun.write(new URL("languages.toml", root), languagesToml);
+await Bun.write(new URL("palette-options.json", root), JSON.stringify({
+  themes: Object.fromEntries(DEFAULT_THEMES.map(({ id, theme }) => [id, theme.name])),
+  palettes: textmatePaletteData(DEFAULT_THEMES),
+  captures: HELIX_CAPTURE_ROLES,
+  scopes: Object.fromEntries(Object.entries(HELIX_CAPTURE_ROLES).map(([language, captures]) => [language,
+    Object.fromEntries(Object.keys(captures).map(capture => [capture, helixCapture(language, capture)])),
+  ])),
+}, null, 2) + "\n");
 console.log(`Wrote ${root.pathname}`);

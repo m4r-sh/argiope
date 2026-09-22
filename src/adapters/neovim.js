@@ -1,5 +1,6 @@
 import { fmt } from "@m4rsh/cones";
 import { converter, formatHex } from "culori";
+import { SEMANTIC_ROLES, semanticColors } from "../semantic.js";
 
 const toOklch = converter("oklch");
 
@@ -67,6 +68,8 @@ export function neovimAdapter(theme, { extends: parent } = {}) {
     ...(parent ? { extends: parent } : {}),
     background,
     base,
+    fallback: Object.fromEntries(Object.entries(semanticColors(theme)).map(([role, color]) => [role, hex(color)])),
+    fallback_roles: Object.fromEntries(Object.entries(SEMANTIC_ROLES).map(([role, key]) => [role, luaBaseName(key)])),
     languages,
   };
 }

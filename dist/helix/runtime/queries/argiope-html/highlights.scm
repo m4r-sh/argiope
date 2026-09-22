@@ -1,7 +1,7 @@
 ; inherits: html
-(tag_name) @argiope.html.tag
-(attribute_name) @argiope.html.property
-[(attribute_value) (quoted_attribute_value)] @argiope.html.string
-(comment) @argiope.html.comment
-["<" ">" "</" "/>" "<!"] @argiope.html.bracket
-"=" @argiope.html.punctuation
+(tag_name) @type.argiope.html.tag
+(attribute_name) @variable.other.member.argiope.html.property
+[(attribute_value) (quoted_attribute_value)] @string.argiope.html.string
+(comment) @comment.argiope.html.comment
+["<" ">" "</" "/>" "<!"] @punctuation.bracket.argiope.html.bracket
+"=" @punctuation.argiope.html.punctuation

@@ -29,7 +29,7 @@ describe("TextMate adapter", () => {
     for (const { id, tag, scope } of TEXTMATE_LANGUAGES) {
       const rule = injection.repository[`argiope-${id}`];
       expect(rule.name).toBe(`meta.embedded.argiope.${id}`);
-      expect(rule.begin).toContain(tag.replace(".", "\\\\."));
+      expect(rule.begin).toContain(tag.replace(".", "\\."));
       expect(rule.begin).toContain("(?<![\\w$.])");
       expect(rule.contentName).toBe(scope);
       expect(rule.patterns[0].name).toBe("constant.character.escape.argiope");
@@ -40,6 +40,7 @@ describe("TextMate adapter", () => {
 
     expect(Object.keys(textmateGrammarFiles())).toEqual([
       "argiope.injection.tmLanguage.json",
+      "argiope.interpolation.tmLanguage.json",
       "argiope-javascript.tmLanguage.json",
       "argiope-typescript.tmLanguage.json",
     ]);
@@ -61,7 +62,7 @@ describe("TextMate adapter", () => {
       .toBe(neovim.languages.javascript.colors[neovim.languages.javascript.roles.call]);
     const rawJavaScript = adapted.tokenColors.find(entry => entry.scope
       .includes("meta.embedded.argiope.javascript entity.name.function.call"));
-    expect(rawJavaScript.settings.foreground).toBe(javascriptCall.settings.foreground);
+    expect(rawJavaScript.settings.foreground).toBe(neovim.languages.javascript_embedded.colors[neovim.languages.javascript_embedded.roles.call]);
     expect(adapted.colors["editor.background"]).toMatch(/^#[0-9A-F]{6}$/);
     expect(TEXTMATE_SCOPE_ROLES.glsl.keyword).toContain("keyword");
     expect(TEXTMATE_SCOPE_ROLES.css.constant).toContain("support.constant");

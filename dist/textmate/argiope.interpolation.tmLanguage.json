@@ -1,0 +1,50 @@
+{
+  "name": "Argiope interpolations",
+  "scopeName": "source.argiope.interpolation",
+  "injectTo": [
+    "source.js",
+    "source.ts"
+  ],
+  "injectionSelector": "L:meta.embedded.argiope -comment -string",
+  "patterns": [
+    {
+      "name": "meta.interpolation.argiope",
+      "begin": "(?<!\\\\)(?:\\\\\\\\)*(\\$\\{)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.section.interpolation.begin.argiope"
+        }
+      },
+      "end": "(})",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.section.interpolation.end.argiope"
+        }
+      },
+      "patterns": [
+        {
+          "include": "source.ts"
+        },
+        {
+          "begin": "\\{",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.section.interpolation.begin.argiope"
+            }
+          },
+          "end": "\\}",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.section.interpolation.end.argiope"
+            }
+          },
+          "patterns": [
+            {
+              "include": "source.ts"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

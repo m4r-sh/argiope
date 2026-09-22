@@ -26,7 +26,10 @@ for (const entry of await readdir(themes)) {
   if (entry.startsWith("argiope-") && entry.endsWith(".json")) await rm(resolve(themes, entry), { force: true });
 }
 await cp(resolve(source, grammarFile), resolve(syntaxes, grammarFile));
+await cp(resolve(source, "argiope.interpolation.tmLanguage.json"), resolve(syntaxes, "argiope.interpolation.tmLanguage.json"));
 await cp(resolve(source, "themes"), themes, { recursive: true });
+await cp(resolve(source, "palettes.json"), resolve(checkout, "palettes.json"));
+await cp(resolve(root, "src/adapters/textmate-options.cjs"), resolve(checkout, "textmate-options.cjs"));
 
 const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 const themeFiles = (await readdir(themes)).filter(entry => /^argiope-.+\.json$/.test(entry)).sort();
@@ -46,6 +49,7 @@ const embeddedLanguages = {
   "meta.embedded.argiope.javascript": "javascript",
   "meta.embedded.argiope.glsl": "glsl",
   "meta.embedded.argiope.wgsl": "wgsl",
+  "meta.interpolation.argiope": "typescript",
 };
 
 manifest.contributes = {
@@ -56,6 +60,10 @@ manifest.contributes = {
     injectTo: ["source.js", "source.ts"],
     embeddedLanguages,
     tokenTypes: Object.fromEntries(Object.keys(embeddedLanguages).map(scope => [scope, "other"])),
+  }, {
+    scopeName: "source.argiope.interpolation",
+    path: "./syntaxes/argiope.interpolation.tmLanguage.json",
+    injectTo: ["source.js", "source.ts"],
   }],
   themes: generatedThemes,
 };

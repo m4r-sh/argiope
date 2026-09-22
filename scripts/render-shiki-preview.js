@@ -12,7 +12,7 @@ const themeIds = [
 
 // This broader fixture supplements the screenshot source so every registered
 // tagged-template grammar remains easy to inspect from the same page.
-const coverageSource = String.raw`const icon = svg\`<svg viewBox="0 0 1 1"><circle cx="0.5" cy="0.5" r="0.5" /></svg>\`;
+const coverageSource = `const icon = svg\`<svg viewBox="0 0 1 1"><circle cx="0.5" cy="0.5" r="0.5" /></svg>\`;
 const raw = raw.js\`const answer = 42;\`;
 const fragment = glsl\`void main() { gl_FragColor = vec4(1.0); }\`;
 const compute = wgsl\`@compute @workgroup_size(1) fn main() {}\`;
@@ -50,12 +50,13 @@ function section({ id, theme, screenshot, coverage }) {
 }
 
 const injection = JSON.parse(await readFile(resolve(generated, "argiope.injection.tmLanguage.json"), "utf8"));
+const interpolation = JSON.parse(await readFile(resolve(generated, "argiope.interpolation.tmLanguage.json"), "utf8"));
 const themes = await Promise.all(themeIds.map(async (id) => [
   id,
   JSON.parse(await readFile(resolve(generated, "themes", `argiope-${id}.json`), "utf8")),
 ]));
 const highlighter = await createHighlighter({
-  langs: [injection, "javascript", "typescript", ...embeddedLanguages],
+  langs: [injection, interpolation, "javascript", "typescript", ...embeddedLanguages],
   themes: themes.map(([, theme]) => theme),
 });
 

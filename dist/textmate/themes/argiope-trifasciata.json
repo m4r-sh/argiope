@@ -1,6 +1,7 @@
 {
   "name": "Argiope Trifasciata",
   "type": "light",
+  "semanticHighlighting": false,
   "colors": {
     "editor.background": "#F7F5EF",
     "editor.foreground": "#25282D",
@@ -12,6 +13,195 @@
   "tokenColors": [
     {
       "scope": [
+        "variable"
+      ],
+      "settings": {
+        "foreground": "#00667A"
+      }
+    },
+    {
+      "scope": [
+        "variable.other.property",
+        "variable.other.member"
+      ],
+      "settings": {
+        "foreground": "#00667A"
+      }
+    },
+    {
+      "scope": [
+        "constant.language",
+        "variable.other.constant"
+      ],
+      "settings": {
+        "foreground": "#5700AD"
+      }
+    },
+    {
+      "scope": [
+        "string"
+      ],
+      "settings": {
+        "foreground": "#756C00"
+      }
+    },
+    {
+      "scope": [
+        "constant.character.escape"
+      ],
+      "settings": {
+        "foreground": "#994F00"
+      }
+    },
+    {
+      "scope": [
+        "constant.numeric"
+      ],
+      "settings": {
+        "foreground": "#5700AD"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.type",
+        "support.type"
+      ],
+      "settings": {
+        "foreground": "#00667A"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.function",
+        "support.function"
+      ],
+      "settings": {
+        "foreground": "#00702F"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.function.call",
+        "variable.function"
+      ],
+      "settings": {
+        "foreground": "#00702F"
+      }
+    },
+    {
+      "scope": [
+        "keyword.operator"
+      ],
+      "settings": {
+        "foreground": "#A3005C"
+      }
+    },
+    {
+      "scope": [
+        "storage",
+        "keyword"
+      ],
+      "settings": {
+        "foreground": "#A3005C"
+      }
+    },
+    {
+      "scope": [
+        "keyword.control"
+      ],
+      "settings": {
+        "foreground": "#A3005C"
+      }
+    },
+    {
+      "scope": [
+        "keyword.control.return"
+      ],
+      "settings": {
+        "foreground": "#A3005C"
+      }
+    },
+    {
+      "scope": [
+        "punctuation"
+      ],
+      "settings": {
+        "foreground": "#25282D"
+      }
+    },
+    {
+      "scope": [
+        "punctuation.section",
+        "punctuation.definition"
+      ],
+      "settings": {
+        "foreground": "#25282D"
+      }
+    },
+    {
+      "scope": [
+        "comment"
+      ],
+      "settings": {
+        "foreground": "#9C9C9C",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.tag",
+        "entity.other.attribute-name"
+      ],
+      "settings": {
+        "foreground": "#00667A"
+      }
+    },
+    {
+      "scope": [
+        "markup.heading"
+      ],
+      "settings": {
+        "foreground": "#00667A",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": [
+        "markup.bold"
+      ],
+      "settings": {
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": [
+        "markup.italic"
+      ],
+      "settings": {
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": [
+        "markup.underline.link",
+        "string.other.link"
+      ],
+      "settings": {
+        "foreground": "#00702F",
+        "fontStyle": "underline"
+      }
+    },
+    {
+      "scope": [
+        "markup.raw"
+      ],
+      "settings": {
+        "foreground": "#756C00"
+      }
+    },
+    {
+      "name": "argiope:javascript:variable",
+      "scope": [
         "source.js variable",
         "source.ts variable"
       ],
@@ -20,6 +210,7 @@
       }
     },
     {
+      "name": "argiope:javascript:property",
       "scope": [
         "source.js variable.other.property",
         "source.js variable.other.member",
@@ -31,6 +222,7 @@
       }
     },
     {
+      "name": "argiope:javascript:constant",
       "scope": [
         "source.js constant.language",
         "source.js variable.other.constant",
@@ -42,6 +234,7 @@
       }
     },
     {
+      "name": "argiope:javascript:string",
       "scope": [
         "source.js string",
         "source.ts string"
@@ -51,6 +244,7 @@
       }
     },
     {
+      "name": "argiope:javascript:escape",
       "scope": [
         "source.js constant.character.escape",
         "source.ts constant.character.escape"
@@ -60,6 +254,7 @@
       }
     },
     {
+      "name": "argiope:javascript:number",
       "scope": [
         "source.js constant.numeric",
         "source.ts constant.numeric"
@@ -69,6 +264,7 @@
       }
     },
     {
+      "name": "argiope:javascript:type",
       "scope": [
         "source.js entity.name.type",
         "source.js support.type",
@@ -80,6 +276,7 @@
       }
     },
     {
+      "name": "argiope:javascript:function",
       "scope": [
         "source.js entity.name.function",
         "source.js support.function",
@@ -91,6 +288,7 @@
       }
     },
     {
+      "name": "argiope:javascript:call",
       "scope": [
         "source.js entity.name.function.call",
         "source.js variable.function",
@@ -102,6 +300,7 @@
       }
     },
     {
+      "name": "argiope:javascript:operator",
       "scope": [
         "source.js keyword.operator",
         "source.ts keyword.operator"
@@ -111,6 +310,7 @@
       }
     },
     {
+      "name": "argiope:javascript:keyword",
       "scope": [
         "source.js storage",
         "source.js keyword",
@@ -122,6 +322,7 @@
       }
     },
     {
+      "name": "argiope:javascript:control",
       "scope": [
         "source.js keyword.control",
         "source.ts keyword.control"
@@ -131,6 +332,7 @@
       }
     },
     {
+      "name": "argiope:javascript:return",
       "scope": [
         "source.js keyword.control.return",
         "source.ts keyword.control.return"
@@ -140,6 +342,7 @@
       }
     },
     {
+      "name": "argiope:javascript:punctuation",
       "scope": [
         "source.js punctuation",
         "source.ts punctuation"
@@ -149,6 +352,7 @@
       }
     },
     {
+      "name": "argiope:javascript:bracket",
       "scope": [
         "source.js punctuation.section",
         "source.js punctuation.definition",
@@ -160,6 +364,7 @@
       }
     },
     {
+      "name": "argiope:javascript:comment",
       "scope": [
         "source.js comment",
         "source.ts comment"
@@ -169,6 +374,7 @@
       }
     },
     {
+      "name": "argiope:embedded:variable",
       "scope": [
         "meta.embedded.argiope.javascript variable"
       ],
@@ -177,6 +383,7 @@
       }
     },
     {
+      "name": "argiope:embedded:property",
       "scope": [
         "meta.embedded.argiope.javascript variable.other.property",
         "meta.embedded.argiope.javascript variable.other.member"
@@ -186,6 +393,7 @@
       }
     },
     {
+      "name": "argiope:embedded:constant",
       "scope": [
         "meta.embedded.argiope.javascript constant.language",
         "meta.embedded.argiope.javascript variable.other.constant"
@@ -195,6 +403,7 @@
       }
     },
     {
+      "name": "argiope:embedded:string",
       "scope": [
         "meta.embedded.argiope.javascript string"
       ],
@@ -203,6 +412,7 @@
       }
     },
     {
+      "name": "argiope:embedded:escape",
       "scope": [
         "meta.embedded.argiope.javascript constant.character.escape"
       ],
@@ -211,6 +421,7 @@
       }
     },
     {
+      "name": "argiope:embedded:number",
       "scope": [
         "meta.embedded.argiope.javascript constant.numeric"
       ],
@@ -219,6 +430,7 @@
       }
     },
     {
+      "name": "argiope:embedded:type",
       "scope": [
         "meta.embedded.argiope.javascript entity.name.type",
         "meta.embedded.argiope.javascript support.type"
@@ -228,6 +440,7 @@
       }
     },
     {
+      "name": "argiope:embedded:function",
       "scope": [
         "meta.embedded.argiope.javascript entity.name.function",
         "meta.embedded.argiope.javascript support.function"
@@ -237,6 +450,7 @@
       }
     },
     {
+      "name": "argiope:embedded:call",
       "scope": [
         "meta.embedded.argiope.javascript entity.name.function.call",
         "meta.embedded.argiope.javascript variable.function"
@@ -246,6 +460,7 @@
       }
     },
     {
+      "name": "argiope:embedded:operator",
       "scope": [
         "meta.embedded.argiope.javascript keyword.operator"
       ],
@@ -254,6 +469,7 @@
       }
     },
     {
+      "name": "argiope:embedded:keyword",
       "scope": [
         "meta.embedded.argiope.javascript storage",
         "meta.embedded.argiope.javascript keyword"
@@ -263,6 +479,7 @@
       }
     },
     {
+      "name": "argiope:embedded:control",
       "scope": [
         "meta.embedded.argiope.javascript keyword.control"
       ],
@@ -271,6 +488,7 @@
       }
     },
     {
+      "name": "argiope:embedded:return",
       "scope": [
         "meta.embedded.argiope.javascript keyword.control.return"
       ],
@@ -279,6 +497,7 @@
       }
     },
     {
+      "name": "argiope:embedded:punctuation",
       "scope": [
         "meta.embedded.argiope.javascript punctuation"
       ],
@@ -287,6 +506,7 @@
       }
     },
     {
+      "name": "argiope:embedded:bracket",
       "scope": [
         "meta.embedded.argiope.javascript punctuation.section",
         "meta.embedded.argiope.javascript punctuation.definition"
@@ -296,6 +516,7 @@
       }
     },
     {
+      "name": "argiope:embedded:comment",
       "scope": [
         "meta.embedded.argiope.javascript comment"
       ],
@@ -304,446 +525,822 @@
       }
     },
     {
+      "name": "argiope:html:type",
       "scope": [
         "meta.embedded.argiope.html entity.name.tag",
-        "meta.embedded.argiope.html entity.other.attribute-name"
+        "meta.embedded.argiope.html entity.other.attribute-name",
+        "text.html.basic entity.name.tag",
+        "text.html.basic entity.other.attribute-name"
       ],
       "settings": {
         "foreground": "#003280"
       }
     },
     {
+      "name": "argiope:html:property",
       "scope": [
-        "meta.embedded.argiope.html entity.other.attribute-name"
+        "meta.embedded.argiope.html entity.other.attribute-name",
+        "text.html.basic entity.other.attribute-name"
       ],
       "settings": {
         "foreground": "#003280"
       }
     },
     {
+      "name": "argiope:html:string",
       "scope": [
-        "meta.embedded.argiope.html string"
+        "meta.embedded.argiope.html string",
+        "text.html.basic string"
       ],
       "settings": {
         "foreground": "#000F31"
       }
     },
     {
+      "name": "argiope:html:constant",
       "scope": [
-        "meta.embedded.argiope.html constant"
+        "meta.embedded.argiope.html constant",
+        "text.html.basic constant"
       ],
       "settings": {
         "foreground": "#002766"
       }
     },
     {
+      "name": "argiope:html:punctuation",
       "scope": [
         "meta.embedded.argiope.html punctuation",
-        "meta.embedded.argiope.html meta.tag punctuation"
+        "meta.embedded.argiope.html meta.tag punctuation",
+        "text.html.basic punctuation",
+        "text.html.basic meta.tag punctuation"
       ],
       "settings": {
         "foreground": "#005DE0"
       }
     },
     {
+      "name": "argiope:html:bracket",
       "scope": [
-        "meta.embedded.argiope.html punctuation.definition.tag"
+        "meta.embedded.argiope.html punctuation.definition.tag",
+        "text.html.basic punctuation.definition.tag"
       ],
       "settings": {
         "foreground": "#005DE0"
       }
     },
     {
+      "name": "argiope:html:comment",
       "scope": [
-        "meta.embedded.argiope.html comment"
+        "meta.embedded.argiope.html comment",
+        "text.html.basic comment"
       ],
       "settings": {
         "foreground": "#0048B1"
       }
     },
     {
+      "name": "argiope:svg:type",
       "scope": [
         "meta.embedded.argiope.svg entity.name.tag",
-        "meta.embedded.argiope.svg entity.other.attribute-name"
+        "meta.embedded.argiope.svg entity.other.attribute-name",
+        "text.xml entity.name.tag",
+        "text.xml entity.other.attribute-name"
       ],
       "settings": {
         "foreground": "#003C62"
       }
     },
     {
+      "name": "argiope:svg:property",
       "scope": [
-        "meta.embedded.argiope.svg entity.other.attribute-name"
+        "meta.embedded.argiope.svg entity.other.attribute-name",
+        "text.xml entity.other.attribute-name"
       ],
       "settings": {
         "foreground": "#003C62"
       }
     },
     {
+      "name": "argiope:svg:string",
       "scope": [
-        "meta.embedded.argiope.svg string"
+        "meta.embedded.argiope.svg string",
+        "text.xml string"
       ],
       "settings": {
         "foreground": "#001324"
       }
     },
     {
+      "name": "argiope:svg:constant",
       "scope": [
-        "meta.embedded.argiope.svg constant"
+        "meta.embedded.argiope.svg constant",
+        "text.xml constant"
       ],
       "settings": {
         "foreground": "#002F4E"
       }
     },
     {
+      "name": "argiope:svg:punctuation",
       "scope": [
         "meta.embedded.argiope.svg punctuation",
-        "meta.embedded.argiope.svg meta.tag punctuation"
+        "meta.embedded.argiope.svg meta.tag punctuation",
+        "text.xml punctuation",
+        "text.xml meta.tag punctuation"
       ],
       "settings": {
         "foreground": "#006EAE"
       }
     },
     {
+      "name": "argiope:svg:bracket",
       "scope": [
-        "meta.embedded.argiope.svg punctuation.definition.tag"
+        "meta.embedded.argiope.svg punctuation.definition.tag",
+        "text.xml punctuation.definition.tag"
       ],
       "settings": {
         "foreground": "#006EAE"
       }
     },
     {
+      "name": "argiope:svg:comment",
       "scope": [
-        "meta.embedded.argiope.svg comment"
+        "meta.embedded.argiope.svg comment",
+        "text.xml comment"
       ],
       "settings": {
         "foreground": "#00568A"
       }
     },
     {
+      "name": "argiope:css:type",
       "scope": [
         "meta.embedded.argiope.css entity.other.attribute-name.class",
-        "meta.embedded.argiope.css entity.name.tag"
+        "meta.embedded.argiope.css entity.name.tag",
+        "source.css entity.other.attribute-name.class",
+        "source.css entity.name.tag"
       ],
       "settings": {
         "foreground": "#00461C"
       }
     },
     {
+      "name": "argiope:css:property",
       "scope": [
         "meta.embedded.argiope.css support.type.property-name",
-        "meta.embedded.argiope.css meta.property-name"
+        "meta.embedded.argiope.css meta.property-name",
+        "source.css support.type.property-name",
+        "source.css meta.property-name"
       ],
       "settings": {
         "foreground": "#00461C"
       }
     },
     {
+      "name": "argiope:css:string",
       "scope": [
-        "meta.embedded.argiope.css string"
+        "meta.embedded.argiope.css string",
+        "source.css string"
       ],
       "settings": {
         "foreground": "#00632A"
       }
     },
     {
+      "name": "argiope:css:constant",
       "scope": [
         "meta.embedded.argiope.css constant",
         "meta.embedded.argiope.css constant.numeric",
-        "meta.embedded.argiope.css support.constant"
+        "meta.embedded.argiope.css support.constant",
+        "source.css constant",
+        "source.css constant.numeric",
+        "source.css support.constant"
       ],
       "settings": {
         "foreground": "#003714"
       }
     },
     {
+      "name": "argiope:css:function",
       "scope": [
-        "meta.embedded.argiope.css entity.name.function"
+        "meta.embedded.argiope.css entity.name.function",
+        "source.css entity.name.function"
       ],
       "settings": {
         "foreground": "#003714"
       }
     },
     {
+      "name": "argiope:css:keyword",
       "scope": [
-        "meta.embedded.argiope.css keyword"
+        "meta.embedded.argiope.css keyword",
+        "source.css keyword"
       ],
       "settings": {
         "foreground": "#00461C"
       }
     },
     {
+      "name": "argiope:css:punctuation",
       "scope": [
-        "meta.embedded.argiope.css punctuation"
+        "meta.embedded.argiope.css punctuation",
+        "source.css punctuation"
       ],
       "settings": {
         "foreground": "#747474"
       }
     },
     {
+      "name": "argiope:css:bracket",
       "scope": [
         "meta.embedded.argiope.css punctuation.section.block",
-        "meta.embedded.argiope.css punctuation.definition"
+        "meta.embedded.argiope.css punctuation.definition",
+        "source.css punctuation.section.block",
+        "source.css punctuation.definition"
       ],
       "settings": {
         "foreground": "#00632A"
       }
     },
     {
+      "name": "argiope:css:comment",
       "scope": [
-        "meta.embedded.argiope.css comment"
+        "meta.embedded.argiope.css comment",
+        "source.css comment"
       ],
       "settings": {
         "foreground": "#00632A"
       }
     },
     {
+      "name": "argiope:markdown:type",
       "scope": [
-        "meta.embedded.argiope.markdown markup.heading"
+        "meta.embedded.argiope.markdown markup.heading",
+        "text.html.markdown markup.heading"
       ],
       "settings": {
         "foreground": "#6B003D"
       }
     },
     {
+      "name": "argiope:markdown:punctuation",
       "scope": [
-        "meta.embedded.argiope.markdown markup.list"
+        "meta.embedded.argiope.markdown markup.list",
+        "text.html.markdown markup.list"
       ],
       "settings": {
         "foreground": "#950057"
       }
     },
     {
+      "name": "argiope:markdown:call",
       "scope": [
         "meta.embedded.argiope.markdown markup.underline.link",
-        "meta.embedded.argiope.markdown string.other.link"
+        "meta.embedded.argiope.markdown string.other.link",
+        "text.html.markdown markup.underline.link",
+        "text.html.markdown string.other.link"
       ],
       "settings": {
         "foreground": "#280013"
       }
     },
     {
+      "name": "argiope:markdown:string",
       "scope": [
-        "meta.embedded.argiope.markdown string"
+        "meta.embedded.argiope.markdown string",
+        "text.html.markdown string"
       ],
       "settings": {
         "foreground": "#950057"
       }
     },
     {
+      "name": "argiope:markdown:punctuation",
       "scope": [
-        "meta.embedded.argiope.markdown punctuation"
+        "meta.embedded.argiope.markdown punctuation",
+        "text.html.markdown punctuation"
       ],
       "settings": {
         "foreground": "#950057"
       }
     },
     {
+      "name": "argiope:markdown:bracket",
       "scope": [
-        "meta.embedded.argiope.markdown punctuation.definition"
+        "meta.embedded.argiope.markdown punctuation.definition",
+        "text.html.markdown punctuation.definition"
       ],
       "settings": {
         "foreground": "#BC006F"
       }
     },
     {
+      "name": "argiope:glsl:variable",
       "scope": [
-        "meta.embedded.argiope.glsl variable"
+        "meta.embedded.argiope.glsl variable",
+        "source.glsl variable"
       ],
       "settings": {
         "foreground": "#390099"
       }
     },
     {
+      "name": "argiope:glsl:type",
       "scope": [
         "meta.embedded.argiope.glsl storage.type",
-        "meta.embedded.argiope.glsl entity.name.type"
+        "meta.embedded.argiope.glsl entity.name.type",
+        "source.glsl storage.type",
+        "source.glsl entity.name.type"
       ],
       "settings": {
         "foreground": "#12003C"
       }
     },
     {
+      "name": "argiope:glsl:function",
       "scope": [
         "meta.embedded.argiope.glsl entity.name.function",
-        "meta.embedded.argiope.glsl support.function"
+        "meta.embedded.argiope.glsl support.function",
+        "source.glsl entity.name.function",
+        "source.glsl support.function"
       ],
       "settings": {
         "foreground": "#2D007B"
       }
     },
     {
+      "name": "argiope:glsl:constant",
       "scope": [
-        "meta.embedded.argiope.glsl constant"
+        "meta.embedded.argiope.glsl constant",
+        "source.glsl constant"
       ],
       "settings": {
         "foreground": "#20005D"
       }
     },
     {
+      "name": "argiope:glsl:string",
       "scope": [
-        "meta.embedded.argiope.glsl string"
+        "meta.embedded.argiope.glsl string",
+        "source.glsl string"
       ],
       "settings": {
         "foreground": "#5200D4"
       }
     },
     {
+      "name": "argiope:glsl:number",
       "scope": [
-        "meta.embedded.argiope.glsl constant.numeric"
+        "meta.embedded.argiope.glsl constant.numeric",
+        "source.glsl constant.numeric"
       ],
       "settings": {
         "foreground": "#2D007B"
       }
     },
     {
+      "name": "argiope:glsl:keyword",
       "scope": [
-        "meta.embedded.argiope.glsl keyword"
+        "meta.embedded.argiope.glsl keyword",
+        "source.glsl keyword"
       ],
       "settings": {
         "foreground": "#535353"
       }
     },
     {
+      "name": "argiope:glsl:control",
       "scope": [
-        "meta.embedded.argiope.glsl keyword.control"
+        "meta.embedded.argiope.glsl keyword.control",
+        "source.glsl keyword.control"
       ],
       "settings": {
         "foreground": "#20005D"
       }
     },
     {
+      "name": "argiope:glsl:operator",
       "scope": [
-        "meta.embedded.argiope.glsl keyword.operator"
+        "meta.embedded.argiope.glsl keyword.operator",
+        "source.glsl keyword.operator"
       ],
       "settings": {
         "foreground": "#4600B7"
       }
     },
     {
+      "name": "argiope:glsl:punctuation",
       "scope": [
-        "meta.embedded.argiope.glsl punctuation"
+        "meta.embedded.argiope.glsl punctuation",
+        "source.glsl punctuation"
       ],
       "settings": {
         "foreground": "#535353"
       }
     },
     {
+      "name": "argiope:glsl:bracket",
       "scope": [
         "meta.embedded.argiope.glsl punctuation.section",
-        "meta.embedded.argiope.glsl punctuation.definition"
+        "meta.embedded.argiope.glsl punctuation.definition",
+        "source.glsl punctuation.section",
+        "source.glsl punctuation.definition"
       ],
       "settings": {
         "foreground": "#747474"
       }
     },
     {
+      "name": "argiope:glsl:comment",
       "scope": [
-        "meta.embedded.argiope.glsl comment"
+        "meta.embedded.argiope.glsl comment",
+        "source.glsl comment"
       ],
       "settings": {
         "foreground": "#747474"
       }
     },
     {
+      "name": "argiope:wgsl:variable",
       "scope": [
-        "meta.embedded.argiope.wgsl variable"
+        "meta.embedded.argiope.wgsl variable",
+        "source.wgsl variable"
       ],
       "settings": {
         "foreground": "#54007A"
       }
     },
     {
+      "name": "argiope:wgsl:type",
       "scope": [
         "meta.embedded.argiope.wgsl storage.type",
-        "meta.embedded.argiope.wgsl entity.name.type"
+        "meta.embedded.argiope.wgsl entity.name.type",
+        "source.wgsl storage.type",
+        "source.wgsl entity.name.type"
       ],
       "settings": {
         "foreground": "#1E002E"
       }
     },
     {
+      "name": "argiope:wgsl:function",
       "scope": [
         "meta.embedded.argiope.wgsl entity.name.function",
-        "meta.embedded.argiope.wgsl support.function"
+        "meta.embedded.argiope.wgsl support.function",
+        "source.wgsl entity.name.function",
+        "source.wgsl support.function"
       ],
       "settings": {
         "foreground": "#420061"
       }
     },
     {
+      "name": "argiope:wgsl:constant",
       "scope": [
-        "meta.embedded.argiope.wgsl constant"
+        "meta.embedded.argiope.wgsl constant",
+        "source.wgsl constant"
       ],
       "settings": {
         "foreground": "#300048"
       }
     },
     {
+      "name": "argiope:wgsl:string",
       "scope": [
-        "meta.embedded.argiope.wgsl string"
+        "meta.embedded.argiope.wgsl string",
+        "source.wgsl string"
       ],
       "settings": {
         "foreground": "#7600A9"
       }
     },
     {
+      "name": "argiope:wgsl:number",
       "scope": [
-        "meta.embedded.argiope.wgsl constant.numeric"
+        "meta.embedded.argiope.wgsl constant.numeric",
+        "source.wgsl constant.numeric"
       ],
       "settings": {
         "foreground": "#420061"
       }
     },
     {
+      "name": "argiope:wgsl:keyword",
       "scope": [
-        "meta.embedded.argiope.wgsl keyword"
+        "meta.embedded.argiope.wgsl keyword",
+        "source.wgsl keyword"
       ],
       "settings": {
         "foreground": "#535353"
       }
     },
     {
+      "name": "argiope:wgsl:control",
       "scope": [
-        "meta.embedded.argiope.wgsl keyword.control"
+        "meta.embedded.argiope.wgsl keyword.control",
+        "source.wgsl keyword.control"
       ],
       "settings": {
         "foreground": "#300048"
       }
     },
     {
+      "name": "argiope:wgsl:operator",
       "scope": [
-        "meta.embedded.argiope.wgsl keyword.operator"
+        "meta.embedded.argiope.wgsl keyword.operator",
+        "source.wgsl keyword.operator"
       ],
       "settings": {
         "foreground": "#650092"
       }
     },
     {
+      "name": "argiope:wgsl:punctuation",
       "scope": [
-        "meta.embedded.argiope.wgsl punctuation"
+        "meta.embedded.argiope.wgsl punctuation",
+        "source.wgsl punctuation"
       ],
       "settings": {
         "foreground": "#535353"
       }
     },
     {
+      "name": "argiope:wgsl:bracket",
       "scope": [
         "meta.embedded.argiope.wgsl punctuation.section",
-        "meta.embedded.argiope.wgsl punctuation.definition"
+        "meta.embedded.argiope.wgsl punctuation.definition",
+        "source.wgsl punctuation.section",
+        "source.wgsl punctuation.definition"
       ],
       "settings": {
         "foreground": "#747474"
       }
     },
     {
+      "name": "argiope:wgsl:comment",
       "scope": [
-        "meta.embedded.argiope.wgsl comment"
+        "meta.embedded.argiope.wgsl comment",
+        "source.wgsl comment"
       ],
       "settings": {
         "foreground": "#747474"
       }
     },
     {
+      "name": "argiope:javascript:comment",
+      "scope": [
+        "meta.interpolation.argiope comment.block.documentation.ts",
+        "meta.interpolation.argiope comment.block.ts",
+        "meta.interpolation.argiope comment.line.double-slash.ts",
+        "meta.interpolation.argiope comment.line.shebang.ts",
+        "meta.interpolation.argiope comment.line.triple-slash.directive.ts"
+      ],
+      "settings": {
+        "foreground": "#747474"
+      }
+    },
+    {
+      "name": "argiope:javascript:escape",
+      "scope": [
+        "meta.interpolation.argiope constant.character.escape.ts"
+      ],
+      "settings": {
+        "foreground": "#1F1F1F"
+      }
+    },
+    {
+      "name": "argiope:javascript:constant",
+      "scope": [
+        "meta.interpolation.argiope constant.language.boolean.false.ts",
+        "meta.interpolation.argiope constant.language.boolean.true.ts",
+        "meta.interpolation.argiope constant.language.import-export-all.ts",
+        "meta.interpolation.argiope constant.language.infinity.ts",
+        "meta.interpolation.argiope constant.language.nan.ts",
+        "meta.interpolation.argiope constant.language.null.ts",
+        "meta.interpolation.argiope constant.language.undefined.ts",
+        "meta.interpolation.argiope variable.other.constant.object.property.ts",
+        "meta.interpolation.argiope variable.other.constant.object.ts",
+        "meta.interpolation.argiope variable.other.constant.property.ts",
+        "meta.interpolation.argiope variable.other.constant.ts"
+      ],
+      "settings": {
+        "foreground": "#1F1F1F"
+      }
+    },
+    {
+      "name": "argiope:javascript:number",
+      "scope": [
+        "meta.interpolation.argiope constant.numeric.binary.ts",
+        "meta.interpolation.argiope constant.numeric.decimal.ts",
+        "meta.interpolation.argiope constant.numeric.hex.ts",
+        "meta.interpolation.argiope constant.numeric.octal.ts"
+      ],
+      "settings": {
+        "foreground": "#2C2C2C"
+      }
+    },
+    {
+      "name": "argiope:javascript:function",
+      "scope": [
+        "meta.interpolation.argiope entity.name.function.tagged-template.ts",
+        "meta.interpolation.argiope entity.name.function.ts"
+      ],
+      "settings": {
+        "foreground": "#2C2C2C"
+      }
+    },
+    {
+      "name": "argiope:javascript:type",
+      "scope": [
+        "meta.interpolation.argiope entity.name.type.alias.ts",
+        "meta.interpolation.argiope entity.name.type.class.ts",
+        "meta.interpolation.argiope entity.name.type.enum.ts",
+        "meta.interpolation.argiope entity.name.type.interface.ts",
+        "meta.interpolation.argiope entity.name.type.module.ts",
+        "meta.interpolation.argiope entity.name.type.ts",
+        "meta.interpolation.argiope support.type.builtin.ts",
+        "meta.interpolation.argiope support.type.object.module.ts",
+        "meta.interpolation.argiope support.type.primitive.ts"
+      ],
+      "settings": {
+        "foreground": "#121212"
+      }
+    },
+    {
+      "name": "argiope:javascript:control",
+      "scope": [
+        "meta.interpolation.argiope keyword.control.as.ts",
+        "meta.interpolation.argiope keyword.control.assert.ts",
+        "meta.interpolation.argiope keyword.control.conditional.ts",
+        "meta.interpolation.argiope keyword.control.default.ts",
+        "meta.interpolation.argiope keyword.control.export.ts",
+        "meta.interpolation.argiope keyword.control.flow.ts",
+        "meta.interpolation.argiope keyword.control.from.ts",
+        "meta.interpolation.argiope keyword.control.import.ts",
+        "meta.interpolation.argiope keyword.control.intrinsic.ts",
+        "meta.interpolation.argiope keyword.control.loop.ts",
+        "meta.interpolation.argiope keyword.control.new.ts",
+        "meta.interpolation.argiope keyword.control.require.ts",
+        "meta.interpolation.argiope keyword.control.satisfies.ts",
+        "meta.interpolation.argiope keyword.control.switch.ts",
+        "meta.interpolation.argiope keyword.control.trycatch.ts",
+        "meta.interpolation.argiope keyword.control.ts",
+        "meta.interpolation.argiope keyword.control.type.ts",
+        "meta.interpolation.argiope keyword.control.with.ts"
+      ],
+      "settings": {
+        "foreground": "#1F1F1F"
+      }
+    },
+    {
+      "name": "argiope:javascript:keyword",
+      "scope": [
+        "meta.interpolation.argiope keyword.generator.asterisk.ts",
+        "meta.interpolation.argiope keyword.other.debugger.ts",
+        "meta.interpolation.argiope keyword.other.ts",
+        "meta.interpolation.argiope storage.modifier.async.ts",
+        "meta.interpolation.argiope storage.modifier.ts",
+        "meta.interpolation.argiope storage.type.class.ts",
+        "meta.interpolation.argiope storage.type.enum.ts",
+        "meta.interpolation.argiope storage.type.function.arrow.ts",
+        "meta.interpolation.argiope storage.type.function.ts",
+        "meta.interpolation.argiope storage.type.interface.ts",
+        "meta.interpolation.argiope storage.type.internaldeclaration.ts",
+        "meta.interpolation.argiope storage.type.namespace.ts",
+        "meta.interpolation.argiope storage.type.numeric.bigint.ts",
+        "meta.interpolation.argiope storage.type.property.ts",
+        "meta.interpolation.argiope storage.type.ts",
+        "meta.interpolation.argiope storage.type.type.ts"
+      ],
+      "settings": {
+        "foreground": "#535353"
+      }
+    },
+    {
+      "name": "argiope:javascript:operator",
+      "scope": [
+        "meta.interpolation.argiope keyword.operator.arithmetic.ts",
+        "meta.interpolation.argiope keyword.operator.assignment.compound.bitwise.ts",
+        "meta.interpolation.argiope keyword.operator.assignment.compound.ts",
+        "meta.interpolation.argiope keyword.operator.assignment.ts",
+        "meta.interpolation.argiope keyword.operator.bitwise.shift.ts",
+        "meta.interpolation.argiope keyword.operator.bitwise.ts",
+        "meta.interpolation.argiope keyword.operator.comparison.ts",
+        "meta.interpolation.argiope keyword.operator.decrement.ts",
+        "meta.interpolation.argiope keyword.operator.definiteassignment.ts",
+        "meta.interpolation.argiope keyword.operator.expression.delete.ts",
+        "meta.interpolation.argiope keyword.operator.expression.extends.ts",
+        "meta.interpolation.argiope keyword.operator.expression.import.ts",
+        "meta.interpolation.argiope keyword.operator.expression.in.ts",
+        "meta.interpolation.argiope keyword.operator.expression.infer.ts",
+        "meta.interpolation.argiope keyword.operator.expression.instanceof.ts",
+        "meta.interpolation.argiope keyword.operator.expression.is.ts",
+        "meta.interpolation.argiope keyword.operator.expression.keyof.ts",
+        "meta.interpolation.argiope keyword.operator.expression.of.ts",
+        "meta.interpolation.argiope keyword.operator.expression.typeof.ts",
+        "meta.interpolation.argiope keyword.operator.expression.void.ts",
+        "meta.interpolation.argiope keyword.operator.increment.ts",
+        "meta.interpolation.argiope keyword.operator.logical.ts",
+        "meta.interpolation.argiope keyword.operator.new.ts",
+        "meta.interpolation.argiope keyword.operator.optional.ts",
+        "meta.interpolation.argiope keyword.operator.relational.ts",
+        "meta.interpolation.argiope keyword.operator.rest.ts",
+        "meta.interpolation.argiope keyword.operator.spread.ts",
+        "meta.interpolation.argiope keyword.operator.ternary.ts",
+        "meta.interpolation.argiope keyword.operator.type.annotation.ts",
+        "meta.interpolation.argiope keyword.operator.type.asserts.ts",
+        "meta.interpolation.argiope keyword.operator.type.modifier.ts",
+        "meta.interpolation.argiope keyword.operator.type.ts"
+      ],
+      "settings": {
+        "foreground": "#454545"
+      }
+    },
+    {
+      "name": "argiope:javascript:punctuation",
+      "scope": [
+        "meta.interpolation.argiope punctuation.accessor.optional.ts",
+        "meta.interpolation.argiope punctuation.accessor.ts",
+        "meta.interpolation.argiope punctuation.decorator.internaldeclaration.ts",
+        "meta.interpolation.argiope punctuation.decorator.ts",
+        "meta.interpolation.argiope punctuation.destructuring.ts",
+        "meta.interpolation.argiope punctuation.separator.comma.ts",
+        "meta.interpolation.argiope punctuation.separator.key-value.ts",
+        "meta.interpolation.argiope punctuation.separator.label.ts",
+        "meta.interpolation.argiope punctuation.separator.parameter.ts",
+        "meta.interpolation.argiope punctuation.terminator.statement.ts",
+        "meta.interpolation.argiope punctuation.whitespace.comment.leading.ts"
+      ],
+      "settings": {
+        "foreground": "#535353"
+      }
+    },
+    {
+      "name": "argiope:javascript:bracket",
+      "scope": [
+        "meta.interpolation.argiope punctuation.definition.binding-pattern.array.ts",
+        "meta.interpolation.argiope punctuation.definition.binding-pattern.object.ts",
+        "meta.interpolation.argiope punctuation.definition.block.ts",
+        "meta.interpolation.argiope punctuation.definition.comment.ts",
+        "meta.interpolation.argiope punctuation.definition.parameters.begin.ts",
+        "meta.interpolation.argiope punctuation.definition.parameters.end.ts",
+        "meta.interpolation.argiope punctuation.definition.section.case-statement.ts",
+        "meta.interpolation.argiope punctuation.definition.string.begin.ts",
+        "meta.interpolation.argiope punctuation.definition.string.end.ts",
+        "meta.interpolation.argiope punctuation.definition.string.template.begin.ts",
+        "meta.interpolation.argiope punctuation.definition.string.template.end.ts",
+        "meta.interpolation.argiope punctuation.definition.tag.directive.ts",
+        "meta.interpolation.argiope punctuation.definition.template-expression.begin.ts",
+        "meta.interpolation.argiope punctuation.definition.template-expression.end.ts",
+        "meta.interpolation.argiope punctuation.definition.typeparameters.begin.ts",
+        "meta.interpolation.argiope punctuation.definition.typeparameters.end.ts"
+      ],
+      "settings": {
+        "foreground": "#747474"
+      }
+    },
+    {
+      "name": "argiope:javascript:string",
+      "scope": [
+        "meta.interpolation.argiope string.quoted.alias.ts",
+        "meta.interpolation.argiope string.quoted.double.ts",
+        "meta.interpolation.argiope string.quoted.single.ts",
+        "meta.interpolation.argiope string.regexp.ts",
+        "meta.interpolation.argiope string.template.ts"
+      ],
+      "settings": {
+        "foreground": "#525252"
+      }
+    },
+    {
+      "name": "argiope:javascript:variable",
+      "scope": [
+        "meta.interpolation.argiope variable.language.arguments.ts",
+        "meta.interpolation.argiope variable.language.super.ts",
+        "meta.interpolation.argiope variable.language.this.ts",
+        "meta.interpolation.argiope variable.object.property.ts",
+        "meta.interpolation.argiope variable.other.enummember.ts",
+        "meta.interpolation.argiope variable.other.object.property.ts",
+        "meta.interpolation.argiope variable.other.object.ts",
+        "meta.interpolation.argiope variable.other.readwrite.alias.ts",
+        "meta.interpolation.argiope variable.other.readwrite.ts",
+        "meta.interpolation.argiope variable.parameter.ts"
+      ],
+      "settings": {
+        "foreground": "#393939"
+      }
+    },
+    {
+      "name": "argiope:javascript:property",
+      "scope": [
+        "meta.interpolation.argiope variable.other.property.ts"
+      ],
+      "settings": {
+        "foreground": "#454545"
+      }
+    },
+    {
+      "name": "argiope:javascript:interpolation",
       "scope": [
         "meta.interpolation.argiope punctuation.section.interpolation.begin",
         "meta.interpolation.argiope punctuation.section.interpolation.end"

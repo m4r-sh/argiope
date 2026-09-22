@@ -9,6 +9,7 @@ const syntaxes = resolve(checkout, "syntaxes");
 const themes = resolve(checkout, "themes");
 const headlessGrammars = [
   "argiope.injection.tmLanguage.json",
+  "argiope.interpolation.tmLanguage.json",
 ];
 
 if (!existsSync(resolve(checkout, "README.md"))) {
@@ -28,4 +29,6 @@ for (const entry of await readdir(themes)) {
 }
 for (const entry of headlessGrammars) await cp(resolve(source, entry), resolve(syntaxes, entry));
 await cp(resolve(source, "themes"), themes, { recursive: true });
+await cp(resolve(source, "palettes.json"), resolve(checkout, "src/palettes.json"));
+await cp(resolve(root, "src/adapters/textmate-options.cjs"), resolve(checkout, "src/textmate-options.cjs"));
 console.log(`argiope: synced ${source} -> ${checkout}`);

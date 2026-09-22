@@ -34,4 +34,5 @@ for (const entry of await readdir(queries)) {
 await cp(resolve(source, "themes"), themes, { recursive: true });
 await cp(resolve(source, "runtime", "queries"), queries, { recursive: true });
 await cp(resolve(source, "languages.toml"), resolve(checkout, "languages.toml"));
+await cp(resolve(source, "palette-options.json"), resolve(checkout, "palette-options.json"));
 console.log(`argiope: synced ${source} -> ${checkout}`);

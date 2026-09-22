@@ -9,7 +9,7 @@ const manifest = JSON.parse(readFileSync(resolve(extension, "package.json"), "ut
 describe("VS Code extension manifest", () => {
   test("registers the Argiope injection against JavaScript and TypeScript", () => {
     const [grammar] = manifest.contributes.grammars;
-    expect(manifest.publisher).toBe("m4r-sh");
+    expect(manifest.publisher).toBe("m4rsh");
     expect(grammar.scopeName).toBe("source.argiope.injection");
     expect(grammar.injectTo).toEqual(["source.js", "source.ts"]);
     expect(existsSync(resolve(extension, grammar.path))).toBe(true);
@@ -21,8 +21,9 @@ describe("VS Code extension manifest", () => {
       "meta.embedded.argiope.javascript": "javascript",
       "meta.embedded.argiope.glsl": "glsl",
       "meta.embedded.argiope.wgsl": "wgsl",
+      "meta.interpolation.argiope": "typescript",
     });
-    expect(Object.values(grammar.tokenTypes)).toEqual(Array(7).fill("other"));
+    expect(Object.values(grammar.tokenTypes)).toEqual(Array(8).fill("other"));
   });
 
   test("contributes all generated Argiope themes", () => {

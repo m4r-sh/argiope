@@ -1,6 +1,6 @@
 ; inherits: glsl
-(identifier) @argiope.glsl.variable
-(type_identifier) @argiope.glsl.type
-(function_declarator (identifier) @argiope.glsl.function)
-(number_literal) @argiope.glsl.number
-(comment) @argiope.glsl.comment
+(identifier) @variable.argiope.glsl.variable
+(type_identifier) @type.argiope.glsl.type
+(function_declarator (identifier) @function.argiope.glsl.function)
+(number_literal) @constant.numeric.argiope.glsl.number
+(comment) @comment.argiope.glsl.comment

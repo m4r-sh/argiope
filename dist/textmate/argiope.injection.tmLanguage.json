@@ -341,7 +341,7 @@
     "argiope-javascript": {
       "name": "meta.embedded.argiope.javascript",
       "contentName": "source.js",
-      "begin": "(?<![\\w$.])(raw\\\\.js)(\\s*)(`)",
+      "begin": "(?<![\\w$.])(raw\\.js)(\\s*)(`)",
       "beginCaptures": {
         "1": {
           "name": "entity.name.function.tagged-template.argiope.javascript"

@@ -1,6 +1,6 @@
 ; inherits: wgsl
-(identifier) @argiope.wgsl.variable
-(type_declaration _) @argiope.wgsl.type
-(function_declaration (identifier) @argiope.wgsl.function)
-[(int_literal) (float_literal)] @argiope.wgsl.number
-(comment) @argiope.wgsl.comment
+(identifier) @variable.argiope.wgsl.variable
+(type_declaration _) @type.argiope.wgsl.type
+(function_declaration (identifier) @function.argiope.wgsl.function)
+[(int_literal) (float_literal)] @constant.numeric.argiope.wgsl.number
+(comment) @comment.argiope.wgsl.comment

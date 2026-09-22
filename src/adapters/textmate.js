@@ -1,5 +1,7 @@
 import { converter, formatHex } from "culori";
 import { TEXTMATE_HOSTS, TEXTMATE_LANGUAGES } from "../textmate/languages.js";
+import { INTERPOLATION_SCOPES } from "../textmate/interpolation-scopes.js";
+import { languageColors, semanticColors, validateLanguages } from "../semantic.js";
 
 const toOklch = converter("oklch");
 const hex = value => formatHex(value).toUpperCase();
@@ -93,13 +95,17 @@ const PORTABLE_ROLE = {
 };
 
 const JAVASCRIPT_HOST_SCOPES = ["source.js", "source.ts"];
+const NATIVE_SCOPES = {
+  html: ["text.html.basic"], svg: ["text.xml"], css: ["source.css"],
+  markdown: ["text.html.markdown"], glsl: ["source.glsl"], wgsl: ["source.wgsl"],
+};
 
 const escapedDelimiter = "\\\\(?:`|\\$\\{)";
 const interpolationStart = "(?<!\\\\)(?:\\\\\\\\)*(\\$\\{)";
 const templateEnd = "(?<!\\\\)(?:\\\\\\\\)*`";
 
 function tagPattern({ tag }) {
-  const spelling = tag.replace(".", "\\\\.");
+  const spelling = tag.replace(".", "\\.");
   // The boundary rejects property names and longer identifiers; the trailing
   // backtick ensures that only a tagged template is injected. `raw.js` is the
   // sole intentional member expression because its dot is part of `tag`.
@@ -214,6 +220,18 @@ export function textmateInjectionGrammar() {
   };
 }
 
+// A separate injection is needed when the embedded grammar is itself JS/TS:
+// TextMate suppresses recursive application of the active tag injection.
+export function textmateInterpolationGrammar() {
+  return {
+    name: "Argiope interpolations",
+    scopeName: "source.argiope.interpolation",
+    injectTo: JAVASCRIPT_HOST_SCOPES,
+    injectionSelector: "L:meta.embedded.argiope -comment -string",
+    patterns: [interpolation("source.ts")],
+  };
+}
+
 /**
  * A Shiki probe grammar. TextMate picks the earliest matching pattern, so a
  * host-grammar fallback would consume an entire JS statement before an Argiope
@@ -235,49 +253,82 @@ export function textmateCompositeGrammar(host) {
 export function textmateGrammarFiles() {
   return {
     "argiope.injection.tmLanguage.json": textmateInjectionGrammar(),
+    "argiope.interpolation.tmLanguage.json": textmateInterpolationGrammar(),
     "argiope-javascript.tmLanguage.json": textmateCompositeGrammar("javascript"),
     "argiope-typescript.tmLanguage.json": textmateCompositeGrammar("typescript"),
   };
 }
 
-export function textmateAdapter(theme) {
+export function textmateAdapter(theme, { languages = {} } = {}) {
+  validateLanguages(theme, languages);
   const variant = toOklch(theme.base.bg)?.l >= 0.6 ? "light" : "dark";
   const tokenColors = [];
+  const fallback = semanticColors(theme);
+  for (const [role, scopes] of Object.entries(TEXTMATE_SCOPE_ROLES.javascript)) {
+    tokenColors.push({ scope: scopes, settings: { foreground: hex(fallback[role]), ...(role === "comment" ? { fontStyle: "italic" } : {}) } });
+  }
+  tokenColors.push(
+    { scope: ["entity.name.tag", "entity.other.attribute-name"], settings: { foreground: hex(fallback.type) } },
+    { scope: ["markup.heading"], settings: { foreground: hex(fallback.type), fontStyle: "bold" } },
+    { scope: ["markup.bold"], settings: { fontStyle: "bold" } },
+    { scope: ["markup.italic"], settings: { fontStyle: "italic" } },
+    { scope: ["markup.underline.link", "string.other.link"], settings: { foreground: hex(fallback.call), fontStyle: "underline" } },
+    { scope: ["markup.raw"], settings: { foreground: hex(fallback.string) } },
+  );
   const javascript = theme.languages.at("javascript");
+  const hostColors = languageColors(theme, "javascript", languages);
   for (const [role, scopes] of Object.entries(TEXTMATE_SCOPE_ROLES.javascript)) {
     const shade = javascript.tokens[role];
     if (!shade) continue;
     tokenColors.push({
+      name: `argiope:javascript:${role}`,
       // Keep the host palette restricted to JS/TS.  Embedded regions get a
       // separate family-specific rule below.
       scope: JAVASCRIPT_HOST_SCOPES.flatMap(host => scopes.map(scope => `${host} ${scope}`)),
-      settings: { foreground: hex(javascript.colors[shade]) },
+      settings: { foreground: hex(hostColors[role]) },
     });
   }
   for (const [language, roles] of Object.entries(TEXTMATE_SCOPE_ROLES)) {
-    const palette = theme.languages.at(language);
+    const family = language === "javascript" ? "embedded" : language;
+    const palette = languageColors(theme, family, languages);
     for (const [role, scopes] of Object.entries(roles)) {
-      const shade = palette.tokens[PORTABLE_ROLE[role] ?? role];
-      if (!shade) continue;
+      const portableRole = PORTABLE_ROLE[role] ?? role;
       tokenColors.push({
-        scope: scopes.map(scope => `meta.embedded.argiope.${language} ${scope}`),
-        settings: { foreground: hex(palette.colors[shade]) },
+        name: `argiope:${family}:${portableRole}`,
+        scope: [
+          ...scopes.map(scope => `meta.embedded.argiope.${language} ${scope}`),
+          ...(NATIVE_SCOPES[language] ?? []).flatMap(native => scopes.map(scope => `${native} ${scope}`)),
+        ],
+        settings: { foreground: hex(palette[portableRole]) },
       });
     }
+  }
+  // Exact source.ts token scopes avoid recoloring a nested child language
+  // merely because it also lives inside an outer interpolation.
+  for (const [role, scopes] of Object.entries(INTERPOLATION_SCOPES)) {
+    tokenColors.push({
+      name: `argiope:javascript:${role}`,
+      scope: scopes.map(scope => `meta.interpolation.argiope ${scope}`),
+      settings: { foreground: hex(hostColors[role]) },
+    });
   }
   // Interpolation is JavaScript within an embedded language. Keep its
   // delimiters deliberately quiet in every variant, including Versicolor
   // whose ordinary JavaScript bracket role is intentionally high-contrast.
   tokenColors.push({
+    name: "argiope:javascript:interpolation",
     scope: [
       "meta.interpolation.argiope punctuation.section.interpolation.begin",
       "meta.interpolation.argiope punctuation.section.interpolation.end",
     ],
-    settings: { foreground: hex(javascript.colors.gray_dim) },
+    settings: { foreground: languages.javascript === false
+      ? hex(fallback.bracket)
+      : hex(theme.languages.at(typeof languages.javascript === "string" ? languages.javascript : "javascript").colors.gray_dim) },
   });
   return {
     name: theme.name,
     type: variant,
+    semanticHighlighting: false,
     colors: {
       "editor.background": hex(theme.base.bg),
       "editor.foreground": hex(theme.base.fg),
@@ -288,6 +339,18 @@ export function textmateAdapter(theme) {
     },
     tokenColors,
   };
+}
+
+// Portable data for standalone editor customization; no color library or
+// authoring checkout is needed by the shipped integrations.
+export function textmatePaletteData(entries) {
+  return Object.fromEntries(entries.map(({ theme }) => [theme.name, {
+    fallback: Object.fromEntries(Object.entries(semanticColors(theme)).map(([role, color]) => [role, hex(color)])),
+    families: Object.fromEntries(theme.languageEntries.map(([family, palette]) => [family, {
+      ...Object.fromEntries(Object.entries(languageColors(theme, family)).map(([role, color]) => [role, hex(color)])),
+      interpolation: hex(palette.colors.gray_dim),
+    }])),
+  }]));
 }
 
 export function textmateThemeFiles(entries) {
