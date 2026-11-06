@@ -275,10 +275,10 @@ export function textmateAdapter(theme, { languages = {} } = {}) {
     { scope: ["markup.underline.link", "string.other.link"], settings: { foreground: hex(fallback.call), fontStyle: "underline" } },
     { scope: ["markup.raw"], settings: { foreground: hex(fallback.string) } },
   );
-  const javascript = theme.languages.at("javascript");
+  const javascript = theme.languages.javascript;
   const hostColors = languageColors(theme, "javascript", languages);
   for (const [role, scopes] of Object.entries(TEXTMATE_SCOPE_ROLES.javascript)) {
-    const shade = javascript.tokens[role];
+    const shade = javascript.roles[role];
     if (!shade) continue;
     tokenColors.push({
       name: `argiope:javascript:${role}`,
@@ -312,6 +312,24 @@ export function textmateAdapter(theme, { languages = {} } = {}) {
       settings: { foreground: hex(hostColors[role]) },
     });
   }
+  // The bundled JS grammar marks a const declaration distinctly, but its
+  // scopes for method calls and regular calls are identical. Do not pretend
+  // those scopes can implement method_call or builtin independently.
+  const constBinding = "meta.definition.variable variable.other.constant";
+  for (const [family, scopes] of [
+    ["javascript", [
+      ...JAVASCRIPT_HOST_SCOPES.map(host => `${host} ${constBinding}`),
+      `meta.interpolation.argiope ${constBinding}`,
+    ]],
+    ["embedded", [`meta.embedded.argiope.javascript ${constBinding}`]],
+  ]) {
+    if (!theme.languages[family]?.roles.const_binding) continue;
+    const palette = languageColors(theme, family, languages);
+    tokenColors.push({
+      name: `argiope:${family}:const_binding`, scope: scopes,
+      settings: { foreground: hex(palette.const_binding ?? palette.variable) },
+    });
+  }
   // Interpolation is JavaScript within an embedded language. Keep its
   // delimiters deliberately quiet in every variant, including Versicolor
   // whose ordinary JavaScript bracket role is intentionally high-contrast.
@@ -323,7 +341,7 @@ export function textmateAdapter(theme, { languages = {} } = {}) {
     ],
     settings: { foreground: languages.javascript === false
       ? hex(fallback.bracket)
-      : hex(theme.languages.at(typeof languages.javascript === "string" ? languages.javascript : "javascript").colors.gray_dim) },
+      : hex(theme.languages[typeof languages.javascript === "string" ? languages.javascript : "javascript"].colors.gray_dim) },
   });
   return {
     name: theme.name,
@@ -346,7 +364,7 @@ export function textmateAdapter(theme, { languages = {} } = {}) {
 export function textmatePaletteData(entries) {
   return Object.fromEntries(entries.map(({ theme }) => [theme.name, {
     fallback: Object.fromEntries(Object.entries(semanticColors(theme)).map(([role, color]) => [role, hex(color)])),
-    families: Object.fromEntries(theme.languageEntries.map(([family, palette]) => [family, {
+    families: Object.fromEntries(Object.entries(theme.languages).map(([family, palette]) => [family, {
       ...Object.fromEntries(Object.entries(languageColors(theme, family)).map(([role, color]) => [role, hex(color)])),
       interpolation: hex(palette.colors.gray_dim),
     }])),

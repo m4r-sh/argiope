@@ -1,9 +1,9 @@
 import { describe, expect, test } from "bun:test";
-import { DEFAULT_THEMES } from "../src/defaults.js";
-import { neovimAdapter } from "../src/adapters/neovim.js";
-import { helixAdapter, helixCapture } from "../src/adapters/helix.js";
-import { textmateAdapter, textmatePaletteData } from "../src/adapters/textmate.js";
-import customization from "../src/adapters/textmate-options.cjs";
+import { DEFAULT_THEMES } from "../scripts/themes.js";
+import { neovimAdapter } from "../core/adapters/neovim.js";
+import { helixAdapter, helixCapture } from "../core/adapters/helix.js";
+import { textmateAdapter, textmatePaletteData } from "../core/adapters/textmate.js";
+import customization from "../core/adapters/textmate-options.cjs";
 
 describe("portable fallback and language assignments", () => {
   for (const { id, theme } of DEFAULT_THEMES) {
@@ -39,4 +39,13 @@ describe("portable fallback and language assignments", () => {
       expect(() => customization.customizeTheme(textmateAdapter(theme), textmatePaletteData([{ theme }]), languages)).toThrow();
     }
   });
+});
+
+test("runtime customization preserves specialized role fallbacks", () => {
+  for (const { theme } of DEFAULT_THEMES) {
+    for (const javascript of [false, "html"]) {
+      expect(customization.customizeTheme(textmateAdapter(theme), textmatePaletteData([{ theme }]), { javascript }))
+        .toEqual(textmateAdapter(theme, { languages: { javascript } }));
+    }
+  }
 });

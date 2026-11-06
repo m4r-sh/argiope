@@ -1,6 +1,6 @@
-import { HELIX_CAPTURE_ROLES, helixCapture, helixThemeFiles } from "../src/adapters/helix.js";
-import { DEFAULT_THEMES } from "../src/defaults.js";
-import { textmatePaletteData } from "../src/adapters/textmate.js";
+import { HELIX_CAPTURE_ROLES, helixCapture, helixThemeFiles } from "../core/adapters/helix.js";
+import { DEFAULT_THEMES } from "../scripts/themes.js";
+import { textmatePaletteData } from "../core/adapters/textmate.js";
 
 const root = new URL("../dist/helix/", import.meta.url);
 
@@ -24,6 +24,12 @@ const queryFiles = {
 ["(" ")" "[" "]" "{" "}"] @argiope.javascript.bracket
 [";" "," "."] @argiope.javascript.punctuation
 (template_substitution ["\${" "}"] @argiope.javascript.bracket)
+; argiope-semantic-roles
+(call_expression function: (member_expression property: (property_identifier) @argiope.javascript.method_call))
+((lexical_declaration "const" (variable_declarator name: (identifier) @argiope.javascript.const_binding)))
+((lexical_declaration "const" (variable_declarator name: (object_pattern (shorthand_property_identifier_pattern) @argiope.javascript.const_binding))))
+((call_expression function: (identifier) @argiope.javascript.builtin)
+ (#any-of? @argiope.javascript.builtin "Object" "Function" "Boolean" "Symbol" "Number" "String" "Array" "Date" "RegExp" "Map" "Set" "Promise" "Error"))
 `,
   "argiope-javascript/injections.scm": `${[
   ["html", "argiope-html"],
@@ -199,16 +205,20 @@ for (const [name, body] of Object.entries(helixThemeFiles(DEFAULT_THEMES))) {
   await Bun.write(new URL(`themes/${name}`, root), body);
 }
 for (const [name, body] of Object.entries(queryFiles)) {
-  const portable = body.replace(/@argiope\.([a-z]+)\.([a-z]+)/g,
+  const portable = body.replace(/@argiope\.([a-z]+)\.([a-z_]+)/g,
     (_, language, capture) => `@${helixCapture(language, capture)}`);
   await Bun.write(new URL(`runtime/queries/${name}`, root), portable);
 }
 await Bun.write(new URL("languages.toml", root), languagesToml);
+const extraCaptures = { builtin: 'builtin', method_call: 'method_call', const_binding: 'const_binding' };
+const customizationCaptures = Object.fromEntries(Object.entries(HELIX_CAPTURE_ROLES).map(([language, captures]) => [language,
+  language === 'javascript' || language === 'embedded' ? { ...captures, ...extraCaptures } : captures,
+]));
 await Bun.write(new URL("palette-options.json", root), JSON.stringify({
   themes: Object.fromEntries(DEFAULT_THEMES.map(({ id, theme }) => [id, theme.name])),
   palettes: textmatePaletteData(DEFAULT_THEMES),
-  captures: HELIX_CAPTURE_ROLES,
-  scopes: Object.fromEntries(Object.entries(HELIX_CAPTURE_ROLES).map(([language, captures]) => [language,
+  captures: customizationCaptures,
+  scopes: Object.fromEntries(Object.entries(customizationCaptures).map(([language, captures]) => [language,
     Object.fromEntries(Object.keys(captures).map(capture => [capture, helixCapture(language, capture)])),
   ])),
 }, null, 2) + "\n");

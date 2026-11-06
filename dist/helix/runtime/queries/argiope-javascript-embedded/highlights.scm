@@ -17,3 +17,9 @@
 ["(" ")" "[" "]" "{" "}"] @punctuation.bracket.argiope.embedded.bracket
 [";" "," "."] @punctuation.argiope.embedded.punctuation
 (template_substitution ["${" "}"] @punctuation.bracket.argiope.embedded.bracket)
+; argiope-semantic-roles
+(call_expression function: (member_expression property: (property_identifier) @function.method.call.argiope.embedded.method_call))
+((lexical_declaration "const" (variable_declarator name: (identifier) @variable.other.constant.argiope.embedded.const_binding)))
+((lexical_declaration "const" (variable_declarator name: (object_pattern (shorthand_property_identifier_pattern) @variable.other.constant.argiope.embedded.const_binding))))
+((call_expression function: (identifier) @function.builtin.argiope.embedded.builtin)
+ (#any-of? @function.builtin.argiope.embedded.builtin "Object" "Function" "Boolean" "Symbol" "Number" "String" "Array" "Date" "RegExp" "Map" "Set" "Promise" "Error"))

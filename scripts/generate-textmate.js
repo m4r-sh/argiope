@@ -1,6 +1,6 @@
 import { mkdir } from "node:fs/promises";
-import { textmateGrammarFiles, textmateThemeFiles, textmatePaletteData } from "../src/adapters/textmate.js";
-import { DEFAULT_THEMES } from "../src/defaults.js";
+import { textmateGrammarFiles, textmateThemeFiles, textmatePaletteData } from "../core/adapters/textmate.js";
+import { DEFAULT_THEMES } from "../scripts/themes.js";
 
 const root = new URL("../dist/textmate/", import.meta.url);
 const grammars = textmateGrammarFiles();

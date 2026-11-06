@@ -7,7 +7,7 @@ const generated = resolve(root, "dist", "textmate");
 const output = resolve(root, "docs", "shiki-preview.html");
 const screenshotSource = await readFile(resolve(root, "examples", "theme-screenshot.js"), "utf8");
 const themeIds = [
-  "aurantia", "versicolor", "aurantia-neon", "versicolor-neon", "ocyaloides", "trifasciata",
+  "aurantia", "versicolor", "ocyaloides", "trifasciata",
 ];
 
 // This broader fixture supplements the screenshot source so every registered

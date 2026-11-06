@@ -58,21 +58,9 @@ Unfortunately, this type of highlighting isn't common, so making it work in vari
 
 ---
 
-#### Aurantia Neon
-
-<img src="/docs/images/themes/argiope-aurantia-neon.png" alt="Aurantia Neon Syntax Theme" width="400" />
-
----
-
 #### Versicolor
 
 <img src="/docs/images/themes/argiope-versicolor.png" alt="Versicolor Syntax Theme" width="400" />
-
----
-
-#### Versicolor Neon
-
-<img src="/docs/images/themes/argiope-versicolor-neon.png" alt="Versicolor Neon Syntax Theme" width="400" />
 
 ---
 
@@ -86,3 +74,11 @@ Unfortunately, this type of highlighting isn't common, so making it work in vari
 
 <img src="/docs/images/themes/argiope-trifasciata.png" alt="Trifasciata Syntax Theme" width="400" />
 
+
+## Authoring and releases
+
+Themes are authored in the separate Argiope Studio project. This repository
+builds editor plugins from Studio's resolved JSON exports in `themes/` using
+`@m4rsh/argiope-core`; it contains no browser editor or ramp engine.
+See [development and rendering API](docs/API.md) for the export workflow,
+read-only artifact checks, and shared Neovim semantic rendering API.

@@ -29,7 +29,7 @@ await cp(resolve(source, grammarFile), resolve(syntaxes, grammarFile));
 await cp(resolve(source, "argiope.interpolation.tmLanguage.json"), resolve(syntaxes, "argiope.interpolation.tmLanguage.json"));
 await cp(resolve(source, "themes"), themes, { recursive: true });
 await cp(resolve(source, "palettes.json"), resolve(checkout, "palettes.json"));
-await cp(resolve(root, "src/adapters/textmate-options.cjs"), resolve(checkout, "textmate-options.cjs"));
+await cp(resolve(root, "core/adapters/textmate-options.cjs"), resolve(checkout, "textmate-options.cjs"));
 
 const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 const themeFiles = (await readdir(themes)).filter(entry => /^argiope-.+\.json$/.test(entry)).sort();

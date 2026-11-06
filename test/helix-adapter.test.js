@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import { DEFAULT_THEMES } from "../src/defaults.js";
-import { helixAdapter, helixThemeFiles, helixThemeToml } from "../src/adapters/helix.js";
+import { DEFAULT_THEMES } from "../scripts/themes.js";
+import { helixAdapter, helixThemeFiles, helixThemeToml } from "../core/adapters/helix.js";
 
 describe("Helix adapter", () => {
   test("maps portable roles to hexadecimal Helix scopes", () => {
@@ -9,8 +9,9 @@ describe("Helix adapter", () => {
     expect(adapted.scopes["argiope.html.tag"]).toMatch(/^#[0-9A-F]{6}$/);
     expect(adapted.scopes["argiope.svg.tag"]).not.toBe(adapted.scopes["argiope.html.tag"]);
     expect(adapted.scopes["argiope.css.property"]).toMatch(/^#[0-9A-F]{6}$/);
+    const embedded = DEFAULT_THEMES[0].theme.languages.embedded;
     expect(adapted.scopes["argiope.embedded.variable"])
-      .not.toBe(adapted.scopes["argiope.javascript.variable"]);
+      .toBe(embedded.colors[embedded.roles.variable].toUpperCase());
     expect(adapted.ui["ui.background"].bg).toMatch(/^#[0-9A-F]{6}$/);
     expect(adapted.scopes["ui.text"]).toBeUndefined();
     expect(JSON.stringify(adapted)).not.toContain("oklch(");
@@ -19,8 +20,8 @@ describe("Helix adapter", () => {
   test("emits all built-in variants as deterministic TOML", () => {
     const files = helixThemeFiles(DEFAULT_THEMES);
     expect(Object.keys(files)).toEqual([
-      "argiope-aurantia.toml", "argiope-versicolor.toml", "argiope-aurantia-neon.toml",
-      "argiope-versicolor-neon.toml", "argiope-ocyaloides.toml", "argiope-trifasciata.toml",
+      "argiope-aurantia.toml", "argiope-versicolor.toml",
+       "argiope-ocyaloides.toml", "argiope-trifasciata.toml",
     ]);
     const toml = helixThemeToml(DEFAULT_THEMES[0].theme);
     expect(toml).toContain('"argiope.html.tag" = "#');

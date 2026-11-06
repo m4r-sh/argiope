@@ -129,9 +129,19 @@ export const HELIX_CAPTURE_ROLES = {
 
 const hex = color => formatHex(color).toUpperCase();
 Object.assign(HELIX_CAPTURE_ROLES.embedded, HELIX_CAPTURE_ROLES.javascript);
+// These captures require a corresponding query; generic editor grammars do
+// not necessarily distinguish all of these roles.
+const EXTRA_CAPTURES = {
+  builtin: ["function.builtin", "function"],
+  method_call: ["function.method.call", "call"],
+  const_binding: ["variable.other.constant", "variable"],
+};
 const quote = value => JSON.stringify(value);
 
 export function helixCapture(language, capture) {
+  if ((language === "javascript" || language === "embedded") && EXTRA_CAPTURES[capture]) {
+    return `${EXTRA_CAPTURES[capture][0]}.argiope.${language}.${capture}`;
+  }
   const role = HELIX_CAPTURE_ROLES[language][capture];
   return `${BASE_SCOPES[role][0]}.argiope.${language}.${capture}`;
 }
@@ -149,7 +159,7 @@ export function helixAdapter(theme, { languages = {} } = {}) {
   validateLanguages(theme, languages);
   const background = toOklch(theme.base.bg)?.l >= 0.6 ? "light" : "dark";
   const colors = Object.fromEntries(
-    Object.entries(theme.base.all).filter(([, color]) => color).map(([key, color]) => [key, hex(color)]),
+    Object.entries(theme.base).filter(([, color]) => color).map(([key, color]) => [key, hex(color)]),
   );
   const scopes = {};
   const fallback = semanticColors(theme);
@@ -164,6 +174,16 @@ export function helixAdapter(theme, { languages = {} } = {}) {
     for (const [capture, role] of Object.entries(captures)) {
       scopes[`argiope.${language}.${capture}`] = hex(palette[role]);
       scopes[helixCapture(language, capture)] = hex(palette[role]);
+    }
+    if (language === "javascript" || language === "embedded") {
+      const assignment = languages[language];
+      const target = theme.languages[typeof assignment === "string" ? assignment : language];
+      for (const [capture, [, fallbackRole]] of Object.entries(EXTRA_CAPTURES)) {
+        if (!target?.roles[capture]) continue;
+        const color = hex(palette[capture] ?? palette[fallbackRole]);
+        scopes[`argiope.${language}.${capture}`] = color;
+        scopes[helixCapture(language, capture)] = color;
+      }
     }
   }
 

@@ -4,9 +4,7 @@ const md = fmt
 
 let themes = [
   { name: "Aurantia", image: "argiope-aurantia.png" },
-  { name: "Aurantia Neon", image: "argiope-aurantia-neon.png" },
   { name: "Versicolor", image: "argiope-versicolor.png" },
-  { name: "Versicolor Neon", image: "argiope-versicolor-neon.png" },
   { name: "Ocyaloides", image: "argiope-ocyaloides.png" },
   { name: "Trifasciata", image: "argiope-trifasciata.png" },
 ]

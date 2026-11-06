@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
-import { readdir, readFile, stat } from "node:fs/promises";
-import { resolve } from "node:path";
+import { readdir, readFile, stat, mkdtemp, cp, symlink, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { resolve, basename } from "node:path";
 
 const root = resolve(import.meta.dir, "..");
 const targets = {
@@ -14,10 +15,10 @@ const targets = {
 const target = targets[Bun.argv[2]];
 if (!target) throw new Error(`Choose an artifact target: ${Object.keys(targets).join(", ")}`);
 
-async function snapshot(paths) {
+async function snapshot(paths, directory = root) {
   const result = {};
   async function visit(path) {
-    const absolute = resolve(root, path);
+    const absolute = resolve(directory, path);
     const info = await stat(absolute).catch(error => {
       if (error.code === "ENOENT") return null;
       throw error;
@@ -33,14 +34,23 @@ async function snapshot(paths) {
   return result;
 }
 
-// Compare regeneration to the working files, not HEAD: a correct uncommitted
-// palette change should verify just as a committed one does.
+// Verify in an isolated copy: stale outputs never overwrite working files.
 const before = await snapshot(target.paths);
-for (const script of target.scripts) {
-  const process = Bun.spawn(["bun", `scripts/${script}.js`], { cwd: root, stdout: "inherit", stderr: "inherit" });
-  if (await process.exited !== 0) throw new Error(`Failed to run ${script}`);
+const temporary = await mkdtemp(resolve(tmpdir(), 'argiope-verify-'));
+try {
+  for (const name of ['scripts', 'core', 'themes', 'dist', 'editors', 'docs', 'examples', 'package.json']) {
+    await cp(resolve(root, name), resolve(temporary, name), { recursive: true,
+      filter: path => !['.git', '.deps', 'node_modules'].includes(basename(path)) });
+  }
+  await symlink(resolve(root, 'node_modules'), resolve(temporary, 'node_modules'), 'dir');
+  for (const script of target.scripts) {
+    const process = Bun.spawn(['bun', `scripts/${script}.js`], { cwd: temporary, stdout: 'inherit', stderr: 'inherit' });
+    if (await process.exited !== 0) throw new Error(`Failed to run ${script}`);
+  }
+  const after = await snapshot(target.paths, temporary);
+  const changed = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(path => before[path] !== after[path]);
+  if (changed.length) throw new Error(`Stale artifacts (working files unchanged):\n${changed.join('\n')}`);
+  console.log(`Verified ${Bun.argv[2]} artifacts`);
+} finally {
+  await rm(temporary, { recursive: true, force: true });
 }
-const after = await snapshot(target.paths);
-const changed = [...new Set([...Object.keys(before), ...Object.keys(after)])].filter(path => before[path] !== after[path]);
-if (changed.length) throw new Error(`Stale artifacts regenerated; review these files and rerun verification:\n${changed.join("\n")}`);
-console.log(`Verified ${Bun.argv[2]} artifacts`);

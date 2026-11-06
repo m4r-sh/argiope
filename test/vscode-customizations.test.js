@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
-import { DEFAULT_THEMES } from "../src/defaults.js";
-import { textmateAdapter, textmatePaletteData } from "../src/adapters/textmate.js";
+import { DEFAULT_THEMES } from "../scripts/themes.js";
+import { textmateAdapter, textmatePaletteData } from "../core/adapters/textmate.js";
 import customization from "../editors/vscode/customizations.cjs";
 
 test("VS Code toggles and resets preserve user rules and other themes", () => {

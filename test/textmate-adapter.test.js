@@ -6,10 +6,10 @@ import {
   textmateGrammarFiles,
   textmateInjectionGrammar,
   textmateThemeFiles,
-} from "../src/adapters/textmate.js";
-import { TEXTMATE_LANGUAGES } from "../src/textmate/languages.js";
-import { DEFAULT_THEMES } from "../src/defaults.js";
-import { neovimAdapter } from "../src/adapters/neovim.js";
+} from "../core/adapters/textmate.js";
+import { TEXTMATE_LANGUAGES } from "../core/textmate/languages.js";
+import { DEFAULT_THEMES } from "../scripts/themes.js";
+import { neovimAdapter } from "../core/adapters/neovim.js";
 
 describe("TextMate adapter", () => {
   test("generates one injection grammar and host-specific Shiki composites", () => {
@@ -71,11 +71,11 @@ describe("TextMate adapter", () => {
       .includes("meta.embedded.argiope.glsl keyword"))).toBe(true);
   });
 
-  test("emits all six deterministic VS Code and Shiki-compatible themes", () => {
+  test("emits all four deterministic VS Code and Shiki-compatible themes", () => {
     const files = textmateThemeFiles(DEFAULT_THEMES);
     expect(Object.keys(files)).toEqual([
-      "argiope-aurantia.json", "argiope-versicolor.json", "argiope-aurantia-neon.json",
-      "argiope-versicolor-neon.json", "argiope-ocyaloides.json", "argiope-trifasciata.json",
+      "argiope-aurantia.json", "argiope-versicolor.json",
+       "argiope-ocyaloides.json", "argiope-trifasciata.json",
     ]);
     expect(files["argiope-trifasciata.json"].type).toBe("light");
     expect(JSON.stringify(files)).not.toContain("oklch(");

@@ -23,7 +23,7 @@ function customizeTheme(theme, palettes, languages = {}) {
       const colors = assignment === false ? data.fallback
         : data.families[assignment === true ? language : assignment];
       return { ...rule, settings: { ...rule.settings,
-        foreground: colors[role] ?? colors.bracket,
+        foreground: colors[role] ?? colors[{ builtin: "function", method_call: "call", const_binding: "variable", member: "variable" }[role]] ?? colors.bracket,
       } };
     }),
   };

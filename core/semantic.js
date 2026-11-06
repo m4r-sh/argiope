@@ -17,9 +17,9 @@ export function languageColors(theme, language, languages = {}) {
   const assignment = languages[language];
   if (assignment === false) return semanticColors(theme);
   const family = typeof assignment === "string" ? assignment : language;
-  const palette = theme.languages.at(family);
+  const palette = theme.languages[family];
   if (!palette) throw new Error(`argiope: unknown palette family ${JSON.stringify(family)}`);
-  return { ...semanticColors(theme), ...palette.resolveTokenColors() };
+  return { ...semanticColors(theme), ...Object.fromEntries(Object.entries(palette.roles).map(([role, shade]) => [role, palette.colors[shade]])) };
 }
 
 export function validateLanguages(theme, languages) {
@@ -27,7 +27,7 @@ export function validateLanguages(theme, languages) {
     throw new Error("argiope: languages must be an object");
   }
   for (const [language, assignment] of Object.entries(languages)) {
-    if (!theme.languageEntries.some(([key]) => key === language)) {
+    if (!Object.hasOwn(theme.languages, language)) {
       throw new Error(`argiope: unknown language family ${JSON.stringify(language)}`);
     }
     if (typeof assignment !== "boolean" && typeof assignment !== "string") {

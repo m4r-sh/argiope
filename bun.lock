@@ -7,9 +7,6 @@
       "dependencies": {
         "@m4rsh/cones": "^1.2.1",
         "culori": "4.0.2",
-        "cusphanger": "0.3.0",
-        "nutelch": "0.2.0",
-        "orbz": "file:../../ztack/orbz",
       },
       "devDependencies": {
         "shiki": "^3.0.0",
@@ -51,8 +48,6 @@
 
     "culori": ["culori@4.0.2", "", {}, "sha512-1+BhOB8ahCn4O0cep0Sh2l9KCOfOdY+BXJnKMHFFzDEouSr/el18QwXEMRlOj9UY5nCeA8UN3a/82rUWRBeyBw=="],
 
-    "cusphanger": ["cusphanger@0.3.0", "", { "dependencies": { "nutelch": "^0.2.0" } }, "sha512-q7MzLQNyHksvQqblFFvVdkHhwjF2M2rTMWovubhe64lj3fdIgo13ww0L3sTWgmypNeDqn1BO6p9LzBJziuUBwg=="],
-
     "dequal": ["dequal@2.0.3", "", {}, "sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA=="],
 
     "devlop": ["devlop@1.1.0", "", { "dependencies": { "dequal": "^2.0.0" } }, "sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA=="],
@@ -75,13 +70,9 @@
 
     "micromark-util-types": ["micromark-util-types@2.0.2", "", {}, "sha512-Yw0ECSpJoViF1qTU4DC6NwtC4aWGt1EkzaQB8KPPyCRR8z9TWeV0HbEFGTO+ZY1wB22zmxnJqhPyTpOVCpeHTA=="],
 
-    "nutelch": ["nutelch@0.2.0", "", {}, "sha512-ql1bI7cnFGk8iiIfj5eV7ikXmcv/j+wrjP9DI+687EgG7RT0+fNAWI77SdF7fzijEhybyCQPshFy1oJwbtIJ2w=="],
-
     "oniguruma-parser": ["oniguruma-parser@0.12.2", "", {}, "sha512-6HVa5oIrgMC6aA6WF6XyyqbhRPJrKR02L20+2+zpDtO5QAzGHAUGw5TKQvwi5vctNnRHkJYmjAhRVQF2EKdTQw=="],
 
     "oniguruma-to-es": ["oniguruma-to-es@4.3.6", "", { "dependencies": { "oniguruma-parser": "^0.12.2", "regex": "^6.1.0", "regex-recursion": "^6.0.2" } }, "sha512-csuQ9x3Yr0cEIs/Zgx/OEt9iBw9vqIunAPQkx19R/fiMq2oGVTgcMqO/V3Ybqefr1TBvosI6jU539ksaBULJyA=="],
-
-    "orbz": ["orbz@file:../../ztack/orbz", {}],
 
     "property-information": ["property-information@7.2.0", "", {}, "sha512-IAtzIB6sUiWaJYrX9smp3V46pBGbBeLFRGdh25kg1334VcBlD8HzhPeNIWQH9zhGmo2itIe25EHt9dQP7G5hmg=="],
 

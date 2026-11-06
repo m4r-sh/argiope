@@ -4,8 +4,6 @@
   "type": "module",
   "packageManager": "bun@1.3.14",
   "scripts": {
-    "dev": "bun --hot server.ts",
-    "start": "bun server.ts",
     "build:neovim": "bun scripts/generate-neovim.js",
     "build:helix": "bun scripts/generate-helix.js",
     "build:textmate": "bun scripts/generate-textmate.js",
@@ -16,7 +14,7 @@
     "vscode:dev": "bun run sync:vscode && code --new-window --extensionDevelopmentPath editors/vscode examples/theme-screenshot.js",
     "preview:shiki": "bun run build:textmate && bun scripts/render-shiki-preview.js",
     "screenshots:themes": "bun run build:neovim && bun scripts/render-theme-screenshots.js",
-    "check": "bun run verify:generated && bun run test:core && bun build ./app.js --target=browser --outdir=/tmp/argiope-palettes-check",
+    "check": "bun run verify:generated && bun run test:core",
     "check:editors": "bun run check && bun run verify:neovim && bun run verify:helix && bun run verify:textmate && bun run verify:vscode && bun run verify:shiki-preview && bun run test:neovim && bun run test:textmate && bun run test:vscode && bun run test:helix",
     "test": "bun run test:core",
     "test:core": "bun test ./test",
@@ -29,14 +27,12 @@
     "verify:textmate": "bun scripts/verify-artifacts.js textmate",
     "verify:vscode": "bun scripts/verify-artifacts.js vscode",
     "verify:shiki-preview": "bun scripts/verify-artifacts.js shiki-preview",
-    "test:helix": "python3 -m unittest discover -s editors/helix/tests -v"
+    "test:helix": "python3 -m unittest discover -s editors/helix/tests -v",
+    "build": "bun run build:neovim && bun run build:helix && bun run build:textmate"
   },
   "dependencies": {
     "@m4rsh/cones": "^1.2.1",
-    "culori": "4.0.2",
-    "cusphanger": "0.3.0",
-    "nutelch": "0.2.0",
-    "orbz": "file:../../ztack/orbz"
+    "culori": "4.0.2"
   },
   "devDependencies": {
     "shiki": "^3.0.0"

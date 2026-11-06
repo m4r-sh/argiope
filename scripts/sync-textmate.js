@@ -30,5 +30,5 @@ for (const entry of await readdir(themes)) {
 for (const entry of headlessGrammars) await cp(resolve(source, entry), resolve(syntaxes, entry));
 await cp(resolve(source, "themes"), themes, { recursive: true });
 await cp(resolve(source, "palettes.json"), resolve(checkout, "src/palettes.json"));
-await cp(resolve(root, "src/adapters/textmate-options.cjs"), resolve(checkout, "src/textmate-options.cjs"));
+await cp(resolve(root, "core/adapters/textmate-options.cjs"), resolve(checkout, "src/textmate-options.cjs"));
 console.log(`argiope: synced ${source} -> ${checkout}`);

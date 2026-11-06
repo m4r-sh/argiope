@@ -51,16 +51,16 @@ export function themeId(name) {
 export function neovimAdapter(theme, { extends: parent } = {}) {
   const background = toOklch(theme.base.bg)?.l >= 0.6 ? "light" : "dark";
   const base = Object.fromEntries(
-    Object.entries(theme.base.all).filter(([, color]) => color).map(([key, color]) => [
+    Object.entries(theme.base).filter(([, color]) => color).map(([key, color]) => [
       luaBaseName(key),
       hex(color),
     ]),
   );
-  const languages = Object.fromEntries(theme.languageEntries.map(([key, language]) => {
+  const languages = Object.fromEntries(Object.entries(theme.languages).map(([key, language]) => {
     const colors = Object.fromEntries(
       Object.entries(language.colors).map(([shade, color]) => [shade, hex(color)]),
     );
-    return [LANGUAGE_NAMES[key] ?? key, { colors, roles: { ...language.tokens } }];
+    return [LANGUAGE_NAMES[key] ?? key, { colors, roles: { ...language.roles } }];
   }));
 
   return {

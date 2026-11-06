@@ -1,14 +1,14 @@
 [submodule "editors/neovim"]
 	path = editors/neovim
-	url = git@github.com:m4r-sh/argiope.nvim.git
+	url = https://github.com/m4r-sh/argiope.nvim.git
 	branch = master
 [submodule "editors/helix"]
 	path = editors/helix
-	url = git@github.com:m4r-sh/argiope-helix.git
+	url = https://github.com/m4r-sh/argiope-helix.git
 [submodule "editors/textmate"]
 	path = editors/textmate
-	url = git@github.com:m4r-sh/argiope-textmate.git
+	url = https://github.com/m4r-sh/argiope-textmate.git
 [submodule "editors/vscode"]
 	path = editors/vscode
-	url = git@github.com:m4r-sh/argiope-vscode.git
+	url = https://github.com/m4r-sh/argiope-vscode.git
 	branch = master

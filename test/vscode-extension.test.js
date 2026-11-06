@@ -27,7 +27,7 @@ describe("VS Code extension manifest", () => {
   });
 
   test("contributes all generated Argiope themes", () => {
-    expect(manifest.contributes.themes).toHaveLength(6);
+    expect(manifest.contributes.themes).toHaveLength(4);
     for (const theme of manifest.contributes.themes) {
       expect(theme.label).toStartWith("Argiope ");
       expect(["vs", "vs-dark"]).toContain(theme.uiTheme);
